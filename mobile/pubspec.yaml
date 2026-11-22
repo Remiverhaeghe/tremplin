@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   intl: any
   # Jeton de l'API rangé dans le stockage chiffré du téléphone
-  flutter_local_notifications: ^23.0.0
+  flutter_local_notifications: ^23.0.3
   flutter_secure_storage: ^11.2.0
   # Schémas des questions, livrés en SVG par le serveur
   flutter_svg: ^2.3.2
