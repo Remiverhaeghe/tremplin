@@ -185,19 +185,17 @@ void main() {
 
   test('Word : un zip valide, du vrai texte, les caractères spéciaux protégés', () {
     final vDocument = buildCvDocument(
-      _profile.toJson().isEmpty
-          ? _profile
-          : CvProfile(
-              contact: _profile.contact,
-              experiences: const [
-                CvExperience(
-                  id: 'a',
-                  title: 'R&D <test>',
-                  dates: '2020',
-                  lines: ['Ligne une', 'Ligne deux'],
-                ),
-              ],
-            ),
+      CvProfile(
+        contact: _profile.contact,
+        experiences: const [
+          CvExperience(
+            id: 'a',
+            title: 'R&D <test>',
+            dates: '2020',
+            lines: ['Ligne une', 'Ligne deux'],
+          ),
+        ],
+      ),
       const CvVersion(
         id: 'x',
         label: 'x',
