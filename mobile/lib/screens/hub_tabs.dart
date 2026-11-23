@@ -78,8 +78,7 @@ class InterviewHub extends StatelessWidget {
             HubTile(
               icon: Icons.event_available,
               color: coralColor,
-              title:
-                  context.texts.homeEntretien(formatMoment(vNext['interview_at'] as String?)),
+              title: context.texts.homeEntretien(formatMoment(vNext['interview_at'] as String?)),
               subtitle: context.texts.hubFichePreparationPitchQuestions,
               onTap: vSheet == null ? null : () => _open(context, () => SheetScreen(sheet: vSheet)),
             ),
