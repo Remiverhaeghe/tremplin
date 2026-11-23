@@ -16,7 +16,8 @@ void main() {
   group('couleur du PDF visuel', () {
     test('la couleur choisie est celle du bandeau', () {
       final vDocument = buildCvDocument(sampleProfile, sampleVersion);
-      final vGreen = String.fromCharCodes(renderCv(vDocument, 'pdf-visuel', pAccent: 0x2E7D32).bytes);
+      final vGreen =
+          String.fromCharCodes(renderCv(vDocument, 'pdf-visuel', pAccent: 0x2E7D32).bytes);
       final vDefault = String.fromCharCodes(renderCv(vDocument, 'pdf-visuel').bytes);
 
       expect(vGreen, contains('0.18 0.49 0.20 rg'));
@@ -60,7 +61,8 @@ void main() {
     test('tient en moins de quatre-vingt-dix mots et reste fidèle au parcours', () {
       final vPitch = buildPitch(
         sampleProfile,
-        sampleVersion.copyWith(pivot: 'Je suis passé de la maintenance au développement. Le reste est long.'),
+        sampleVersion.copyWith(
+            pivot: 'Je suis passé de la maintenance au développement. Le reste est long.'),
         pCompany: 'Exemple SA',
         pJob: 'Développeur Java',
       );
