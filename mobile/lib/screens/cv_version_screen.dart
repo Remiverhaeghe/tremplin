@@ -175,6 +175,19 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
                 ),
             ],
           ),
+          Text(vTexts.cvVersionCouleur, style: Theme.of(context).textTheme.titleSmall),
+          Wrap(
+            spacing: 8,
+            children: [
+              for (final vColor in cvAccents)
+                ChoiceChip(
+                  label: const SizedBox(width: 14, height: 14),
+                  avatar: CircleAvatar(backgroundColor: Color(0xFF000000 | vColor)),
+                  selected: (aVersion.accent == 0 ? cvAccents.first : aVersion.accent) == vColor,
+                  onSelected: (_) => setState(() => aVersion = aVersion.copyWith(accent: vColor)),
+                ),
+            ],
+          ),
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(vTexts.cvVersionPhoto),

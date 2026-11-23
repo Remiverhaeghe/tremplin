@@ -5,6 +5,14 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot I (couleur, métier, doublon, présentation, accessibilité)
+- Couleur d'accent du PDF visuel choisie par version (six couleurs)
+- Dictionnaire de mots du métier étendu à vingt équivalences
+- Avertissement quand un CV a déjà été envoyé à la même entreprise pour le même poste depuis moins de 30 jours
+- « Ma présentation en 30 secondes » dans la préparation d'entretien, tirée du parcours (quatre-vingts mots au plus)
+- PDF balisé : titres de niveau 1 et 2, paragraphes, puces en décor, arbre de structure, titre affiché dans la fenêtre du lecteur
+- Tests : `test/cv_lot_i_test.dart`
+
 ### Appli mobile : CV visuel
 - PDF visuel refait d'après le modèle Word : photo ronde à bague de couleur, nom et poste, coordonnées en pastilles (courriel, téléphone, lieu), titres de section sur bandeau, frise verticale pour le parcours, familles de compétences en couleur avec étoiles de niveau (`cv_pdf_visual.dart`)
 - Le texte reste du vrai texte, dans le même ordre que le PDF sobre

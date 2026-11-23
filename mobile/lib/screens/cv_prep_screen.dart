@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/texts.dart';
+import '../logic/cv_pitch.dart';
 import '../logic/cv_prep.dart';
 import '../revision_state.dart';
 import 'cv_apply_screen.dart';
@@ -39,6 +40,13 @@ class CvPrepScreen extends StatelessWidget {
       pCompany: '${offer['company'] ?? ''}',
     );
 
+    final vPitch = buildPitch(
+      state.cvProfile,
+      vVersion,
+      pCompany: '${offer['company'] ?? ''}',
+      pJob: '${offer['title'] ?? ''}',
+    );
+
     String question(CvPrepQuestion pItem) => switch (pItem.kind) {
           'why-company' => vTexts.cvPrepPourquoi(pItem.subject),
           'pivot' => vTexts.cvPrepVirage,
@@ -54,6 +62,22 @@ class CvPrepScreen extends StatelessWidget {
         children: [
           Text(vTexts.cvPrepAide),
           const SizedBox(height: 8),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(vTexts.cvPitch, style: Theme.of(context).textTheme.titleSmall),
+                  SelectableText(vPitch),
+                  Text(
+                    vTexts.cvPitchDuree('${pitchSeconds(vPitch)}'),
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+          ),
           for (final vItem in vQuestions)
             Card(
               child: ListTile(
