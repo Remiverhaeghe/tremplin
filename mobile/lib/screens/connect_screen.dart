@@ -9,6 +9,7 @@ import '../l10n/texts.dart';
 import '../revision_state.dart';
 import '../services/api_client.dart';
 import '../services/discovery.dart';
+import '../services/net/platform_net.dart';
 import '../services/revision_store.dart';
 import '../services/starter_package.dart';
 import '../theme.dart';
@@ -220,8 +221,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
           key: const ValueKey('missing'),
           leading: Icon(Icons.wifi_off, color: vTheme.colorScheme.error),
           title: Text(context.texts.connectPcIntrouvableSurCe),
+          // Le navigateur ne voit pas le réseau local : QR code ou adresse tapée
           subtitle: Text(
-            context.texts.connectTelephoneDoitEtreSur,
+            canScanNetwork ? context.texts.connectTelephoneDoitEtreSur : context.texts.connectWebNoScan,
           ),
           trailing: IconButton(
             tooltip: context.texts.connectChercherNouveau,

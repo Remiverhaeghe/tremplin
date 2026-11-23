@@ -14,6 +14,7 @@ from fastapi.responses import (
     RedirectResponse,
     Response,
 )
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
@@ -277,3 +278,25 @@ app.include_router(profile_router)
 app.include_router(progress_router)
 app.include_router(settings_router)
 app.include_router(account_router)
+
+
+# Version web de l'application mobile (GitHub Pages) : elle appelle l'API depuis une autre
+# origine. Seules ces origines sont admises, et sans cookie : le jeton passe dans
+# l'en-tête Authorization, les pages du PC restent fermées. Ajouté en dernier, le
+# middleware répond aux demandes de pré-vérification avant la connexion obligatoire.
+MOBILE_WEB_ORIGINS = [
+    vOrigin.strip()
+    for vOrigin in os.getenv(
+        "MOBILE_WEB_ORIGINS", "https://remiverhaeghe.github.io"
+    ).split(",")
+    if vOrigin.strip()
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=MOBILE_WEB_ORIGINS,
+    allow_methods=["GET", "POST", "PUT"],
+    allow_headers=["Authorization", "Content-Type", "If-None-Match"],
+    expose_headers=["ETag"],
+    allow_credentials=False,
+)

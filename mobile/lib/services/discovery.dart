@@ -2,13 +2,12 @@
 // local est interrogée sur la route /api/v1/ping, qui ne demande pas de jeton.
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:http/io_client.dart';
 
 import '../models/quiz_package.dart';
 import 'api_client.dart';
+import 'net/platform_net.dart';
 import 'revision_store.dart';
 
 /// Port du tableau de bord sur le PC (WEB_PORT de config.py).
@@ -58,12 +57,9 @@ String? getHost(String? pAddress) {
 
 /// Réseaux privés auxquels le téléphone est relié, en général celui du Wi-Fi.
 Future<List<String>> findLocalPrefixes() async {
-  final vInterfaces = await NetworkInterface.list(type: InternetAddressType.IPv4);
-
   final rPrefixes = {
-    for (final vInterface in vInterfaces)
-      for (final vAddress in vInterface.addresses)
-        if (isPrivateAddress(vAddress.address)) getNetworkPrefix(vAddress.address),
+    for (final vAddress in await localAddresses())
+      if (isPrivateAddress(vAddress)) getNetworkPrefix(vAddress),
   }.toList();
 
   return rPrefixes;
@@ -72,14 +68,10 @@ Future<List<String>> findLocalPrefixes() async {
 class ServerDiscovery {
   ServerDiscovery({http.Client? pClient, Future<List<String>> Function()? pFindPrefixes})
       : client = pClient ??
-            IOClient(
-              HttpClient()
-                ..connectionTimeout = probeTimeout
-                // Le ping est public et ne transmet aucun jeton : tout certificat
-                // convient pour reconnaître le serveur. Les appels à l'API, eux,
-                // n'acceptent que le certificat épinglé (api_client.dart).
-                ..badCertificateCallback = (_, __, ___) => true,
-            ),
+            // Le ping est public et ne transmet aucun jeton : tout certificat convient
+            // pour reconnaître le serveur. Les appels à l'API, eux, n'acceptent que le
+            // certificat épinglé (api_client.dart).
+            certificateClient((_) => true, pConnect: probeTimeout),
         findPrefixes = pFindPrefixes ?? findLocalPrefixes;
 
   final http.Client client;

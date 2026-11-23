@@ -7,7 +7,7 @@ import 'package:workmanager/workmanager.dart';
 
 import '../revision_state.dart';
 import 'file_store.dart';
-import 'reminders.dart';
+import 'local_reminders.dart';
 
 @pragma('vm:entry-point')
 void checkOffersInBackground() {

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Sous-chemin de GitHub Pages, remplacé par flutter build web --base-href -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Réviser ses entretiens et suivre ses candidatures, même sans le PC.">
+  <meta name="theme-color" content="#0E6F8C">
+
+  <!-- iPhone : « Sur l'écran d'accueil » ouvre Tremplin en plein écran -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tremplin">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <title>Tremplin</title>
+  <style>
+    html, body { margin: 0; background: #0B4F66; }
+  </style>
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Révision hors ligne : sw.js est écrit après la construction par tools/web_service_worker.py
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+    }
+  </script>
+</body>
+</html>

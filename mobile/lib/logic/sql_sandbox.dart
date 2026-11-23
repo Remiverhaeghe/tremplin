@@ -3,14 +3,12 @@
 // règles de dialecte viennent du PC ; SQLite tourne dans un isolat, abandonné
 // au bout de MAX_SECONDS.
 
-import 'dart:async';
 import 'dart:convert';
-import 'dart:isolate';
 import 'dart:typed_data';
 
-import 'package:sqlite3/sqlite3.dart';
 
 import 'python_compat.dart';
+import 'sql_engine.dart';
 
 const maxSeconds = Duration(seconds: 2);
 final tokenPattern = RegExp(r"'(?:[^']|'')*'|--[^\n]*|/\*[\s\S]*?(?:\*/|$)");
@@ -199,7 +197,7 @@ String translate(String pQuery, String pDialect, SqlRules pRules) {
 
 /// Erreur levée par une fonction de date. Le paquet sqlite3 transmet un texte
 /// levé tel quel à SQLite : le message est celui que donne le PC.
-const _functionError = 'user-defined function raised exception';
+const functionError = 'user-defined function raised exception';
 
 final _momentPattern =
     RegExp(r'^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,6}))?)?)?$');
@@ -209,7 +207,7 @@ DateTime parseMoment(Object pValue) {
   final vMatch = _momentPattern.firstMatch('$pValue');
 
   if (vMatch == null) {
-    throw _functionError;
+    throw functionError;
   }
 
   final vParts = [
@@ -225,7 +223,7 @@ DateTime parseMoment(Object pValue) {
       rMoment.hour != vParts[3] ||
       rMoment.minute != vParts[4] ||
       rMoment.second != vParts[5]) {
-    throw _functionError;
+    throw functionError;
   }
 
   return rMoment;
@@ -238,157 +236,9 @@ int daysBetween(DateTime pStart, DateTime pEnd) => dateOf(pEnd).difference(dateO
 double secondsBetween(DateTime pStart, DateTime pEnd) =>
     pEnd.difference(pStart).inMicroseconds / 1e6;
 
-/// Fonctions SQL ajoutées, selon le dialecte, comme open_database côté PC.
-void registerFunctions(Database pDatabase, String pDialect) {
-  void add(String pName, int pCount, Object? Function(List<Object?>) pFunction,
-      {bool pDeterministic = true}) {
-    pDatabase.createFunction(
-      functionName: pName,
-      argumentCount: AllowedArgumentCount(pCount),
-      deterministic: pDeterministic,
-      directOnly: false,
-      function: (pArguments) =>
-          pFunction([for (var vIndex = 0; vIndex < pCount; vIndex++) pArguments[vIndex]]),
-    );
-  }
-
-  add('YEAR', 1, (pArgs) => pArgs[0] == null ? null : parseMoment(pArgs[0]!).year);
-  add('MONTH', 1, (pArgs) => pArgs[0] == null ? null : parseMoment(pArgs[0]!).month);
-  add('DAY', 1, (pArgs) => pArgs[0] == null ? null : parseMoment(pArgs[0]!).day);
-
-  if (pDialect == 'mysql') {
-    add(
-      'DATEDIFF',
-      2,
-      (pArgs) => pArgs[0] == null || pArgs[1] == null
-          ? null
-          : daysBetween(parseMoment(pArgs[1]!), parseMoment(pArgs[0]!)),
-    );
-    add(
-      'timestamp_diff',
-      3,
-      (pArgs) => pArgs[1] == null || pArgs[2] == null
-          ? null
-          : (secondsBetween(parseMoment(pArgs[1]!), parseMoment(pArgs[2]!)) /
-                  unitSeconds[pArgs[0]]!)
-              .truncate(),
-      pDeterministic: false,
-    );
-    add('mysql_isnull', 1, (pArgs) => pArgs[0] == null ? 1 : 0);
-  } else {
-    add(
-      'boundary_diff',
-      3,
-      (pArgs) {
-        if (pArgs[1] == null || pArgs[2] == null) {
-          return null;
-        }
-
-        final vStart = parseMoment(pArgs[1]!);
-        final vEnd = parseMoment(pArgs[2]!);
-        final vUnit = pArgs[0] as String;
-
-        if (vUnit == 'day') {
-          return daysBetween(vStart, vEnd);
-        }
-
-        DateTime cut(DateTime pMoment) => DateTime.utc(
-              pMoment.year,
-              pMoment.month,
-              pMoment.day,
-              pMoment.hour,
-              vUnit == 'hour' ? 0 : pMoment.minute,
-            );
-
-        return (secondsBetween(cut(vStart), cut(vEnd)) / unitSeconds[vUnit]!).floor();
-      },
-      pDeterministic: false,
-    );
-  }
-}
-
-/// Lit au plus pMaxRows lignes d'un curseur ; erreur si une valeur dépasse la limite du PC.
-Map<String, Object?> fetchRows(IteratingCursor pCursor, int pMaxRows, int pMaxValueLength) {
-  final vRows = <List<Object?>>[];
-  var vTruncated = false;
-
-  while (pCursor.moveNext()) {
-    if (vRows.length == pMaxRows) {
-      vTruncated = true;
-      break;
-    }
-
-    final vValues = pCursor.current.values;
-
-    for (final vValue in vValues) {
-      final vLength =
-          vValue is String ? utf8.encode(vValue).length : (vValue is Uint8List ? vValue.length : 0);
-
-      if (vLength > pMaxValueLength) {
-        throw SqliteException(extendedResultCode: 18, message: 'string or blob too big');
-      }
-    }
-
-    vRows.add(List<Object?>.from(vValues));
-  }
-
-  return {
-    'columns': List<String>.from(pCursor.columnNames),
-    'rows': vRows,
-    'truncated': vTruncated
-  };
-}
-
-/// Exécution dans l'isolat : base neuve, requête, contrôle ; renvoie le résultat brut.
-void _runInIsolate(List<Object?> pMessage) {
-  final vPort = pMessage[0] as SendPort;
-  final vResult = <String, Object?>{
-    'columns': <String>[],
-    'rows': <List<Object?>>[],
-    'truncated': false,
-    'changed': null
-  };
-  final vDatabase = sqlite3.openInMemory();
-
-  try {
-    vDatabase.execute(pMessage[1] as String);
-    registerFunctions(vDatabase, pMessage[3] as String);
-
-    final vStatement = vDatabase.prepare(pMessage[2] as String);
-
-    try {
-      final vCursor = vStatement.selectCursor();
-
-      if (vCursor.columnNames.isEmpty) {
-        while (vCursor.moveNext()) {}
-        vResult['changed'] = vDatabase.updatedRows;
-      } else {
-        vResult.addAll(fetchRows(vCursor, pMessage[5] as int, pMessage[6] as int));
-      }
-    } finally {
-      vStatement.close();
-    }
-
-    final vCheck = pMessage[4] as String;
-
-    if (vCheck.isNotEmpty) {
-      final vCheckStatement = vDatabase.prepare(vCheck);
-
-      try {
-        vResult.addAll(
-            fetchRows(vCheckStatement.selectCursor(), pMessage[5] as int, pMessage[6] as int));
-      } finally {
-        vCheckStatement.close();
-      }
-    }
-  } on SqliteException catch (vError) {
-    vResult['raw_error'] = vError.message;
-  } finally {
-    vDatabase.close();
-  }
-
-  Isolate.exit(vPort, vResult);
-}
+/// Message d'une version sans SQLite, comme la version web.
+const sqlUnavailable =
+    'Le bac à sable SQL demande l\'application Android : SQLite n\'est pas dans la version web.';
 
 /// Contenu du bac à sable reçu du PC : script de la base, règles, niveaux.
 class SqlContent {
@@ -450,34 +300,25 @@ class SqlContent {
       return rResult;
     }
 
-    final vPort = ReceivePort();
-    final vIsolate = await Isolate.spawn(_runInIsolate, [
-      vPort.sendPort,
-      script,
-      vSql,
-      pDialect,
-      pCheckQuery,
-      rules.maxRows,
-      rules.maxValueLength,
-    ]);
+    final vRaw = await runIsolated(
+      [script, vSql, pDialect, pCheckQuery, rules.maxRows, rules.maxValueLength],
+      pTimeout,
+    );
 
-    try {
-      final vRaw = Map<String, Object?>.from(await vPort.first.timeout(pTimeout) as Map);
-
+    if (vRaw == null) {
+      rResult['error'] = explainError('interrupted');
+    } else {
       rResult
         ..['columns'] = vRaw['columns']
         ..['rows'] = vRaw['rows']
         ..['truncated'] = vRaw['truncated']
         ..['changed'] = vRaw['changed'];
 
-      if (vRaw['raw_error'] != null) {
+      if (vRaw['unavailable'] == true) {
+        rResult['error'] = sqlUnavailable;
+      } else if (vRaw['raw_error'] != null) {
         rResult['error'] = explainError(vRaw['raw_error'] as String);
       }
-    } on TimeoutException {
-      vIsolate.kill(priority: Isolate.immediate);
-      rResult['error'] = explainError('interrupted');
-    } finally {
-      vPort.close();
     }
 
     return rResult;
