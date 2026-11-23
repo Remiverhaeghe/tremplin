@@ -21,7 +21,13 @@ void main() {
       pProfile: sampleProfile,
       pVersions: [sampleVersion],
       pSent: [
-        {'at': '2026-11-20T09:00:00', 'company': 'Exemple SA', 'title': 'Développeur', 'version': 'Développeur', 'outcome': 'entretien'},
+        {
+          'at': '2026-11-20T09:00:00',
+          'company': 'Exemple SA',
+          'title': 'Développeur',
+          'version': 'Développeur',
+          'outcome': 'entretien'
+        },
       ],
       pKit: const LetterKit(),
       pAnswers: startingAnswers(sampleProfile),
@@ -37,9 +43,18 @@ void main() {
 
   test('le code du CV n\'ouvre aucune connexion réseau', () {
     final vFiles = [
-      ...Directory('lib/logic').listSync().whereType<File>().where((pFile) => pFile.path.contains('cv_')),
-      ...Directory('lib/screens').listSync().whereType<File>().where((pFile) => pFile.path.contains('cv_')),
-      ...Directory('lib/state').listSync().whereType<File>().where((pFile) => pFile.path.contains('cv_')),
+      ...Directory('lib/logic')
+          .listSync()
+          .whereType<File>()
+          .where((pFile) => pFile.path.contains('cv_')),
+      ...Directory('lib/screens')
+          .listSync()
+          .whereType<File>()
+          .where((pFile) => pFile.path.contains('cv_')),
+      ...Directory('lib/state')
+          .listSync()
+          .whereType<File>()
+          .where((pFile) => pFile.path.contains('cv_')),
     ];
 
     expect(vFiles, isNotEmpty);
