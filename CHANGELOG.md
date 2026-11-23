@@ -5,6 +5,10 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : captures d'écran
+- Workflow Captures : un test monte l'appli sur des données fictives et capture l'accueil, le bilan d'une plongée et le carnet de la semaine, ajoutés au README (`docs/captures/mobile-*.png`). Sauté par `flutter test`
+- Jauge de profondeur : ses repères 1 m, 2 m, 3 m prennent la police du thème ; le bilan dit « de 1,2 m à 1,9 m »
+
 ### Appli mobile : version web pour l'iPhone
 - Version web installable depuis Safari (« Sur l'écran d'accueil »), publiée sur
   GitHub Pages à `https://remiverhaeghe.github.io/tremplin/` par la CI : icône, nom et
