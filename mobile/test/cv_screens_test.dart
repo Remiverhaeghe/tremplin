@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jobboard_revision/logic/cv_profile.dart';
 import 'package:jobboard_revision/revision_state.dart';
 import 'package:jobboard_revision/screens/cv_apply_screen.dart';
+import 'package:jobboard_revision/screens/cv_batch_screen.dart';
 import 'package:jobboard_revision/screens/cv_screen.dart';
 
 import 'support/cv_samples.dart';
@@ -190,6 +191,89 @@ void main() {
       );
       expect(vButton.onPressed, isNull);
       expect(find.textContaining('Export bloqué'), findsOneWidget);
+    });
+
+    testWidgets('un chiffre à défendre est signalé puis confirmé', (pTester) async {
+      await bigScreen(pTester);
+      final vState = buildState();
+      await vState.load();
+      await vState.importCvProfile(
+        profileJson(
+          CvProfile(
+            contact: sampleProfile.contact,
+            experiences: const [
+              CvExperience(
+                id: 'a',
+                title: 'Maintenance',
+                dates: '2010 - 2019',
+                lines: ['Réduction de 30 % des arrêts'],
+              ),
+            ],
+            projects: const [CvProject(id: 'p', name: 'Outil', url: 'https://example.org/outil')],
+          ),
+        ),
+      );
+
+      await pTester.pumpWidget(MaterialApp(home: CvScreen(state: vState)));
+
+      expect(find.textContaining('Lien qui n\'est pas un dépôt GitHub : Outil'), findsOneWidget);
+      expect(find.textContaining('« Réduction de 30 % des arrêts »'), findsOneWidget);
+
+      await pTester.tap(find.text('Je le confirme'));
+      await pTester.pumpAndSettle();
+
+      expect(find.textContaining('« Réduction de 30 % des arrêts »'), findsNothing);
+      expect(find.textContaining('Lien qui n\'est pas un dépôt GitHub'), findsOneWidget);
+    });
+
+    testWidgets('plusieurs offres collées : chacune a sa version, un appui ouvre l\'envoi',
+        (pTester) async {
+      await bigScreen(pTester);
+      final vState = buildState();
+      await vState.load();
+      await vState.importCvProfile(profileJson());
+
+      await pTester.pumpWidget(MaterialApp(home: CvBatchScreen(state: vState)));
+      await pTester.enterText(
+        find.byType(TextField),
+        'Développeur Java\nJava SQL API REST\n---\nTechnicien maintenance\nMaintenance planification',
+      );
+      await pTester.tap(find.text('Analyser'));
+      await pTester.pumpAndSettle();
+
+      expect(find.text('Développeur Java'), findsOneWidget);
+      expect(find.text('Technicien maintenance'), findsOneWidget);
+
+      await pTester.tap(find.text('Développeur Java'));
+      await pTester.pumpAndSettle();
+
+      expect(find.text('Postuler : Développeur Java'), findsOneWidget);
+    });
+
+    testWidgets('limiter à une page garde un PDF d\'une page', (pTester) async {
+      await bigScreen(pTester);
+      final vState = buildState();
+      await vState.load();
+      await vState.importCvProfile(profileJson());
+      final vSent = <Uint8List>[];
+
+      await pTester.pumpWidget(
+        MaterialApp(
+          home: CvApplyScreen(
+            state: vState,
+            offer: offer,
+            send: (pBytes, _, __) async => vSent.add(pBytes),
+          ),
+        ),
+      );
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('1 page'));
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('PDF visuel (envoi par courriel)'));
+      await pTester.pumpAndSettle();
+
+      expect(vSent, hasLength(1));
+      expect(latin1.decode(vSent.single), contains('/Count 1'));
     });
   });
 }

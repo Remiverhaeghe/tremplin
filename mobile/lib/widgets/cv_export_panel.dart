@@ -11,6 +11,7 @@ import '../logic/cv_check.dart';
 import '../logic/cv_docx.dart';
 import '../logic/cv_document.dart';
 import '../logic/cv_export.dart';
+import '../logic/cv_fit.dart';
 import '../logic/cv_pdf.dart';
 import '../logic/cv_profile.dart';
 import '../logic/cv_version.dart';
@@ -55,7 +56,14 @@ String cvSectionLabel(AppLocalizations pTexts, CvSection pSection) => switch (pS
       _ => (bytes: buildCvPdf(pDocument), extension: 'pdf', mime: mimePdf),
     };
 
-class CvExportPanel extends StatelessWidget {
+String cvFitLabel(AppLocalizations pTexts, String pCode) => switch (pCode.split(':').first) {
+      'interests' => pTexts.cvFitInterests,
+      'strengths' => pTexts.cvFitStrengths,
+      'projects' => pTexts.cvFitProjects,
+      _ => pTexts.cvFitOldLines,
+    };
+
+class CvExportPanel extends StatefulWidget {
   const CvExportPanel({
     super.key,
     required this.profile,
@@ -75,18 +83,37 @@ class CvExportPanel extends StatelessWidget {
   /// Appelé après l'envoi, avec le format choisi.
   final void Function(String format)? onExported;
 
-  Future<void> export(String pFormat) async {
-    final vOut = renderCv(buildCvDocument(profile, version), pFormat);
-    final vName = cvFileName(profile, version, vOut.extension, pCompany: company);
+  @override
+  State<CvExportPanel> createState() => _CvExportPanelState();
+}
 
-    await send(Uint8List.fromList(vOut.bytes), vName, vOut.mime);
-    onExported?.call(pFormat);
+class _CvExportPanelState extends State<CvExportPanel> {
+  /// Longueur voulue : 0 pour libre, sinon le nombre de pages au plus.
+  int aMaxPages = 0;
+
+  CvDocument documentFor(String pFormat) {
+    final vBase = buildCvDocument(widget.profile, widget.version);
+    final vStyle = pFormat == 'pdf-visuel' ? CvPdfStyle.visual : CvPdfStyle.plain;
+
+    return aMaxPages > 0 ? fitDocument(vBase, aMaxPages, pStyle: vStyle).document : vBase;
+  }
+
+  Future<void> export(String pFormat) async {
+    final vOut = renderCv(documentFor(pFormat), pFormat);
+    final vName =
+        cvFileName(widget.profile, widget.version, vOut.extension, pCompany: widget.company);
+
+    await widget.send(Uint8List.fromList(vOut.bytes), vName, vOut.mime);
+    widget.onExported?.call(pFormat);
   }
 
   @override
   Widget build(BuildContext context) {
     final vTexts = context.texts;
-    final vReady = cvReadiness(buildCvDocument(profile, version));
+    final vBase = buildCvDocument(widget.profile, widget.version);
+    final vReady = cvReadiness(vBase);
+    final vFit = aMaxPages > 0 ? fitDocument(vBase, aMaxPages) : null;
+    final vRemoved = {for (final vCode in vFit?.removed ?? <String>[]) cvFitLabel(vTexts, vCode)};
     final vLabels = {
       'pdf-sobre': vTexts.cvExportPdfSobre,
       'pdf-visuel': vTexts.cvExportPdfVisuel,
@@ -128,6 +155,26 @@ class CvExportPanel extends StatelessWidget {
             color: vReady.canExport ? successColorOf(context) : dangerColorOf(context),
           ),
         ),
+        const SizedBox(height: 10),
+        Text(vTexts.cvPages, style: Theme.of(context).textTheme.titleSmall),
+        const SizedBox(height: 6),
+        SegmentedButton<int>(
+          segments: [
+            ButtonSegment(value: 0, label: Text(vTexts.cvPagesLibre)),
+            ButtonSegment(value: 1, label: Text(vTexts.cvPagesUne)),
+            ButtonSegment(value: 2, label: Text(vTexts.cvPagesDeux)),
+          ],
+          selected: {aMaxPages},
+          onSelectionChanged: (pValue) => setState(() => aMaxPages = pValue.first),
+        ),
+        if (vRemoved.isNotEmpty) ...[
+          const SizedBox(height: 6),
+          Text(vTexts.cvFitRetire(vRemoved.join(', '))),
+        ],
+        if (vFit != null && !vFit.fits) ...[
+          const SizedBox(height: 6),
+          Text(vTexts.cvFitTrop, style: TextStyle(color: dangerColorOf(context))),
+        ],
         const SizedBox(height: 10),
         for (final vFormat in cvFormats)
           Padding(

@@ -86,4 +86,12 @@ mixin CvState on ChangeNotifier {
 
     await savePreference(cvSentPreference, [vEntry, ...cvSent].take(maxCvSent).toList());
   }
+
+  /// Phrases avec un chiffre que Rémi a confirmé, sous leur clé (`cvClaimKey`).
+  Set<String> get cvConfirmedClaims => {
+        for (final vItem in preferences[cvConfirmedPreference] as List? ?? const []) '$vItem',
+      };
+
+  Future<void> confirmCvClaim(String pText) =>
+      savePreference(cvConfirmedPreference, {...cvConfirmedClaims, cvClaimKey(pText)}.toList());
 }
