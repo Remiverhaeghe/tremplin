@@ -20,14 +20,14 @@ CvDocument _replace(CvDocument pDocument, List<CvSectionText> pSections) => CvDo
       sections: pSections,
     );
 
-CvDocument _without(CvDocument pDocument, CvSection pSection) =>
-    _replace(pDocument, [
+CvDocument _without(CvDocument pDocument, CvSection pSection) => _replace(pDocument, [
       for (final vSection in pDocument.sections)
         if (vSection.section != pSection) vSection,
     ]);
 
 /// Garde les [pKeep] premiers blocs d'une section ; la section disparaît à zéro.
-CvDocument _limitBlocks(CvDocument pDocument, CvSection pSection, int pKeep) => _replace(pDocument, [
+CvDocument _limitBlocks(CvDocument pDocument, CvSection pSection, int pKeep) =>
+    _replace(pDocument, [
       for (final vSection in pDocument.sections)
         if (vSection.section != pSection)
           vSection

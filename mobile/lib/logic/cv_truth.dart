@@ -39,7 +39,8 @@ List<CvTruthIssue> checkTruth(CvProfile pProfile, {Set<String> pConfirmed = cons
       );
     } else if (!_github.hasMatch(vProject.url.trim())) {
       rIssues.add(
-        CvTruthIssue(kind: CvTruthKind.projectNotOnGithub, itemId: vProject.id, text: vProject.name),
+        CvTruthIssue(
+            kind: CvTruthKind.projectNotOnGithub, itemId: vProject.id, text: vProject.name),
       );
     }
   }

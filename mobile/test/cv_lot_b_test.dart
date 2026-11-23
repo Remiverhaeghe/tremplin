@@ -146,11 +146,15 @@ void main() {
       final vIssues = checkTruth(vProfile);
 
       expect(
-        vIssues.where((pItem) => pItem.kind == CvTruthKind.projectWithoutUrl).map((pItem) => pItem.itemId),
+        vIssues
+            .where((pItem) => pItem.kind == CvTruthKind.projectWithoutUrl)
+            .map((pItem) => pItem.itemId),
         ['vide'],
       );
       expect(
-        vIssues.where((pItem) => pItem.kind == CvTruthKind.projectNotOnGithub).map((pItem) => pItem.itemId),
+        vIssues
+            .where((pItem) => pItem.kind == CvTruthKind.projectNotOnGithub)
+            .map((pItem) => pItem.itemId),
         ['site'],
       );
     });
@@ -166,8 +170,8 @@ void main() {
 
     test('un chiffre confirmé n\'est plus signalé', () {
       final vConfirmed = {cvClaimKey('  réduction de 30 %  des arrêts')};
-      final vFigures =
-          checkTruth(vProfile, pConfirmed: vConfirmed).where((pItem) => pItem.kind == CvTruthKind.figure);
+      final vFigures = checkTruth(vProfile, pConfirmed: vConfirmed)
+          .where((pItem) => pItem.kind == CvTruthKind.figure);
 
       expect(vFigures.map((pItem) => pItem.text), ['Utilisé par 12 personnes']);
     });
