@@ -9,6 +9,8 @@ import 'package:jobboard_revision/logic/cv_profile.dart';
 import 'package:jobboard_revision/revision_state.dart';
 import 'package:jobboard_revision/screens/cv_apply_screen.dart';
 import 'package:jobboard_revision/screens/cv_batch_screen.dart';
+import 'package:jobboard_revision/screens/cv_letter_screen.dart';
+import 'package:jobboard_revision/screens/cv_templates_screen.dart';
 import 'package:jobboard_revision/screens/cv_screen.dart';
 
 import 'support/cv_samples.dart';
@@ -274,6 +276,67 @@ void main() {
 
       expect(vSent, hasLength(1));
       expect(latin1.decode(vSent.single), contains('/Count 1'));
+    });
+
+    testWidgets('la lettre se remplit, se relit et part en PDF', (pTester) async {
+      await bigScreen(pTester);
+      final vState = buildState();
+      await vState.load();
+      await vState.importCvProfile(profileJson());
+      final vSent = <String>[];
+
+      await pTester.pumpWidget(
+        MaterialApp(
+          home: CvLetterScreen(
+            state: vState,
+            offer: offer,
+            send: (_, pName, __) async => vSent.add(pName),
+          ),
+        ),
+      );
+      await pTester.pumpAndSettle();
+
+      TextEditingController field() =>
+          pTester.widget<TextField>(find.byType(TextField)).controller!;
+      expect(field().text, startsWith('Je candidate au poste de Développeur Java chez Exemple SA.'));
+      expect(find.text('Rien à signaler.'), findsOneWidget);
+
+      await pTester.enterText(find.byType(TextField), 'Je me permets de vous écrire.');
+      await pTester.pumpAndSettle();
+      expect(find.textContaining('Formule toute faite'), findsOneWidget);
+
+      await pTester.tap(find.text('Message'));
+      await pTester.pumpAndSettle();
+      expect(field().text, contains('Mon CV est en pièce jointe.'));
+
+      await pTester.tap(find.text('PDF'));
+      await pTester.pumpAndSettle();
+      expect(vSent, ['Camille-Durand-Lettre-Exemple-Sa.pdf']);
+    });
+
+    testWidgets('les modèles se gardent et la réponse copiée porte l\'entreprise', (pTester) async {
+      await bigScreen(pTester);
+      final vState = buildState();
+      await vState.load();
+      await vState.importCvProfile(profileJson());
+
+      await pTester.pumpWidget(MaterialApp(home: CvTemplatesScreen(state: vState, offer: offer)));
+      await pTester.pumpAndSettle();
+
+      expect(find.text('Pourquoi Exemple SA ?'), findsOneWidget);
+      expect(find.text('Pourquoi le poste de Développeur Java ?'), findsOneWidget);
+
+      await pTester.enterText(
+        find.widgetWithText(TextField, 'Pourquoi Exemple SA ?'),
+        'Parce que {entreprise} fait de la maintenance.',
+      );
+      await pTester.tap(find.text('Garder'));
+      await pTester.pumpAndSettle();
+
+      expect(
+        vState.cvAnswers.firstWhere((pItem) => pItem.id == 'why-company').text,
+        'Parce que {entreprise} fait de la maintenance.',
+      );
     });
   });
 }

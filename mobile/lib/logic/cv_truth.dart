@@ -24,6 +24,9 @@ final _figure = RegExp(
   caseSensitive: false,
 );
 
+/// Vrai si la phrase contient un chiffre que Rémi devra pouvoir défendre.
+bool hasFigure(String pText) => _figure.hasMatch(pText);
+
 final _github = RegExp(r'^https://github\.com/[^/\s]+/[^/\s]+/?$');
 
 /// Phrase de chiffre confirmée : la même clé sert à la confirmer et à ne plus la signaler.
