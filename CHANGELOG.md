@@ -5,6 +5,12 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV visuel
+- PDF visuel refait d'après le modèle Word : photo ronde à bague de couleur, nom et poste, coordonnées en pastilles (courriel, téléphone, lieu), titres de section sur bandeau, frise verticale pour le parcours, familles de compétences en couleur avec étoiles de niveau (`cv_pdf_visual.dart`)
+- Le texte reste du vrai texte, dans le même ordre que le PDF sobre
+- Photo facultative par version (champ `photo` du parcours, JPEG en base 64), jamais dans le PDF sobre ni le Word ; niveau 1 à 5 par famille de compétences (`level`)
+- Tests : `test/cv_visual_test.dart`
+
 ### Appli mobile : CV, lot H (hors ligne)
 - « Exporter tout en texte » : un fichier lisible sans l'appli avec le parcours, les versions, la page du portfolio, les candidatures, les modèles et les réponses (`cv_dossier.dart`)
 - Un test garantit que le code du CV n'ouvre aucune connexion réseau
