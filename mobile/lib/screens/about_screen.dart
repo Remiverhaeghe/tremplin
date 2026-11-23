@@ -60,7 +60,8 @@ class AboutScreen extends StatelessWidget {
                   title: Text(vText.aboutSource),
                   subtitle: const Text(sourceUrl),
                   trailing: const Icon(Icons.open_in_new),
-                  onTap: () => launchUrl(Uri.parse(sourceUrl), mode: LaunchMode.externalApplication),
+                  onTap: () =>
+                      launchUrl(Uri.parse(sourceUrl), mode: LaunchMode.externalApplication),
                 ),
                 ListTile(
                   leading: const Icon(Icons.description_outlined),

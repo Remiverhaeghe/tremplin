@@ -14,9 +14,8 @@ import 'widget_test.dart' show buildState;
 
 void main() {
   test('La version affichée suit celle de pubspec.yaml', () {
-    final vLine = File('pubspec.yaml')
-        .readAsLinesSync()
-        .firstWhere((pLine) => pLine.startsWith('version:'));
+    final vLine =
+        File('pubspec.yaml').readAsLinesSync().firstWhere((pLine) => pLine.startsWith('version:'));
 
     expect(vLine.split(':').last.trim().split('+').first, appVersion);
   });
