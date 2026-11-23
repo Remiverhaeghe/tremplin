@@ -5,6 +5,13 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot E (écart, avant/après, lecture, au-delà du profil)
+- Lot d'offres : mots demandés dans au moins deux offres et absents du parcours (`cv_gap.dart`)
+- Candidature : « Avant / après adaptation », lignes retirées et ajoutées (`cv_diff.dart`)
+- Export : « Tester la lecture du PDF » relit le texte du fichier comme un logiciel de tri et signale les mots perdus (`cv_readback.dart`)
+- Candidature : signal quand l'offre demande plus d'années, un profil confirmé ou un diplôme plus haut (`cv_stretch.dart`) ; nouveau champ « années d'expérience » par version
+- Tests : `test/cv_lot_e_test.dart`
+
 ### Appli mobile : CV, lot D (habilitations, virage, mots du secteur, ajout)
 - Section « Habilitations et permis » (habilitations, permis, formations courtes), activable par version
 - « Pourquoi ce changement de métier ? » : un texte par version, écrit par Rémi, repris dans la lettre complète

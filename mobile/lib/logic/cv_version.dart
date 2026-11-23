@@ -28,6 +28,7 @@ class CvVersion {
     this.skillIds = const [],
     this.pivot = '',
     this.wording = const {},
+    this.years = 0,
     this.withPhoto = false,
   });
 
@@ -56,6 +57,9 @@ class CvVersion {
   /// Mots du parcours remplacés par ceux du secteur visé, choisis un par un : « ancien mot » vers
   /// « nouveau mot ». Appliqués aux lignes d'expérience, de projet et à l'accroche.
   final Map<String, String> wording;
+
+  /// Années d'expérience dans le domaine de cette version ; 0 si Rémi ne l'a pas indiqué.
+  final int years;
   final bool withPhoto;
 
   CvVersion copyWith({
@@ -68,6 +72,7 @@ class CvVersion {
     List<String>? skillIds,
     String? pivot,
     Map<String, String>? wording,
+    int? years,
     bool? withPhoto,
   }) =>
       CvVersion(
@@ -81,6 +86,7 @@ class CvVersion {
         skillIds: skillIds ?? this.skillIds,
         pivot: pivot ?? this.pivot,
         wording: wording ?? this.wording,
+        years: years ?? this.years,
         withPhoto: withPhoto ?? this.withPhoto,
       );
 
@@ -95,6 +101,7 @@ class CvVersion {
         'skillIds': skillIds,
         'pivot': pivot,
         'wording': wording,
+        'years': years,
         'withPhoto': withPhoto,
       };
 
@@ -121,6 +128,7 @@ class CvVersion {
         for (final vEntry in (pJson['wording'] as Map?)?.entries ?? const <MapEntry>[])
           '${vEntry.key}': '${vEntry.value}',
       },
+      years: (pJson['years'] as num?)?.toInt() ?? 0,
       withPhoto: pJson['withPhoto'] as bool? ?? false,
     );
   }
