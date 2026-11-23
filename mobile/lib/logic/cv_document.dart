@@ -91,16 +91,16 @@ String cvHeading(CvSection pSection, {String pLanguage = 'fr'}) => pLanguage == 
         CvSection.interests => 'Interests',
       }
     : switch (pSection) {
-      CvSection.summary => 'Profil',
-      CvSection.experience => 'Expériences professionnelles',
-      CvSection.projects => 'Projets',
-      CvSection.skills => 'Compétences',
-      CvSection.education => 'Formation',
-      CvSection.certifications => 'Habilitations et permis',
-      CvSection.languages => 'Langues',
-      CvSection.strengths => 'Atouts',
-      CvSection.interests => "Centres d'intérêt",
-    };
+        CvSection.summary => 'Profil',
+        CvSection.experience => 'Expériences professionnelles',
+        CvSection.projects => 'Projets',
+        CvSection.skills => 'Compétences',
+        CvSection.education => 'Formation',
+        CvSection.certifications => 'Habilitations et permis',
+        CvSection.languages => 'Langues',
+        CvSection.strengths => 'Atouts',
+        CvSection.interests => "Centres d'intérêt",
+      };
 
 /// Remplace, sans tenir compte de la casse, chaque ancien mot par le mot choisi pour la version.
 String applyWording(String pText, Map<String, String> pWording) {
@@ -192,7 +192,10 @@ CvDocument buildCvDocument(CvProfile pProfile, CvVersion pVersion) {
     sections: [
       for (final vSection in pVersion.sections)
         if (blocksFor(vSection) case final vBlocks when vBlocks.isNotEmpty)
-          CvSectionText(section: vSection, heading: cvHeading(vSection, pLanguage: pVersion.language), blocks: vBlocks),
+          CvSectionText(
+              section: vSection,
+              heading: cvHeading(vSection, pLanguage: pVersion.language),
+              blocks: vBlocks),
     ],
   );
 

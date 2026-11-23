@@ -86,8 +86,10 @@ void main() {
   group('contacts et formations', () {
     test('ils sont gardés dans la sauvegarde chiffrée', () async {
       final vFrom = await buildState();
-      await vFrom.saveCvContacts(const [CvContact(id: '1', name: 'Alice Test', company: 'Exemple SA')]);
-      await vFrom.saveCvTrainings(const [CvTraining(id: '2', title: 'Cours Docker', state: 'doing')]);
+      await vFrom
+          .saveCvContacts(const [CvContact(id: '1', name: 'Alice Test', company: 'Exemple SA')]);
+      await vFrom
+          .saveCvTrainings(const [CvTraining(id: '2', title: 'Cours Docker', state: 'doing')]);
       final vTo = RevisionState(MemoryRevisionStore(), reminders: FakeReminders());
       await vTo.load();
 
@@ -105,8 +107,12 @@ void main() {
 
   group('simulation', () {
     test('la présentation d\'abord, le tirage suit la graine', () {
-      final vFirst = simulationQuestions('Développeur Java Spring Kafka', sampleProfile, sampleVersion, pSeed: 1);
-      final vAgain = simulationQuestions('Développeur Java Spring Kafka', sampleProfile, sampleVersion, pSeed: 1);
+      final vFirst = simulationQuestions(
+          'Développeur Java Spring Kafka', sampleProfile, sampleVersion,
+          pSeed: 1);
+      final vAgain = simulationQuestions(
+          'Développeur Java Spring Kafka', sampleProfile, sampleVersion,
+          pSeed: 1);
 
       expect(vFirst.first, startsWith('Présentez-vous'));
       expect(vFirst, vAgain);
@@ -140,7 +146,8 @@ void main() {
       expect(vState.cvContacts.single.lastAt, '2026-11-23');
     });
 
-    testWidgets('la simulation passe d\'une question à la suivante jusqu\'à la fin', (pTester) async {
+    testWidgets('la simulation passe d\'une question à la suivante jusqu\'à la fin',
+        (pTester) async {
       await bigScreen(pTester);
       final vState = await buildState();
 
