@@ -15,6 +15,7 @@ import 'logic/dive.dart';
 import 'logic/circuit_drawing.dart';
 import 'logic/cv_answers.dart';
 import 'logic/cv_backup.dart';
+import 'logic/cv_followup.dart';
 import 'logic/cv_letter.dart';
 import 'logic/cv_profile.dart';
 import 'logic/cv_truth.dart';

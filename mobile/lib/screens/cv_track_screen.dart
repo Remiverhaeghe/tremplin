@@ -1,16 +1,22 @@
 // Suivi des candidatures : statistiques par version, relances à faire, réponses reçues, et le CV
 // tel qu'il est parti.
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../l10n/texts.dart';
+import '../logic/cv_export_csv.dart';
 import '../logic/cv_followup.dart';
 import '../logic/cv_stats.dart';
 import '../revision_state.dart';
+import '../services/file_sender.dart';
 
 class CvTrackScreen extends StatelessWidget {
-  const CvTrackScreen({super.key, required this.state, this.now});
+  const CvTrackScreen({super.key, required this.state, this.now, this.send = shareFile});
+
+  final Future<void> Function(Uint8List, String, String) send;
 
   final RevisionState state;
 
@@ -44,10 +50,12 @@ class CvTrackScreen extends StatelessWidget {
         final vSent = state.cvSent;
         final vStats = cvStats(vSent);
         final vDue = followUpsDue(vSent, now ?? DateTime.now());
+        final vDelays = responseDelays(vSent);
         final vOutcomes = {
           '': vTexts.cvSuiviPasDeReponse,
           'reponse': vTexts.cvSuiviReponse,
           'entretien': vTexts.cvSuiviEntretien,
+          'offre': vTexts.cvSuiviOffre,
           'refus': vTexts.cvSuiviRefus,
         };
 
@@ -97,6 +105,50 @@ class CvTrackScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+              const SizedBox(height: 16),
+              Text(vTexts.cvSuiviKanban, style: vTheme.textTheme.titleMedium),
+              SizedBox(
+                height: 150,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    for (final vEntry in vOutcomes.entries)
+                      Card(
+                        child: SizedBox(
+                          width: 160,
+                          child: ListView(
+                            padding: const EdgeInsets.all(8),
+                            children: [
+                              Text(
+                                '${vEntry.value} (${vSent.where((pItem) => '${pItem['outcome'] ?? ''}' == vEntry.key).length})',
+                                style: vTheme.textTheme.titleSmall,
+                              ),
+                              for (final vItem in vSent)
+                                if ('${vItem['outcome'] ?? ''}' == vEntry.key)
+                                  Text('${vItem['company']}', maxLines: 1),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(vTexts.cvSuiviDelais, style: vTheme.textTheme.titleMedium),
+              if (vDelays.isEmpty) Text(vTexts.cvSuiviDelaisVide),
+              for (final vDelay in vDelays)
+                Text(vTexts.cvSuiviDelai(vDelay.company, vDelay.days.toStringAsFixed(1))),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                onPressed: vSent.isEmpty
+                    ? null
+                    : () => send(
+                          Uint8List.fromList(utf8.encode(sentToCsv(vSent))),
+                          'candidatures.csv',
+                          'text/csv',
+                        ),
+                child: Text(vTexts.cvSuiviExportCsv),
+              ),
               const SizedBox(height: 16),
               Text(vTexts.cvSuiviHistorique, style: vTheme.textTheme.titleMedium),
               if (vSent.isEmpty) Text(vTexts.cvEnvoyesVide),

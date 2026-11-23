@@ -1,5 +1,7 @@
 // Relances : une candidature sans réponse après quelques jours mérite un message court.
 
+import 'interview_alerts.dart';
+
 /// Candidatures sans réponse ni relance depuis au moins [pDays] jours, les plus anciennes d'abord.
 List<Map<String, dynamic>> followUpsDue(
   List<Map<String, dynamic>> pSent,
@@ -55,4 +57,65 @@ Map<String, dynamic>? recentDuplicate(
   }
 
   return null;
+}
+
+/// Rappels de relance : un par candidature sans réponse, le jour où elle atteint [pDays] jours à
+/// 9 h, ou le lendemain à 9 h si ce jour est passé. Au plus [pMax], les plus proches d'abord.
+List<InterviewAlert> followUpAlerts(
+  List<Map<String, dynamic>> pSent,
+  DateTime pNow, {
+  int pDays = 7,
+  int pMax = 20,
+}) {
+  final vTomorrow = DateTime(pNow.year, pNow.month, pNow.day + 1, 9);
+  final rAlerts = <InterviewAlert>[];
+
+  for (final vItem in pSent) {
+    final vSentAt = DateTime.tryParse('${vItem['at']}');
+
+    if (vSentAt == null ||
+        '${vItem['outcome'] ?? ''}'.isNotEmpty ||
+        '${vItem['followed_up'] ?? ''}'.isNotEmpty ||
+        '${vItem['company'] ?? ''}'.isEmpty) {
+      continue;
+    }
+    final vDue = DateTime(vSentAt.year, vSentAt.month, vSentAt.day + pDays, 9);
+
+    rAlerts.add(
+      InterviewAlert(
+        vDue.isAfter(pNow) ? vDue : vTomorrow,
+        'Relance à faire',
+        '${vItem['company']} · ${vItem['title'] ?? ''}',
+      ),
+    );
+  }
+  rAlerts.sort((pA, pB) => pA.at.compareTo(pB.at));
+
+  return rAlerts.take(pMax).toList();
+}
+
+/// Délais de réponse en jours entre l'envoi et la réponse notée, par entreprise.
+typedef CvDelay = ({String company, double days});
+
+List<CvDelay> responseDelays(List<Map<String, dynamic>> pSent) {
+  final vByCompany = <String, List<int>>{};
+
+  for (final vItem in pSent) {
+    final vSentAt = DateTime.tryParse('${vItem['at']}');
+    final vAnsweredAt = DateTime.tryParse('${vItem['answered_at'] ?? ''}');
+
+    if (vSentAt != null && vAnsweredAt != null) {
+      vByCompany
+          .putIfAbsent('${vItem['company'] ?? ''}', () => [])
+          .add(vAnsweredAt.difference(vSentAt).inDays.clamp(0, 10000));
+    }
+  }
+
+  return [
+    for (final vEntry in vByCompany.entries)
+      (
+        company: vEntry.key,
+        days: vEntry.value.reduce((pA, pB) => pA + pB) / vEntry.value.length,
+      ),
+  ]..sort((pA, pB) => pA.days.compareTo(pB.days));
 }
