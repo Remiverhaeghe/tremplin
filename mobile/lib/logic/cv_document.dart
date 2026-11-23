@@ -80,7 +80,8 @@ String applyWording(String pText, Map<String, String> pWording) {
   var rText = pText;
   for (final vEntry in pWording.entries) {
     if (vEntry.key.trim().isNotEmpty) {
-      rText = rText.replaceAll(RegExp(RegExp.escape(vEntry.key), caseSensitive: false), vEntry.value);
+      rText =
+          rText.replaceAll(RegExp(RegExp.escape(vEntry.key), caseSensitive: false), vEntry.value);
     }
   }
 

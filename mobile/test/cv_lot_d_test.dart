@@ -32,10 +32,18 @@ const profile = CvProfile(
     ),
   ],
   certifications: [
-    CvCertification(id: 'hab', title: 'Habilitation électrique B1V', detail: 'Organisme Exemple', dates: '2021'),
+    CvCertification(
+        id: 'hab',
+        title: 'Habilitation électrique B1V',
+        detail: 'Organisme Exemple',
+        dates: '2021'),
   ],
   projects: [
-    CvProject(id: 'p1', name: 'Calculatrice', url: 'https://github.com/exemple/calc', lines: ['Dépannage des formules']),
+    CvProject(
+        id: 'p1',
+        name: 'Calculatrice',
+        url: 'https://github.com/exemple/calc',
+        lines: ['Dépannage des formules']),
   ],
 );
 
@@ -61,7 +69,8 @@ void main() {
     test('elles font un aller-retour JSON et ont leur section', () {
       final vBack = CvProfile.tryParse(jsonEncode(profile.toJson()))!;
       final vDocument = buildCvDocument(vBack, version);
-      final vSection = vDocument.sections.firstWhere((pItem) => pItem.section == CvSection.certifications);
+      final vSection =
+          vDocument.sections.firstWhere((pItem) => pItem.section == CvSection.certifications);
 
       expect(vSection.heading, 'Habilitations et permis');
       expect(vSection.blocks.single.title, 'Habilitation électrique B1V');
@@ -71,7 +80,8 @@ void main() {
 
     test('les versions de départ ne gardent la section que si le parcours en a', () {
       expect(
-        startingVersions(profile).every((pItem) => pItem.sections.contains(CvSection.certifications)),
+        startingVersions(profile)
+            .every((pItem) => pItem.sections.contains(CvSection.certifications)),
         isTrue,
       );
       expect(
@@ -93,7 +103,8 @@ void main() {
 
     test('le virage et les mots choisis survivent à un aller-retour JSON', () {
       final vVersion = version.copyWith(wording: {'dépannage': 'maintenance corrective'});
-      final vBack = CvVersion.fromJson(jsonDecode(jsonEncode(vVersion.toJson())) as Map<String, Object?>);
+      final vBack =
+          CvVersion.fromJson(jsonDecode(jsonEncode(vVersion.toJson())) as Map<String, Object?>);
 
       expect(vBack.pivot, version.pivot);
       expect(vBack.wording, {'dépannage': 'maintenance corrective'});
@@ -131,7 +142,8 @@ void main() {
     });
 
     test('les mots du secteur ne sont proposés que s\'ils sont dans l\'offre et dans le CV', () {
-      final vFound = suggestWordings('Technicien de maintenance préventive et ordonnancement', profile);
+      final vFound =
+          suggestWordings('Technicien de maintenance préventive et ordonnancement', profile);
 
       expect(vFound.map((pItem) => pItem.to), ['maintenance préventive']);
       expect(suggestWordings('Poste de comptable', profile), isEmpty);
@@ -156,7 +168,8 @@ void main() {
       await vState.saveCvVersion(version.copyWith(sections: [CvSection.experience]));
       await vState.saveCvVersion(CvVersion.fromJson({...version.toJson(), 'id': 'dev'}));
 
-      await vState.addCvProject(const CvProject(id: 'p2', name: 'Atelier', url: 'https://github.com/exemple/atelier'));
+      await vState.addCvProject(
+          const CvProject(id: 'p2', name: 'Atelier', url: 'https://github.com/exemple/atelier'));
 
       expect(vState.cvProfile.projects.map((pItem) => pItem.id), ['p1', 'p2']);
       final vVersions = {for (final vItem in vState.cvVersions) vItem.id: vItem};
@@ -168,7 +181,8 @@ void main() {
       final vState = buildState();
       await vState.load();
       await vState.importCvProfile(jsonEncode(profile.toJson()));
-      await vState.saveCvVersion(const CvVersion(id: 'x', label: 'Sans', sections: [CvSection.summary, CvSection.languages]));
+      await vState.saveCvVersion(const CvVersion(
+          id: 'x', label: 'Sans', sections: [CvSection.summary, CvSection.languages]));
 
       await vState.addCvCertification(const CvCertification(id: 'permis', title: 'Permis B'));
 
