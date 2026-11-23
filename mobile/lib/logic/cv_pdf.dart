@@ -277,7 +277,14 @@ Uint8List buildCvPdf(
   CvDocument pDocument, {
   CvPdfStyle pStyle = CvPdfStyle.plain,
   int pAccent = 0x1F5F8B,
-}) {
+}) =>
+    _assemble(_paint(pDocument, pStyle, pAccent), pDocument);
+
+/// Nombre de pages que prendrait le document.
+int cvPageCount(CvDocument pDocument, {CvPdfStyle pStyle = CvPdfStyle.plain}) =>
+    _paint(pDocument, pStyle, 0x1F5F8B).length;
+
+List<StringBuffer> _paint(CvDocument pDocument, CvPdfStyle pStyle, int pAccent) {
   final vPainter = _Painter(pStyle, pAccent);
 
   if (vPainter.visual) {
@@ -316,7 +323,7 @@ Uint8List buildCvPdf(
     }
   }
 
-  return _assemble(vPainter.pages, pDocument);
+  return vPainter.pages;
 }
 
 void _block(_Painter pPainter, CvSection pSection, CvBlock pBlock) {
