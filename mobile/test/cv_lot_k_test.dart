@@ -57,7 +57,7 @@ void main() {
     test('relances, contacts et formations dans l\'ordre des jours', () {
       final vPlan = weekPlan(
         pSent: vSent,
-        pContacts: const [CvContact(id: '1', name: 'Alice Test', nextAt: '2026-11-24')],
+        pContacts: const [CvPerson(id: '1', name: 'Alice Test', nextAt: '2026-11-24')],
         pTrainings: const [
           CvTraining(id: '2', title: 'Cours Docker', dueAt: '2026-11-26'),
           CvTraining(id: '3', title: 'Cours fini', dueAt: '2026-11-26', state: 'done'),
@@ -74,7 +74,7 @@ void main() {
     test('ce qui est en retard est ramené à aujourd\'hui', () {
       final vPlan = weekPlan(
         pSent: const [],
-        pContacts: const [CvContact(id: '1', name: 'Alice Test', nextAt: '2026-11-01')],
+        pContacts: const [CvPerson(id: '1', name: 'Alice Test', nextAt: '2026-11-01')],
         pTrainings: const [],
         pNow: now,
       );
@@ -87,7 +87,7 @@ void main() {
     test('ils sont gardés dans la sauvegarde chiffrée', () async {
       final vFrom = await buildState();
       await vFrom
-          .saveCvContacts(const [CvContact(id: '1', name: 'Alice Test', company: 'Exemple SA')]);
+          .saveCvContacts(const [CvPerson(id: '1', name: 'Alice Test', company: 'Exemple SA')]);
       await vFrom
           .saveCvTrainings(const [CvTraining(id: '2', title: 'Cours Docker', state: 'doing')]);
       final vTo = RevisionState(MemoryRevisionStore(), reminders: FakeReminders());
@@ -132,7 +132,7 @@ void main() {
       await bigScreen(pTester);
       final vState = await buildState();
       await vState.saveCvContacts(const [
-        CvContact(id: '1', name: 'Alice Test', company: 'Exemple SA', nextAt: '2026-11-24'),
+        CvPerson(id: '1', name: 'Alice Test', company: 'Exemple SA', nextAt: '2026-11-24'),
       ]);
 
       await pTester.pumpWidget(MaterialApp(home: CvAgendaScreen(state: vState, now: now)));
