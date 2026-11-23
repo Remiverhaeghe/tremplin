@@ -5,6 +5,12 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot C (lettre, relecture, réponses de formulaire)
+- Lettre de motivation à modèles, sans IA : Rémi écrit ses modèles une fois (début, exemple de projet, fin, message court) ; l'appli remplit l'entreprise, le poste, ses coordonnées et les deux projets les plus proches de l'offre. Trois longueurs : complète, courte (formulaire en ligne), message (courriel ou LinkedIn)
+- Relecture : formules toutes faites (« je me permets », « n'hésitez pas »…), trois phrases de suite en « je », texte trop long, mot à remplir oublié, chiffre à pouvoir défendre, entreprise manquante
+- Copie dans le presse-papiers et PDF de la lettre (`Prenom-Nom-Lettre-Entreprise.pdf`)
+- Réponses de formulaire prêtes (prétentions, mobilité, préavis, pourquoi nous…), préremplies avec les faits du parcours, copiées avec l'entreprise et le poste de l'offre
+
 ### Appli mobile : CV, lot B (vérité, plusieurs offres, longueur)
 - Garde-fou de vérité : un projet sans lien public ou hors GitHub, et un chiffre dans une phrase (« 30 % », « 12 personnes »), sont signalés sur l'écran CV ; Rémi confirme un chiffre qu'il peut défendre et il n'est plus signalé
 - Plusieurs offres d'un coup : on colle des offres séparées par une ligne `---`, ou on prend celles du téléphone ; chacune reçoit la version la plus proche, sa couverture et ses mots manquants, et un appui ouvre l'envoi

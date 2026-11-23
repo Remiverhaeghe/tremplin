@@ -73,3 +73,10 @@ String cvFileName(
 
   return '${vParts.join('-')}.$pExtension';
 }
+
+/// `Prenom-Nom-Lettre-Entreprise.pdf`, sans accent ni espace.
+String cvLetterFileName(String pName, String pCompany) {
+  final vParts = [_slug(pName), 'Lettre', _slug(pCompany)].where((pPart) => pPart.isNotEmpty);
+
+  return '${vParts.join('-')}.pdf';
+}

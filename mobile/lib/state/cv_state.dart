@@ -94,4 +94,25 @@ mixin CvState on ChangeNotifier {
 
   Future<void> confirmCvClaim(String pText) =>
       savePreference(cvConfirmedPreference, {...cvConfirmedClaims, cvClaimKey(pText)}.toList());
+
+  LetterKit get cvLetterKit {
+    final vRaw = preferences[cvLetterKitPreference];
+
+    return vRaw is Map ? LetterKit.fromJson(Map<String, Object?>.from(vRaw)) : const LetterKit();
+  }
+
+  Future<void> saveCvLetterKit(LetterKit pKit) =>
+      savePreference(cvLetterKitPreference, pKit.toJson());
+
+  /// Réponses de formulaire ; celles de départ tant que Rémi n'a rien enregistré.
+  List<CvAnswer> get cvAnswers {
+    final vRaw = preferences[cvAnswersPreference];
+
+    return vRaw is List
+        ? [for (final vItem in vRaw) CvAnswer.fromJson(Map<String, Object?>.from(vItem as Map))]
+        : startingAnswers(cvProfile);
+  }
+
+  Future<void> saveCvAnswers(List<CvAnswer> pAnswers) =>
+      savePreference(cvAnswersPreference, [for (final vItem in pAnswers) vItem.toJson()]);
 }
