@@ -17,7 +17,9 @@ import 'support/sample_data.dart';
 
 final now = DateTime(2026, 11, 23, 12);
 
-Map<String, dynamic> sent(String pAt, {String outcome = '', String company = 'Exemple SA', String answered = ''}) => {
+Map<String, dynamic> sent(String pAt,
+        {String outcome = '', String company = 'Exemple SA', String answered = ''}) =>
+    {
       'id': pAt + company,
       'at': pAt,
       'version': 'Développeur',
@@ -96,7 +98,8 @@ void main() {
     test('moyenne par entreprise, les plus rapides d\'abord', () {
       final vDelays = responseDelays([
         sent('2026-11-01T10:00:00', outcome: 'reponse', answered: '2026-11-11T10:00:00'),
-        sent('2026-11-05T10:00:00', outcome: 'reponse', answered: '2026-11-07T10:00:00', company: 'Rapide SA'),
+        sent('2026-11-05T10:00:00',
+            outcome: 'reponse', answered: '2026-11-07T10:00:00', company: 'Rapide SA'),
         sent('2026-11-10T10:00:00', outcome: 'reponse', answered: '2026-11-20T10:00:00'),
         sent('2026-11-12T10:00:00', company: 'Sans réponse SA'),
       ]);
@@ -136,7 +139,8 @@ void main() {
       final vLines = vCsv.trim().split('\r\n');
 
       expect(vCsv.startsWith('\u{FEFF}Date;Entreprise'), isTrue);
-      expect(vLines[1], startsWith('2026-11-01;Exemple SA;Développeur Java;Développeur;pdf-sobre;reponse;;3'));
+      expect(vLines[1],
+          startsWith('2026-11-01;Exemple SA;Développeur Java;Développeur;pdf-sobre;reponse;;3'));
     });
 
     test('les points-virgules et guillemets sont protégés', () {
@@ -148,7 +152,8 @@ void main() {
 
   group('questions à poser', () {
     test('une question sur les premières semaines et une sur la suite', () {
-      final vAsk = questionsToAsk('Développeur Java Spring Kafka', sampleProfile, sampleVersion, pCompany: 'Exemple SA');
+      final vAsk = questionsToAsk('Développeur Java Spring Kafka', sampleProfile, sampleVersion,
+          pCompany: 'Exemple SA');
 
       expect(vAsk.first, contains('premières semaines'));
       expect(vAsk.last, contains('prochaines étapes'));
