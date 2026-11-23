@@ -66,8 +66,9 @@ void main() {
         pNow: now,
       );
 
-      expect(vPlan.map((pItem) => pItem.kind), ['followup', 'contact', 'training']);
-      expect(vPlan.first.day, DateTime(2026, 11, 25));
+      // Contact le 24, relance de l'envoi du 18 le 25, formation le 26, relance de l'envoi du 22 le 29
+      expect(vPlan.map((pItem) => pItem.kind), ['contact', 'followup', 'training', 'followup']);
+      expect(vPlan.map((pItem) => pItem.day.day), [24, 25, 26, 29]);
       expect(vPlan.map((pItem) => pItem.label), isNot(contains('Close SA · ')));
     });
 
