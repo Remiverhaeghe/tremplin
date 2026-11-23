@@ -39,8 +39,8 @@ String describeTracking(Map<String, dynamic> pApplication) {
   final rText = [
     pApplication['company'],
     pApplication['status_label'],
-    if (vInterview.isNotEmpty) 'entretien le $vInterview',
-    if (vInterview.isEmpty && vFollowUp.isNotEmpty) 'relance le $vFollowUp',
+    if (vInterview.isNotEmpty) context.texts.trackingEntretien('${vInterview}'),
+    if (vInterview.isEmpty && vFollowUp.isNotEmpty) context.texts.trackingRelance('${vFollowUp}'),
   ].where((vPart) => vPart != null && '$vPart'.isNotEmpty).join(' · ');
 
   return rText;

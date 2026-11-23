@@ -1,6 +1,7 @@
 // Widget de l'écran d'accueil Android : questions à revoir et prochain entretien,
 // mis à jour après chaque synchronisation.
 
+import '../l10n/texts.dart';
 import '../logic/interview_alerts.dart';
 
 /// Nom de la classe Kotlin qui dessine le widget (android/app/src/main/kotlin).
@@ -10,8 +11,10 @@ const widgetProviderName = 'RevisionWidgetProvider';
 (String, String) buildWidgetLines(
   int pDueCount,
   List<Map<String, dynamic>> pApplications,
-  DateTime pNow,
-) {
+  DateTime pNow, [
+  AppLocalizations? pText,
+]) {
+  final vText = pText ?? deviceTexts();
   DateTime? vNext;
   String? vCompany;
 
@@ -24,14 +27,16 @@ const widgetProviderName = 'RevisionWidgetProvider';
     }
   }
 
-  final vDue = pDueCount == 0
-      ? "Rien à revoir aujourd'hui"
-      : '$pDueCount question${pDueCount > 1 ? 's' : ''} à revoir';
+  final vDue = pDueCount == 0 ? vText.widgetNothingDue : vText.widgetDue(pDueCount);
   final vInterview = vNext == null
-      ? 'Aucun entretien prévu'
-      : 'Entretien le ${twoDigits(vNext.day)}/${twoDigits(vNext.month)} à '
-          '${twoDigits(vNext.hour)}:${twoDigits(vNext.minute)}'
-          '${vCompany == null ? '' : ' · $vCompany'}';
+      ? vText.widgetNoInterview
+      : vText.widgetInterview(
+          twoDigits(vNext.day),
+          twoDigits(vNext.month),
+          twoDigits(vNext.hour),
+          twoDigits(vNext.minute),
+          vCompany == null ? '' : ' · $vCompany',
+        );
 
   final rLines = (vDue, vInterview);
 

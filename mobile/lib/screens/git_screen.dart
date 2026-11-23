@@ -57,7 +57,7 @@ class GitListScreen extends StatelessWidget {
 
     final rText = vBest == null
         ? '$vPar commande(s) attendue(s)'
-        : 'Réussi en $vBest commande(s), référence $vPar';
+        : context.texts.gitReussiCommandeReference('${vBest}', '${vPar}');
 
     return rText;
   }
@@ -163,7 +163,7 @@ class _GitScreenState extends State<GitScreen> {
       final vFirst = await widget.state.recordGit(level['id'] as String, history);
 
       if (vFirst && mounted) {
-        setState(() => message += ' +${widget.state.gitXp} XP au retour sur le PC.');
+        setState(() => message += context.texts.gitXpAuRetourSur('${widget.state.gitXp}'));
       }
     }
   }
@@ -208,18 +208,18 @@ class _GitScreenState extends State<GitScreen> {
         children: [
           Text.rich(TextSpan(children: markdownSpans(level['intro'] as String, vCode))),
           const SizedBox(height: 12),
-          buildGraph('Votre dépôt', renderGraph(vRepository.localView(), 'Votre dépôt')),
+          buildGraph(context.texts.gitVotreDepot, renderGraph(vRepository.localView(), context.texts.gitVotreDepot)),
           buildGraph('Objectif', renderGraph(vGoal.localView(), 'Objectif')),
           if (vRepository.remote.isNotEmpty) ...[
             buildGraph('Serveur', renderGraph(vRepository.serverView(), 'Serveur', false)),
             buildGraph(
-                'Serveur attendu', renderGraph(vGoal.serverView(), 'Serveur attendu', false)),
+                context.texts.gitServeurAttendu, renderGraph(vGoal.serverView(), context.texts.gitServeurAttendu, false)),
           ],
           if (vWorktree.isNotEmpty || vGoalWorktree.isNotEmpty)
             Text(
               context.texts.gitFichiersObjectif(
-                  vWorktree.isEmpty ? 'rien en cours' : vWorktree.join(' · '),
-                  vGoalWorktree.isEmpty ? 'rien en cours' : vGoalWorktree.join(' · ')),
+                  vWorktree.isEmpty ? context.texts.gitRienCours : vWorktree.join(' · '),
+                  vGoalWorktree.isEmpty ? context.texts.gitRienCours : vGoalWorktree.join(' · ')),
               style: vTheme.textTheme.bodySmall,
             ),
           if (message.isNotEmpty)

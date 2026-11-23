@@ -198,7 +198,7 @@ class ResultPanel extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    grade.correct ? 'Bonne réponse' : 'Réponse incorrecte',
+                    grade.correct ? context.texts.puzzleBonneReponse : context.texts.questionReponseIncorrecte,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(color: vColor),
                   ),
                 ],

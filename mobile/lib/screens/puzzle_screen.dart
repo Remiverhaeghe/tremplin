@@ -183,7 +183,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
         Text(vPuzzle['title'] as String, style: vTheme.textTheme.titleLarge),
         Text(
           context.texts.puzzleReponsesJustesAffilee(
-              vCorrect ? 'Bonne réponse' : "Ce n'est pas la bonne réponse",
+              vCorrect ? context.texts.puzzleBonneReponse : context.texts.puzzleCeNEstPas,
               '${state.puzzleProgress['streak']}'),
           style: vTheme.textTheme.titleMedium?.copyWith(
             color: vCorrect ? Colors.green.shade700 : vTheme.colorScheme.error,
@@ -276,7 +276,7 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             FilledButton.icon(
               onPressed: start,
               icon: const Icon(Icons.auto_awesome),
-              label: Text(vRecap == null ? 'Commencer une série' : 'Nouvelle série'),
+              label: Text(vRecap == null ? context.texts.puzzleCommencerSerie : context.texts.interviewNouvelleSerie),
             ),
           ],
         ],

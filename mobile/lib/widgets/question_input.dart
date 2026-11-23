@@ -207,8 +207,8 @@ class NumericInput extends StatelessWidget {
       enabled: enabled,
       autocorrect: false,
       decoration: InputDecoration(
-        labelText: vUnit.isEmpty ? 'Valeur' : 'Valeur en $vUnit',
-        helperText: vUnit.isEmpty ? null : 'Préfixe accepté : « 2,3 m$vUnit »',
+        labelText: vUnit.isEmpty ? context.texts.questionValue : context.texts.questionValeur('${vUnit}'),
+        helperText: vUnit.isEmpty ? null : context.texts.questionPrefixeAccepte23('${vUnit}'),
         border: const OutlineInputBorder(),
       ),
       onChanged: (pText) => onChanged(pText.trim().isEmpty ? null : pText),
@@ -392,8 +392,8 @@ class _ConstructionInputState extends State<ConstructionInput> {
     final vId = draft.add(pType);
 
     changed(vId == null
-        ? 'Plus de case libre.'
-        : '${draft.label(vId)} placé : touchez ses bornes pour le relier.');
+        ? context.texts.questionPlusCaseLibre
+        : context.texts.circuitPlaceTouchezSesBornes('${draft.label(vId)}'));
   }
 
   void tap(Offset pPosition) {
@@ -420,7 +420,7 @@ class _ConstructionInputState extends State<ConstructionInput> {
           ),
       },
       widget.question.connections,
-      'Schéma attendu',
+      context.texts.questionSchemaAttendu,
     );
 
     return rSvg;
@@ -442,7 +442,7 @@ class _ConstructionInputState extends State<ConstructionInput> {
             vEntry.key: (vEntry.value, vMatch.answer.positions[vEntry.key]!, vLabels[vEntry.key]!),
         },
         vMatch.answer.wires,
-        'Votre schéma',
+        context.texts.questionVotreSchema,
         vGrader.findWrongWires(vMatch),
       );
     } on UnreadableAnswer {
@@ -492,8 +492,7 @@ class _ConstructionInputState extends State<ConstructionInput> {
               Expanded(
                 child: Text(
                   message.isEmpty
-                      ? 'Touchez un composant de la palette pour le placer, une borne puis une '
-                          'autre pour tirer un fil, un fil pour le retirer. Pincez pour zoomer.'
+                      ? context.texts.questionTouchezComposantPalettePour
                       : message,
                   style: vTheme.textTheme.bodySmall,
                 ),
@@ -514,7 +513,7 @@ class _ConstructionInputState extends State<ConstructionInput> {
           const SizedBox(height: 12),
           Text(context.texts.questionSchemaAttendu, style: vTheme.textTheme.titleSmall),
           const SizedBox(height: 4),
-          SchemaView(content: renderExpected(), description: 'Schéma attendu'),
+          SchemaView(content: renderExpected(), description: context.texts.questionSchemaAttendu),
         ],
       ],
     );

@@ -62,11 +62,9 @@ String describeMachine(Simulator pSimulator) {
   final vPosition = pSimulator.machine['position']!;
 
   final rText = switch (pSimulator.kind) {
-    'verin' => 'Vérin : sorti à ${100 * vPosition ~/ verinStroke} %',
-    'tapis' => 'Tapis : ${vValues['tapis'] == true ? 'en marche' : 'arrêté'}, '
-        '${pSimulator.machine['run']! ~/ piecePeriod} pièce(s) passée(s)',
-    'percage' => 'Broche : descendue à ${100 * vPosition ~/ spindleStroke} %'
-        '${vValues['rotation'] == true ? ', en rotation' : ''}',
+    'verin' => context.texts.ladderVerinSorti('${100 * vPosition ~/ verinStroke}'),
+    'tapis' => context.texts.ladderTapisPiecePassee('${vValues['tapis'] == true ? 'en marche' : 'arrêté'}', '${pSimulator.machine['run']! ~/ piecePeriod}'),
+    'percage' => context.texts.ladderBrocheDescendue('${100 * vPosition ~/ spindleStroke}', '${vValues['rotation'] == true ? ', en rotation' : ''}'),
     _ =>
       'Moteur : ${motorOutputs.any((pName) => vValues[pName] == true) ? (vValues['arriere'] == true ? 'tourne en arrière' : 'tourne') : 'arrêté'}',
   };
@@ -276,8 +274,8 @@ class _LadderScreenState extends State<LadderScreen> {
       children: [
         Text(
           vRun['passed'] == true
-              ? 'Niveau réussi${first ? ' · +${widget.state.ladderXp} XP au retour sur le PC' : ''}'
-              : 'Pas encore : regardez les vérifications en rouge',
+              ? context.texts.commonNiveauReussi('${first ? ' · +${widget.state.ladderXp} XP au retour sur le PC' : ''}')
+              : context.texts.ladderPasEncoreRegardezVerifications,
           style: vTheme.textTheme.titleMedium,
         ),
         for (final vCheck in vRun['checks'] as List)
