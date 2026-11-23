@@ -910,5 +910,67 @@
     }
   },
   "cvSuiviExportCsv": "Export the tracking as a spreadsheet",
-  "cvPrepAPoser": "Questions to ask the recruiter"
+  "cvPrepAPoser": "Questions to ask the recruiter",
+  "cvVersionAnglais": "English headings",
+  "cvVersionAnglaisAide": "Section headings switch to English; the content stays what you wrote, translate it yourself.",
+  "cvAgenda": "Week, contacts, training",
+  "cvAgendaSemaine": "This week",
+  "cvAgendaSemaineVide": "Nothing planned in the next seven days.",
+  "cvAgendaRelance": "Follow up with {value0}",
+  "@cvAgendaRelance": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAgendaContact": "Get back in touch with {value0}",
+  "@cvAgendaContact": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAgendaFormation": "Make progress on the course {value0}",
+  "@cvAgendaFormation": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvContacts": "Contacts",
+  "cvContactsVide": "No contact noted.",
+  "cvContactAjouter": "Add a contact",
+  "cvContactNom": "Name",
+  "cvContactEntreprise": "Company",
+  "cvContactNote": "Note",
+  "cvContactReprise": "Get back in touch on (YYYY-MM-DD)",
+  "cvContactFait": "Contact made",
+  "cvFormations": "Training",
+  "cvFormationsVide": "No course followed.",
+  "cvFormationAjouter": "Add a course",
+  "cvFormationTitre": "Title",
+  "cvFormationEcheance": "Due date (YYYY-MM-DD)",
+  "cvFormationTodo": "To do",
+  "cvFormationDoing": "In progress",
+  "cvFormationDone": "Done",
+  "cvEnregistrer": "Save",
+  "cvSimulation": "Run an interview simulation",
+  "cvSimulationAide": "Five questions drawn from the offer and your background. Answer out loud, then move on.",
+  "cvSimulationNumero": "Question {value0} of {value1}",
+  "@cvSimulationNumero": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSimulationSuivante": "Next question",
+  "cvSimulationRecommencer": "Another draw",
+  "cvSimulationFin": "Simulation over. Go back to the preparation for the questions that made you hesitate."
 }

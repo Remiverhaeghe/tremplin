@@ -10,6 +10,7 @@ import '../logic/cv_version.dart';
 import '../revision_state.dart';
 import '../services/file_sender.dart';
 import 'cv_add_screen.dart';
+import 'cv_agenda_screen.dart';
 import 'cv_batch_screen.dart';
 import 'cv_backup_screen.dart';
 import 'cv_supports_screen.dart';
@@ -128,6 +129,13 @@ class CvScreen extends StatelessWidget {
                   ),
                   icon: const Icon(Icons.library_add_outlined),
                   label: Text(vTexts.cvAjouter),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(pContext).push(
+                    MaterialPageRoute<void>(builder: (_) => CvAgendaScreen(state: state)),
+                  ),
+                  icon: const Icon(Icons.event_note_outlined),
+                  label: Text(vTexts.cvAgenda),
                 ),
                 OutlinedButton.icon(
                   onPressed: () => Navigator.of(pContext).push(
