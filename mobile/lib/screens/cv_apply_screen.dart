@@ -7,7 +7,6 @@ import '../l10n/texts.dart';
 import '../logic/cv_check.dart';
 import '../logic/cv_document.dart';
 import '../logic/cv_tailor.dart';
-import '../logic/cv_version.dart';
 import '../revision_state.dart';
 import '../services/file_sender.dart';
 import '../theme.dart';
