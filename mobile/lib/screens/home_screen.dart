@@ -171,22 +171,22 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         destinations: [
           NavigationDestination(
             icon: const Icon(Icons.school_outlined),
-            selectedIcon: Icon(Icons.school),
+            selectedIcon: const Icon(Icons.school),
             label: context.texts.navReviser,
           ),
           NavigationDestination(
             icon: const Icon(Icons.work_outline),
-            selectedIcon: Icon(Icons.work),
+            selectedIcon: const Icon(Icons.work),
             label: context.texts.navOffres,
           ),
           NavigationDestination(
             icon: const Icon(Icons.assignment_outlined),
-            selectedIcon: Icon(Icons.assignment),
+            selectedIcon: const Icon(Icons.assignment),
             label: context.texts.navSuivi,
           ),
           NavigationDestination(
             icon: const Icon(Icons.record_voice_over_outlined),
-            selectedIcon: Icon(Icons.record_voice_over),
+            selectedIcon: const Icon(Icons.record_voice_over),
             label: context.texts.navEntretien,
           ),
           NavigationDestination(
