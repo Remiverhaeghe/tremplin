@@ -108,8 +108,10 @@ class CvAgendaScreen extends StatelessWidget {
               for (final vContact in state.cvContacts)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: Text([vContact.name, vContact.company].where((p) => p.isNotEmpty).join(' · ')),
-                  subtitle: Text([vContact.note, vContact.nextAt].where((p) => p.isNotEmpty).join(' · ')),
+                  title: Text(
+                      [vContact.name, vContact.company].where((p) => p.isNotEmpty).join(' · ')),
+                  subtitle:
+                      Text([vContact.note, vContact.nextAt].where((p) => p.isNotEmpty).join(' · ')),
                   trailing: TextButton(
                     onPressed: () => state.saveCvContacts([
                       for (final vOther in state.cvContacts)
