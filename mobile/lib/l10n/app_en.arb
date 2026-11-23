@@ -660,5 +660,58 @@
       }
     }
   },
-  "cvTraductionsUtiliser": "Use"
+  "cvTraductionsUtiliser": "Use",
+  "cvAvantApres": "Before / after tailoring",
+  "cvAvantApresAucun": "Tailoring changes nothing in this CV.",
+  "cvEcart": "What the offers ask for and your background does not show",
+  "cvEcartAide": "Words found in at least two offers. Learn them, or cite them only if true.",
+  "cvEcartVide": "No repeated word is missing from your background.",
+  "cvEcartMot": "{value0}: {value1} offers",
+  "@cvEcartMot": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvLecture": "Test how the PDF is read",
+  "cvLectureOk": "The PDF reads back in full: every word is found, accents included.",
+  "cvLectureManque": "Words not found in the PDF: {value0}",
+  "@cvLectureManque": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvVersionAnnees": "Years of experience in this field",
+  "cvVersionAnneesAide": "Used to spot offers asking for more. 0 if you prefer not to say.",
+  "cvAuDela": "This offer aims higher than your profile",
+  "cvAuDelaAnnees": "It asks for {value0} years of experience, the version shows {value1}.",
+  "@cvAuDelaAnnees": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAuDelaSenior": "It looks for an experienced or senior profile.",
+  "cvAuDelaDiplome": "It asks for bac+{value0}, your education shows bac+{value1}.",
+  "@cvAuDelaDiplome": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAuDelaAide": "You can still apply: this is a signal, not a refusal."
 }
