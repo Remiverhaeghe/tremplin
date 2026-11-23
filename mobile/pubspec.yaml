@@ -29,6 +29,8 @@ dependencies:
   http: ^1.2.2
   mobile_scanner: ^7.5.0
   path_provider: ^2.1.4
+  # Envoi du CV : feuille de partage du système (courriel, Drive, enregistrer)
+  share_plus: ^13.2.0
   # Bac à sable SQL hors ligne : SQLite embarqué dans l'application
   sqlite3: ^3.9.0
   timezone: ^0.11.2

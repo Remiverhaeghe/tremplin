@@ -111,3 +111,11 @@ const diveLogPreference = 'dive_log';
 
 /// Candidatures notées sur le téléphone, pas encore enregistrées sur le PC
 const pendingQuickApplicationsPreference = 'pending_quick_applications';
+
+/// CV : parcours, versions et envois, gardés sur le téléphone seulement
+const cvProfilePreference = 'cv_profile';
+const cvVersionsPreference = 'cv_versions';
+const cvSentPreference = 'cv_sent';
+
+/// Envois de CV gardés, les plus récents d'abord
+const maxCvSent = 500;

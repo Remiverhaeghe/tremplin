@@ -24,7 +24,13 @@ Uri? buildMapUri(Map<String, dynamic> pOffer) {
 }
 
 class OfferDetailScreen extends StatelessWidget {
-  const OfferDetailScreen({super.key, required this.offer, required this.onOpen, this.onNote});
+  const OfferDetailScreen({
+    super.key,
+    required this.offer,
+    required this.onOpen,
+    this.onNote,
+    this.onApply,
+  });
 
   final Map<String, dynamic> offer;
 
@@ -33,6 +39,9 @@ class OfferDetailScreen extends StatelessWidget {
 
   /// Garde une note rapide sur l'offre, ajoutée à la candidature sur le PC.
   final Future<void> Function(String)? onNote;
+
+  /// Ouvre l'écran pour postuler avec un CV.
+  final VoidCallback? onApply;
 
   Future<void> writeNote(BuildContext pContext) async {
     final vMessenger = ScaffoldMessenger.of(pContext);
@@ -160,6 +169,14 @@ class OfferDetailScreen extends StatelessWidget {
             icon: const Icon(Icons.open_in_new),
             label: Text(context.texts.offerDetailOuvrirAnnonce),
           ),
+          if (onApply != null) ...[
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: onApply,
+              icon: const Icon(Icons.description_outlined),
+              label: Text(context.texts.cvPostuler),
+            ),
+          ],
           if (onNote != null) ...[
             const SizedBox(height: 8),
             OutlinedButton.icon(

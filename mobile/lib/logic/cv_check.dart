@@ -119,8 +119,8 @@ const _commonWords = {
   'travail',
 };
 
-/// Même mot avec ou sans accent, en minuscules.
-String _plain(String pText) {
+/// Texte en minuscules et sans accents, pour comparer les mots d'une offre et ceux du CV.
+String cvPlain(String pText) {
   const vFrom = 'àâäçéèêëîïôöùûüÿœ';
   const vTo = 'aaaceeeeiioouuuyo';
   final rText = StringBuffer();
@@ -135,9 +135,9 @@ String _plain(String pText) {
 
 /// Mots de l'offre rangés du plus fréquent au moins fréquent, sans les mots courants.
 List<String> offerKeywords(String pOffer, {int pLimit = 20}) {
-  final vCommon = {for (final vWord in _commonWords) _plain(vWord)};
+  final vCommon = {for (final vWord in _commonWords) cvPlain(vWord)};
   final vCount = <String, int>{};
-  for (final vMatch in RegExp(r"[a-z0-9+#./]{3,}").allMatches(_plain(pOffer))) {
+  for (final vMatch in RegExp(r"[a-z0-9+#./]{3,}").allMatches(cvPlain(pOffer))) {
     final vWord = vMatch.group(0)!.replaceAll(RegExp(r'^[./]+|[./]+$'), '');
     if (vWord.length >= 3 && !vCommon.contains(vWord) && !RegExp(r'^\d+$').hasMatch(vWord)) {
       vCount[vWord] = (vCount[vWord] ?? 0) + 1;
@@ -155,7 +155,7 @@ List<String> offerKeywords(String pOffer, {int pLimit = 20}) {
 
 /// Mots de l'offre présents et absents du CV.
 ({List<String> found, List<String> missing}) keywordReport(String pOffer, CvDocument pDocument) {
-  final vCv = _plain(pDocument.plainText);
+  final vCv = cvPlain(pDocument.plainText);
   final vWords = offerKeywords(pOffer);
   final rReport = (
     found: [

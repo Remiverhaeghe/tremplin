@@ -5,6 +5,15 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot A (écrans, PDF, postuler depuis une offre)
+- Onglet Entretien > CV : parcours importé par collage du fichier JSON (il reste sur le téléphone), versions modifiables (nom, poste visé, accroche, sections), aperçu et liste des CV préparés
+- Postuler depuis la fiche d'une offre : version la plus proche proposée, mots de l'offre présents ou absents, projets et compétences réordonnés selon l'offre (rien n'est ajouté, les expériences gardent l'ordre chronologique)
+- Export en PDF sobre (noir sur blanc, pour les logiciels de tri), PDF visuel (bandeau et titres en couleur), Word et texte brut, par la feuille de partage du système. PDF écrit à la main (Helvetica, vrai texte), sans dépendance
+- Contrôles avant l'export : nom, courriel, téléphone, expériences et dates bloquent l'export ; poste visé, accroche et formation avertissent
+- Nom de fichier propre (`Prenom-Nom-CV-Version-Entreprise.pdf`) ; envois notés avec la version utilisée
+- Feuille de route des 30 évolutions CV dans `docs/cv.md`
+- Nouvelle dépendance : `share_plus`
+
 ### Appli mobile : écran « À propos »
 - Nouvel écran depuis le menu Plus : version, langue choisie (lien vers les réglages), où vivent les données, code source sur GitHub et licences des bibliothèques. Un test vérifie que la version affichée suit `pubspec.yaml`
 - Derniers titres restés en français dans la version anglaise : menu Plus, examen, niveau atteint, record du contre-la-montre
