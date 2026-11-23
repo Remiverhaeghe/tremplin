@@ -155,7 +155,7 @@ extension _Visual on _Painter {
     }
     top = vStart + (vPhoto == null ? 0 : 10);
     for (final vLine in cvWrap(pDocument.name, textWidth - vOffset, pSize: 24, pBold: true)) {
-      text(vLine, pSize: 24, pX: _marginSide + vOffset, pBold: true);
+      text(vLine, pSize: 24, pX: _marginSide + vOffset, pBold: true, pTag: 'H1');
       top += 29;
     }
     for (final vLine in cvWrap(pDocument.headline, textWidth - vOffset, pSize: 12.5, pBold: true)) {
@@ -186,7 +186,7 @@ extension _Visual on _Painter {
     fillRect(_marginSide, top, textWidth, 20, _tint(accent));
     fillRect(_marginSide, top, 4, 20, accent);
     top += 4.5;
-    text(pHeading, pSize: 11.5, pX: _marginSide + 12, pBold: true, pRgb: accent);
+    text(pHeading, pSize: 11.5, pX: _marginSide + 12, pBold: true, pRgb: accent, pTag: 'H2');
     top += 21.5;
   }
 
