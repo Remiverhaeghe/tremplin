@@ -5,10 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../l10n/texts.dart';
+import '../logic/cv_truth.dart';
 import '../logic/cv_version.dart';
 import '../revision_state.dart';
 import '../services/file_sender.dart';
+import 'cv_batch_screen.dart';
 import 'cv_version_screen.dart';
+
+String truthLabel(AppLocalizations pTexts, CvTruthIssue pIssue) => switch (pIssue.kind) {
+      CvTruthKind.projectWithoutUrl => pTexts.cvVeriteSansLien(pIssue.text),
+      CvTruthKind.projectNotOnGithub => pTexts.cvVeriteNonGithub(pIssue.text),
+      CvTruthKind.figure => pTexts.cvVeriteChiffre('« ${pIssue.text} »'),
+    };
 
 class CvScreen extends StatelessWidget {
   const CvScreen({super.key, required this.state, this.send = shareFile});
@@ -58,6 +66,7 @@ class CvScreen extends StatelessWidget {
       builder: (pContext, _) {
         final vProfile = state.cvProfile;
         final vSent = state.cvSent;
+        final vIssues = checkTruth(vProfile, pConfirmed: state.cvConfirmedClaims);
 
         return Scaffold(
           appBar: AppBar(title: Text(vTexts.cvTitre)),
@@ -99,10 +108,34 @@ class CvScreen extends StatelessWidget {
                   icon: const Icon(Icons.add),
                   label: Text(vTexts.cvVersionNouvelle),
                 ),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(pContext).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => CvBatchScreen(state: state, send: send),
+                    ),
+                  ),
+                  icon: const Icon(Icons.checklist),
+                  label: Text(vTexts.cvPlusieurs),
+                ),
                 TextButton(
                   onPressed: () => importProfile(pContext),
                   child: Text(vTexts.cvImporterTitre),
                 ),
+                const SizedBox(height: 16),
+                Text(vTexts.cvVerite, style: Theme.of(pContext).textTheme.titleMedium),
+                if (vIssues.isEmpty) Text(vTexts.cvVeriteRien),
+                for (final vIssue in vIssues)
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.fact_check_outlined),
+                    title: Text(truthLabel(vTexts, vIssue)),
+                    trailing: vIssue.kind == CvTruthKind.figure
+                        ? TextButton(
+                            onPressed: () => state.confirmCvClaim(vIssue.text),
+                            child: Text(vTexts.cvVeriteConfirmer),
+                          )
+                        : null,
+                  ),
                 const SizedBox(height: 16),
                 Text(vTexts.cvEnvoyes, style: Theme.of(pContext).textTheme.titleMedium),
                 if (vSent.isEmpty) Text(vTexts.cvEnvoyesVide),

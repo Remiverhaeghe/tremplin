@@ -490,5 +490,68 @@
         "type": "String"
       }
     }
-  }
+  },
+  "cvPages": "CV length",
+  "cvPagesLibre": "Free",
+  "cvPagesUne": "1 page",
+  "cvPagesDeux": "2 pages",
+  "cvFitRetire": "Removed to fit: {value0}",
+  "@cvFitRetire": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvFitTrop": "Even so the CV is too long: shorten your texts.",
+  "cvFitInterests": "interests",
+  "cvFitStrengths": "strengths",
+  "cvFitProjects": "extra projects",
+  "cvFitOldLines": "details of older jobs",
+  "cvVerite": "To check before sending",
+  "cvVeriteRien": "Nothing to check.",
+  "cvVeriteSansLien": "Project without a public link: {value0}",
+  "@cvVeriteSansLien": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvVeriteNonGithub": "Link that is not a GitHub repository: {value0}",
+  "@cvVeriteNonGithub": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvVeriteChiffre": "Figure you must be able to defend: {value0}",
+  "@cvVeriteChiffre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvVeriteConfirmer": "I confirm it",
+  "cvPlusieurs": "Several offers at once",
+  "cvPlusieursAide": "Paste several offers separated by a --- line, or use the ones on the phone.",
+  "cvPlusieursAnalyser": "Analyse",
+  "cvPlusieursMesOffres": "My offers on the phone",
+  "cvPlusieursResume": "{value0} · {value1} % of the words · missing: {value2}",
+  "@cvPlusieursResume": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      },
+      "value2": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPlusieursAucune": "No offer to analyse."
 }
