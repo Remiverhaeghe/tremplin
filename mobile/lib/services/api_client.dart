@@ -4,12 +4,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/io_client.dart';
 
+import 'net/platform_net.dart';
 import 'revision_store.dart';
 
 /// Erreur à montrer telle quelle à l'utilisateur.
@@ -40,13 +39,9 @@ http.Client buildServerClient(ServerSettings pSettings) {
     return http.Client();
   }
 
-  // Appelé seulement pour un certificat qu'aucune autorité ne garantit, comme
-  // celui créé sur le PC : il n'est accepté que s'il a l'empreinte du QR code.
-  final vHttpClient = HttpClient()
-    ..badCertificateCallback =
-        (pCertificate, _, __) => isPinnedCertificate(pCertificate.der, vFingerprint);
-
-  final rClient = IOClient(vHttpClient);
+  // Un certificat qu'aucune autorité ne garantit, comme celui créé sur le PC, n'est
+  // accepté que s'il a l'empreinte du QR code.
+  final rClient = certificateClient((pDer) => isPinnedCertificate(pDer, vFingerprint));
 
   return rClient;
 }

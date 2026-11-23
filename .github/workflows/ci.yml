@@ -117,6 +117,70 @@ jobs:
       - name: Tests
         run: flutter test
 
+  # Version web installable sur l'iPhone depuis Safari, publiée sur GitHub Pages
+  mobile-web:
+    name: Version web mobile
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mobile
+
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: 3.47.7
+          cache: true
+
+      - name: Construction
+        run: |
+          # Déclare la plate-forme web sans toucher à web/ versionné (rien n'est écrasé)
+          flutter create --platforms=web --project-name jobboard_revision .
+          flutter pub get
+          flutter gen-l10n
+          # Servie sous /tremplin/ : https://remiverhaeghe.github.io/tremplin/
+          flutter build web --release --base-href /tremplin/
+          python3 ../tools/web_service_worker.py build/web
+
+      # L'appli doit démarrer dans un vrai navigateur : Flutter affiché, aucune erreur en console
+      - name: Démarrage dans Chrome
+        run: |
+          mkdir -p /tmp/site && cp -r build/web /tmp/site/tremplin
+          (cd /tmp/site && python3 -m http.server 8124 > /dev/null 2>&1 &)
+          sleep 2
+          google-chrome --headless=new --no-sandbox --disable-gpu --enable-logging=stderr --v=0 \
+            --virtual-time-budget=20000 --window-size=390,844 \
+            --screenshot=/tmp/site/accueil.png http://localhost:8124/tremplin/ 2> chrome.log || true
+          google-chrome --headless=new --no-sandbox --disable-gpu --virtual-time-budget=20000 \
+            --dump-dom http://localhost:8124/tremplin/ > dom.html 2> /dev/null || true
+          grep -E "CONSOLE|Uncaught|EXCEPTION" chrome.log || true
+          grep -q "flutter-view\|flt-glass-pane" dom.html
+          ! grep -E "Uncaught|EXCEPTION CAUGHT" chrome.log
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: mobile/build/web
+
+  # Publiée seulement depuis main, une fois l'application testée
+  mobile-pages:
+    name: Publication web mobile
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [mobile, mobile-web]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
   integration:
     name: Synchronisation téléphone ↔ serveur
     runs-on: ubuntu-latest
