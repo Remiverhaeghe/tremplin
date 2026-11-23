@@ -119,8 +119,10 @@ class _CvLetterScreenState extends State<CvLetterScreen> {
       ],
     );
 
-    await widget.send(
-        Uint8List.fromList(vBytes), cvLetterFileName(vContact.name, company), mimePdf);
+    final vFile = cvLetterFileName(vContact.name, company);
+
+    await widget.send(Uint8List.fromList(vBytes), vFile, mimePdf);
+    await widget.state.addCvSentFile(company, '${widget.offer['title'] ?? ''}', vFile);
   }
 
   @override

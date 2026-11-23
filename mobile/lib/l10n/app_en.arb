@@ -763,5 +763,108 @@
   "cvSecteurIndustrie": "Industry",
   "cvSecteurNumerique": "Tech",
   "cvSecteurBanque": "Banking and insurance",
-  "cvSecteurPublic": "Public sector"
+  "cvSecteurPublic": "Public sector",
+  "cvSuivi": "Application tracking",
+  "cvSuiviStats": "Statistics",
+  "cvSuiviTotal": "{value0} applications, {value1} replies, {value2} interviews",
+  "@cvSuiviTotal": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      },
+      "value2": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSuiviParVersion": "{value0}: {value1} sent, {value2} replies",
+  "@cvSuiviParVersion": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      },
+      "value2": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSuiviRelances": "To follow up",
+  "cvSuiviRelancesAide": "No reply for more than 7 days.",
+  "cvSuiviRelancesVide": "No follow-up to do.",
+  "cvSuiviCopierRelance": "Copy the message",
+  "cvSuiviRelanceFaite": "Follow-up done",
+  "cvSuiviRelanceCopiee": "Message copied.",
+  "cvSuiviHistorique": "History",
+  "cvSuiviPasDeReponse": "No reply",
+  "cvSuiviReponse": "Reply received",
+  "cvSuiviEntretien": "Interview obtained",
+  "cvSuiviRefus": "Rejection",
+  "cvSuiviTexteFige": "CV as it was sent",
+  "cvSuiviFichiers": "Files: {value0}",
+  "@cvSuiviFichiers": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrep": "Prepare the interview",
+  "cvPrepAide": "Likely questions based on the offer. The hint comes from your background: stay truthful.",
+  "cvPrepPourquoi": "Why {value0}?",
+  "@cvPrepPourquoi": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepVirage": "Why this career change?",
+  "cvPrepProjet": "Present your project {value0}.",
+  "@cvPrepProjet": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepUtilise": "Describe a situation where you used {value0}.",
+  "@cvPrepUtilise": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepApprendre": "The word \"{value0}\" is not in your background: how would you go about learning it?",
+  "@cvPrepApprendre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepIndice": "In your background: {value0}",
+  "@cvPrepIndice": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepIndiceVrai": "Nothing in your background: say what you know that is close, without inventing.",
+  "cvSauvegarde": "Encrypted backup",
+  "cvSauvegardeAide": "The file is encrypted with a password you choose. Without it nobody can read it, not even you.",
+  "cvMotDePasse": "Password",
+  "cvMotDePasseCourt": "At least 8 characters.",
+  "cvSauvegarder": "Back up the CV",
+  "cvRestaurer": "Restore a backup",
+  "cvRestaurerColler": "Backup text",
+  "cvRestaureOk": "CV restored.",
+  "cvRestaureNon": "Wrong password or backup."
 }
