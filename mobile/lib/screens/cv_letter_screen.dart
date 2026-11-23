@@ -1,8 +1,6 @@
 // Lettre de motivation pour une offre : modèle rempli, trois longueurs, relecture des formules
 // toutes faites, copie et PDF.
 
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
