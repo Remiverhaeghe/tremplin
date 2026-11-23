@@ -42,6 +42,17 @@ void main() {
     expect(appLocale(null), const Locale('fr'));
   });
 
+  test('Le réglage de langue impose sa langue, ou laisse celle du téléphone', () {
+    expect(chosenLocale('en'), const Locale('en'));
+    expect(chosenLocale('fr'), const Locale('fr'));
+    expect(chosenLocale('system'), isNull);
+
+    final vAlerts = interviewAlertTexts(lookupAppLocalizations(const Locale('en')));
+
+    expect(vAlerts.tomorrowAt('14:00'), 'Interview tomorrow at 14:00');
+    expect(vAlerts.where('Developer', 'Acme'), 'Developer at Acme');
+  });
+
   test('Widget et notifications suivent la langue donnée', () {
     final vEnglish = lookupAppLocalizations(const Locale('en'));
     final vNow = DateTime(2026, 11, 20, 9);
