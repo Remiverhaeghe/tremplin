@@ -7,6 +7,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import '../l10n/texts.dart';
+import '../logic/cv_dossier.dart';
 import '../revision_state.dart';
 import '../services/file_sender.dart';
 
@@ -46,6 +47,19 @@ class _CvBackupScreenState extends State<CvBackupScreen> {
     await widget.send(Uint8List.fromList(utf8.encode(vSealed)), 'cv-sauvegarde.cvsave', mimeText);
   }
 
+  Future<void> exportAll() async {
+    final vText = buildDossier(
+      pProfile: widget.state.cvProfile,
+      pVersions: widget.state.cvVersions,
+      pSent: widget.state.cvSent,
+      pKit: widget.state.cvLetterKit,
+      pAnswers: widget.state.cvAnswers,
+      pNow: DateTime.now(),
+    );
+
+    await widget.send(Uint8List.fromList(utf8.encode(vText)), 'cv-dossier.txt', mimeText);
+  }
+
   Future<void> restore() async {
     final vOk = context.texts.cvRestaureOk;
     final vNo = context.texts.cvRestaureNon;
@@ -74,6 +88,9 @@ class _CvBackupScreenState extends State<CvBackupScreen> {
           ),
           const SizedBox(height: 12),
           FilledButton(onPressed: backup, child: Text(vTexts.cvSauvegarder)),
+          const SizedBox(height: 8),
+          Text(vTexts.cvDossierAide),
+          OutlinedButton(onPressed: exportAll, child: Text(vTexts.cvDossier)),
           const SizedBox(height: 24),
           TextField(
             controller: aSealed,

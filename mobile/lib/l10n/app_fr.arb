@@ -1825,5 +1825,7 @@
   "cvRestaurer": "Restaurer une sauvegarde",
   "cvRestaurerColler": "Texte de la sauvegarde",
   "cvRestaureOk": "CV restauré.",
-  "cvRestaureNon": "Mot de passe ou sauvegarde incorrect."
+  "cvRestaureNon": "Mot de passe ou sauvegarde incorrect.",
+  "cvDossier": "Exporter tout en texte",
+  "cvDossierAide": "Un seul fichier lisible sans l'appli : parcours, versions, candidatures, modèles. Il n'est pas chiffré : garde-le pour toi."
 }

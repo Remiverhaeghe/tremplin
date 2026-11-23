@@ -5,6 +5,11 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot H (hors ligne)
+- « Exporter tout en texte » : un fichier lisible sans l'appli avec le parcours, les versions, la page du portfolio, les candidatures, les modèles et les réponses (`cv_dossier.dart`)
+- Un test garantit que le code du CV n'ouvre aucune connexion réseau
+- Tests : `test/cv_lot_h_test.dart`
+
 ### Appli mobile : CV, lot G (suivi, entretien, sauvegarde)
 - Écran « Suivi des candidatures » : statistiques par version et par mois, relances à faire après 7 jours avec message prêt à copier, réponse reçue par candidature (`cv_followup.dart`, `cv_stats.dart`)
 - Chaque envoi garde le texte du CV tel qu'il est parti (30 derniers) et les fichiers envoyés, lettre comprise
