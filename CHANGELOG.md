@@ -5,6 +5,20 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : en anglais
+- Version anglaise (`lib/l10n/app_en.arb`) : l'application suit la langue du téléphone,
+  anglais s'il est en anglais, français sinon. Un test vérifie que chaque texte français
+  a sa traduction, avec les mêmes valeurs.
+- Les derniers textes en dur des écrans passent dans l'ARB (messages des simulations,
+  sous-titres du menu Plus, bilans), comme ceux du widget d'accueil et des notifications,
+  pris dans la langue du téléphone (`deviceTexts`).
+- Les tests tournent en français quelle que soit la langue de la machine
+  (`test/flutter_test_config.dart`).
+- Le test de synchronisation avec le vrai serveur garde le réseau réel
+  (`test/integration/flutter_test_config.dart`).
+- `requirements-server.lock` recalculé : `python-multipart` 0.0.34, `soupsieve` 4.1.2 et
+  leurs voisins, publiés depuis le dernier verrou.
+
 ### Appli mobile : version web pour l'iPhone
 - Version web installable depuis Safari (« Sur l'écran d'accueil »), publiée sur
   GitHub Pages à `https://remiverhaeghe.github.io/tremplin/` par la CI : icône, nom et

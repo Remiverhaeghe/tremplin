@@ -167,7 +167,7 @@ class OfferCard extends StatelessWidget {
       offer['location'],
       if (vDistance != null) '$vDistance km',
       offer['contract'],
-      if (vSimilarTo != null) 'proche de « $vSimilarTo »',
+      if (vSimilarTo != null) context.texts.offersProche('$vSimilarTo'),
     ].where((vValue) => vValue != null && '$vValue'.isNotEmpty).join(' · ');
 
     final rCard = Card(

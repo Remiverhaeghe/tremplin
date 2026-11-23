@@ -37,9 +37,9 @@ class StatisticsScreen extends StatelessWidget {
                   _Figure(value: '${vStatistics['answers'] ?? 0}', label: 'réponses'),
                   _Figure(
                     value: vStatistics['rate'] == null ? '–' : '${vStatistics['rate']} %',
-                    label: 'de réussite',
+                    label: context.texts.statisticsReussite,
                   ),
-                  _Figure(value: '${vStatistics['streak'] ?? 0} j', label: 'de suite'),
+                  _Figure(value: '${vStatistics['streak'] ?? 0} j', label: context.texts.homeSuite),
                 ],
               ),
             ),
@@ -104,8 +104,8 @@ class ActivityChart extends StatelessWidget {
           for (final vDay in days)
             Expanded(
               child: Semantics(
-                label: '${vDay.date.day}/${vDay.date.month} : ${vDay.answers} réponse(s), '
-                    '${vDay.correct} juste(s)',
+                label: context.texts.statisticsReponseJuste(
+                    '${vDay.date.day}', '${vDay.date.month}', '${vDay.answers}', '${vDay.correct}'),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

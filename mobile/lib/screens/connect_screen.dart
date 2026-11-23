@@ -130,7 +130,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
   /// Adresse et jeton saisis à la main.
   Future<void> connectManually() async {
     if (addressController.text.trim().isEmpty || tokenController.text.trim().isEmpty) {
-      setState(() => error = "Saisissez l'adresse et le jeton.");
+      setState(() => error = context.texts.connectSaisissezAdresseJeton);
       return;
     }
 

@@ -150,7 +150,9 @@ class OfferDetailScreen extends StatelessWidget {
             ),
           const SizedBox(height: 12),
           SelectableText(
-            vDescription.isEmpty ? 'Description non transmise par la source.' : vDescription,
+            vDescription.isEmpty
+                ? context.texts.offerDetailDescriptionNonTransmisePar
+                : vDescription,
           ),
           const SizedBox(height: 16),
           FilledButton.icon(

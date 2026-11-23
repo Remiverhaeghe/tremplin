@@ -8,6 +8,7 @@ import 'package:timezone/data/latest_all.dart' as tz_data;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:workmanager/workmanager.dart';
 
+import '../l10n/texts.dart';
 import '../logic/interview_alerts.dart';
 import 'reminders.dart';
 
@@ -70,15 +71,13 @@ class LocalReminders implements Reminders {
     await plugin.zonedSchedule(
       id: reminderId,
       scheduledDate: vNext,
-      title: 'Révision du jour',
-      body: pDueCount > 0
-          ? '$pDueCount question(s) à revoir : quelques minutes suffisent.'
-          : 'Quelques nouvelles questions vous attendent.',
-      notificationDetails: const NotificationDetails(
+      title: deviceTexts().reminderTitle,
+      body: pDueCount > 0 ? deviceTexts().reminderDue(pDueCount) : deviceTexts().reminderNew,
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           'revision',
-          'Rappel de révision',
-          channelDescription: 'Rappel quotidien des questions à revoir',
+          deviceTexts().reminderChannel,
+          channelDescription: deviceTexts().reminderChannelHelp,
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
@@ -98,19 +97,18 @@ class LocalReminders implements Reminders {
   Future<void> showNewOffers(List<Map<String, dynamic>> pOffers) async {
     await initialize();
 
-    final vTitles = [for (final vOffer in pOffers.take(3)) vOffer['title'] ?? 'Offre sans titre'];
+    final vText = deviceTexts();
+    final vTitles = [for (final vOffer in pOffers.take(3)) vOffer['title'] ?? vText.offerUntitled];
 
     await plugin.show(
       id: offersNotificationId,
-      title: pOffers.length == 1
-          ? 'Nouvelle offre pour vous'
-          : '${pOffers.length} nouvelles offres pour vous',
+      title: vText.offersNotification(pOffers.length),
       body: vTitles.join(' · '),
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           'offers',
-          'Nouvelles offres',
-          channelDescription: 'Nouvelles offres proches du profil, trouvées par le PC',
+          vText.offersChannel,
+          channelDescription: vText.offersChannelHelp,
         ),
       ),
     );
@@ -124,15 +122,13 @@ class LocalReminders implements Reminders {
 
     await plugin.show(
       id: repliesNotificationId,
-      title: pReplies.length == 1
-          ? 'Réponse d\'un recruteur'
-          : '${pReplies.length} réponses de recruteurs',
+      title: deviceTexts().repliesNotification(pReplies.length),
       body: pReplies.take(3).map(describeReply).join(' · '),
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           'replies',
-          'Réponses des recruteurs',
-          channelDescription: 'Refus ou entretien repérés par le PC dans vos e-mails',
+          deviceTexts().repliesChannel,
+          channelDescription: deviceTexts().repliesChannelHelp,
         ),
       ),
     );
@@ -146,15 +142,16 @@ class LocalReminders implements Reminders {
 
     await plugin.show(
       id: withdrawnNotificationId,
-      title: pOffers.length == 1
-          ? 'Offre suivie retirée'
-          : '${pOffers.length} offres suivies retirées',
-      body: pOffers.take(3).map((vOffer) => '${vOffer['title'] ?? 'Offre'}').join(' · '),
-      notificationDetails: const NotificationDetails(
+      title: deviceTexts().withdrawnNotification(pOffers.length),
+      body: pOffers
+          .take(3)
+          .map((vOffer) => '${vOffer['title'] ?? deviceTexts().offerUntitled}')
+          .join(' · '),
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           'withdrawn',
-          'Offres retirées',
-          channelDescription: 'Offres suivies que leur site ne publie plus',
+          deviceTexts().withdrawnChannel,
+          channelDescription: deviceTexts().withdrawnChannelHelp,
         ),
       ),
     );
@@ -168,13 +165,13 @@ class LocalReminders implements Reminders {
 
     await plugin.show(
       id: seasonNotificationId,
-      title: 'Bilan de la ${pSeason['title']}',
+      title: deviceTexts().seasonNotification('${pSeason['title']}'),
       body: '${pSeason['summary']}',
-      notificationDetails: const NotificationDetails(
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           'season',
-          'Bilan de la semaine',
-          channelDescription: 'XP, quêtes et candidatures de la semaine écoulée, le lundi',
+          deviceTexts().seasonChannel,
+          channelDescription: deviceTexts().seasonChannelHelp,
         ),
       ),
     );
@@ -197,11 +194,11 @@ class LocalReminders implements Reminders {
         scheduledDate: tz.TZDateTime.from(vAlert.at, tz.local),
         title: vAlert.title,
         body: vAlert.body,
-        notificationDetails: const NotificationDetails(
+        notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(
             'interviews',
-            "Rappels d'entretien",
-            channelDescription: 'La veille et une heure avant chaque entretien',
+            deviceTexts().interviewsChannel,
+            channelDescription: deviceTexts().interviewsChannelHelp,
           ),
         ),
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,

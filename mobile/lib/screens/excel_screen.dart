@@ -184,7 +184,7 @@ class _ExcelScreenState extends State<ExcelScreen> {
         if (run['passed'] == true) ...[
           Text(
             context.texts.commonNiveauReussi(
-                first ? ' · +${widget.state.excelXp} XP au retour sur le PC' : ''),
+                first ? context.texts.excelXpAuRetourSur('${widget.state.excelXp}') : ''),
             style: vTheme.textTheme.titleMedium?.copyWith(color: Colors.green.shade700),
           ),
           Text(level['explanation'] as String? ?? ''),

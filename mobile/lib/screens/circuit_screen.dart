@@ -140,7 +140,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
   void add(String pType) {
     final vId = draft.add(pType);
 
-    changed(vId == null ? '' : '${draft.label(vId)} placé : touchez ses bornes pour le relier.');
+    changed(vId == null ? '' : context.texts.circuitPlaceTouchezSesBornes(draft.label(vId)));
   }
 
   void tap(Offset pPosition) {
@@ -165,12 +165,12 @@ class _CircuitScreenState extends State<CircuitScreen> {
       field(vEntry.key).text = formatG(vEntry.value);
     }
 
-    changed('Solution affichée : vérifiez-la, ou simulez pour la manœuvrer.');
+    changed(context.texts.circuitSolutionAfficheeVerifiezOu);
   }
 
   Future<void> check() async {
     if (draft.components.isEmpty) {
-      setState(() => message = 'Placez au moins un composant.');
+      setState(() => message = context.texts.circuitPlacezAuMoinsComposant);
       return;
     }
 
@@ -195,7 +195,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
 
   void simulate() {
     if (draft.components.isEmpty) {
-      setState(() => message = 'Placez au moins un composant.');
+      setState(() => message = context.texts.circuitPlacezAuMoinsComposant);
       return;
     }
 
@@ -278,8 +278,9 @@ class _CircuitScreenState extends State<CircuitScreen> {
       children: [
         Text(
           vPassed
-              ? 'Montage réussi${first ? ' · +${widget.state.circuitXp} XP au retour sur le PC' : ''}'
-              : 'Le montage ne répond pas encore à toutes les étapes.',
+              ? context.texts.circuitMontageReussi(
+                  first ? ' · +${widget.state.circuitXp} XP au retour sur le PC' : '')
+              : context.texts.circuitMontageNeRepondPas,
           style: vTheme.textTheme.titleMedium?.copyWith(
             color: vPassed ? Colors.green.shade700 : vTheme.colorScheme.error,
           ),
@@ -338,12 +339,12 @@ class _CircuitScreenState extends State<CircuitScreen> {
     final vSelected = draft.selected;
 
     return Scaffold(
-      appBar: AppBar(title: Text(level?['title'] as String? ?? 'Schéma libre')),
+      appBar: AppBar(title: Text(level?['title'] as String? ?? context.texts.circuitSchemaLibre)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text(level?['goal'] as String? ??
-              'Composez librement : le simulateur calcule tensions et courants.'),
+          Text(
+              level?['goal'] as String? ?? context.texts.circuitComposezLibrementSimulateurCalcule),
           if (showHint)
             Text(context.texts.commonIndice('${level!['hint']}'),
                 style: vTheme.textTheme.bodySmall),
@@ -358,10 +359,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
             children: [
               Expanded(
                 child: Text(
-                  message.isEmpty
-                      ? 'Touchez une borne puis une autre pour tirer un fil, un fil pour le retirer, '
-                          'un composant puis une case vide pour le déplacer. Pincez pour zoomer.'
-                      : message,
+                  message.isEmpty ? context.texts.circuitTouchezBornePuisAutre : message,
                   style: vTheme.textTheme.bodySmall,
                 ),
               ),
