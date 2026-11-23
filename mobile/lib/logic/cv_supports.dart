@@ -38,7 +38,8 @@ String portfolioPage(CvProfile pProfile, CvVersion pVersion) {
   if (pProfile.experiences.isNotEmpty) {
     rPage.writeln('\n## Expériences');
     for (final vItem in pProfile.experiences) {
-      rPage.writeln('\n### ${[vItem.title, vItem.company].where((pPart) => pPart.isNotEmpty).join(', ')}');
+      rPage.writeln(
+          '\n### ${[vItem.title, vItem.company].where((pPart) => pPart.isNotEmpty).join(', ')}');
       if (vItem.dates.isNotEmpty) {
         rPage.writeln(vItem.dates);
       }
@@ -65,8 +66,11 @@ String portfolioPage(CvProfile pProfile, CvVersion pVersion) {
   if (pProfile.education.isNotEmpty) {
     rPage.writeln('\n## Formation');
     for (final vItem in pProfile.education) {
-      rPage.writeln(
-          '- ${[vItem.title, vItem.place, vItem.dates].where((pPart) => pPart.isNotEmpty).join(', ')}');
+      rPage.writeln('- ${[
+        vItem.title,
+        vItem.place,
+        vItem.dates
+      ].where((pPart) => pPart.isNotEmpty).join(', ')}');
     }
   }
 
@@ -140,10 +144,12 @@ List<CvDrift> supportDrift(CvProfile pProfile, CvVersion pVersion, String pPubli
   }
 
   return [
-    if (pVersion.headline.trim().isNotEmpty && !vPublished.contains(cvPlain(pVersion.headline.trim())))
+    if (pVersion.headline.trim().isNotEmpty &&
+        !vPublished.contains(cvPlain(pVersion.headline.trim())))
       CvDrift(CvDriftKind.headlineMissing, pVersion.headline.trim()),
     for (final vItem in pProfile.projects)
-      if (!vPublished.contains(cvPlain(vItem.name))) CvDrift(CvDriftKind.projectMissing, vItem.name),
+      if (!vPublished.contains(cvPlain(vItem.name)))
+        CvDrift(CvDriftKind.projectMissing, vItem.name),
     for (final vFigure in {for (final vMatch in _figure.allMatches(vPublished)) vMatch.group(0)!})
       if (!vKnown.contains(vFigure)) CvDrift(CvDriftKind.unknownFigure, vFigure),
   ];
