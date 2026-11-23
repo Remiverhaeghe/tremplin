@@ -14,6 +14,7 @@ import '../logic/cv_export.dart';
 import '../logic/cv_fit.dart';
 import '../logic/cv_pdf.dart';
 import '../logic/cv_profile.dart';
+import '../logic/cv_readback.dart';
 import '../logic/cv_version.dart';
 import '../services/file_sender.dart';
 import '../theme.dart';
@@ -92,11 +93,21 @@ class _CvExportPanelState extends State<CvExportPanel> {
   /// Longueur voulue : 0 pour libre, sinon le nombre de pages au plus.
   int aMaxPages = 0;
 
+  /// Mots non retrouvés à la relecture du PDF ; null tant que le test n'a pas été lancé.
+  List<String>? aUnread;
+
   CvDocument documentFor(String pFormat) {
     final vBase = buildCvDocument(widget.profile, widget.version);
     final vStyle = pFormat == 'pdf-visuel' ? CvPdfStyle.visual : CvPdfStyle.plain;
 
     return aMaxPages > 0 ? fitDocument(vBase, aMaxPages, pStyle: vStyle).document : vBase;
+  }
+
+  void testReading() {
+    final vDocument = documentFor('pdf-sobre');
+    final vBytes = Uint8List.fromList(renderCv(vDocument, 'pdf-sobre').bytes);
+
+    setState(() => aUnread = atsReadback(vDocument, vBytes).missing);
   }
 
   Future<void> export(String pFormat) async {
@@ -176,6 +187,22 @@ class _CvExportPanelState extends State<CvExportPanel> {
           const SizedBox(height: 6),
           Text(vTexts.cvFitTrop, style: TextStyle(color: dangerColorOf(context))),
         ],
+        const SizedBox(height: 10),
+        OutlinedButton(
+          onPressed: vReady.canExport ? testReading : null,
+          child: Text(vTexts.cvLecture),
+        ),
+        if (aUnread case final vUnread?)
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Text(
+              vUnread.isEmpty
+                  ? vTexts.cvLectureOk
+                  : vTexts.cvLectureManque(vUnread.take(10).join(', ')),
+              style: TextStyle(
+                  color: vUnread.isEmpty ? successColorOf(context) : dangerColorOf(context)),
+            ),
+          ),
         const SizedBox(height: 10),
         for (final vFormat in cvFormats)
           Padding(

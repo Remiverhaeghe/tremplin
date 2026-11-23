@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../l10n/texts.dart';
 import '../logic/cv_batch.dart';
 import '../logic/cv_document.dart';
+import '../logic/cv_gap.dart';
 import '../revision_state.dart';
 import '../services/file_sender.dart';
 import 'cv_apply_screen.dart';
@@ -24,6 +25,7 @@ class _CvBatchScreenState extends State<CvBatchScreen> {
   final aInput = TextEditingController();
   List<Map<String, dynamic>> aOffers = [];
   List<CvOfferMatch> aMatches = [];
+  List<CvGapItem> aGap = [];
   bool aAnalysed = false;
 
   @override
@@ -40,7 +42,12 @@ class _CvBatchScreenState extends State<CvBatchScreen> {
       (pVersion) => buildCvDocument(vProfile, pVersion).plainText,
     );
 
+    final vCvText = [
+      for (final vVersion in widget.state.cvVersions) buildCvDocument(vProfile, vVersion).plainText,
+    ].join('\n');
+
     setState(() {
+      aGap = skillGap([for (final vOffer in pOffers) offerText(vOffer)], vCvText);
       aOffers = pOffers;
       aMatches = vMatches;
       aAnalysed = true;
@@ -107,6 +114,23 @@ class _CvBatchScreenState extends State<CvBatchScreen> {
                 ),
               ),
             ),
+          if (aAnalysed && aMatches.length > 1) ...[
+            const SizedBox(height: 16),
+            Text(vTexts.cvEcart, style: Theme.of(context).textTheme.titleSmall),
+            Text(vTexts.cvEcartAide),
+            if (aGap.isEmpty) Text(vTexts.cvEcartVide),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: [
+                for (final vItem in aGap)
+                  Chip(
+                    label: Text(vTexts.cvEcartMot(vItem.word, '${vItem.offers}')),
+                    visualDensity: VisualDensity.compact,
+                  ),
+              ],
+            ),
+          ],
         ],
       ),
     );
