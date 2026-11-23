@@ -13,6 +13,12 @@ PC, sur mon NAS et sur mon téléphone, sans service payant.
 
 ![Page Mon marché : salaire médian et compétences à travailler, sur des données fictives](docs/captures/marche.png)
 
+L'appli mobile, sur les mêmes données fictives : l'accueil, le bilan d'une plongée et le carnet de la semaine. Captures refaites par le workflow Captures (`mobile/test/captures/`).
+
+| Accueil | Bilan de plongée | Carnet de la semaine |
+|---|---|---|
+| ![Accueil de l'appli mobile](docs/captures/mobile-accueil.png) | ![Bilan d'une plongée dans le thème Docker](docs/captures/mobile-bilan-plongee.png) | ![Carnet de plongée de la semaine](docs/captures/mobile-carnet-plongee.png) |
+
 Le projet s'appelait `scraper-data-python` : il a commencé comme un scraper de pages
 web, avant que toutes les sources passent par des API.
 
