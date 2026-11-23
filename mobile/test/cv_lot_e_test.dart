@@ -85,7 +85,9 @@ void main() {
 
     test('compare avec la version et la formation', () {
       const vOffer = 'Développeur confirmé, 5 ans d’expérience, bac+5';
-      final vKinds = [for (final vItem in stretchSignals(vOffer, sampleProfile, pYears: 2)) vItem.kind];
+      final vKinds = [
+        for (final vItem in stretchSignals(vOffer, sampleProfile, pYears: 2)) vItem.kind
+      ];
 
       expect(vKinds, [CvStretchKind.years, CvStretchKind.seniority, CvStretchKind.degree]);
     });
