@@ -7,8 +7,8 @@ import 'cv_prep.dart';
 import 'cv_profile.dart';
 import 'cv_version.dart';
 
-class CvContact {
-  const CvContact({
+class CvPerson {
+  const CvPerson({
     required this.id,
     required this.name,
     this.company = '',
@@ -38,7 +38,7 @@ class CvContact {
         'nextAt': nextAt,
       };
 
-  static CvContact fromJson(Map<String, Object?> pJson) => CvContact(
+  static CvPerson fromJson(Map<String, Object?> pJson) => CvPerson(
         id: '${pJson['id']}',
         name: '${pJson['name'] ?? ''}',
         company: '${pJson['company'] ?? ''}',
@@ -93,7 +93,7 @@ DateTime? _day(String pValue) {
 /// aujourd'hui), dans l'ordre des jours.
 List<CvWeekItem> weekPlan({
   required List<Map<String, dynamic>> pSent,
-  required List<CvContact> pContacts,
+  required List<CvPerson> pContacts,
   required List<CvTraining> pTrainings,
   required DateTime pNow,
 }) {

@@ -33,7 +33,7 @@ class CvAgendaScreen extends StatelessWidget {
     if (vValues != null && vValues.first.trim().isNotEmpty) {
       await state.saveCvContacts([
         ...state.cvContacts,
-        CvContact(
+        CvPerson(
           id: const Uuid().v4(),
           name: vValues[0].trim(),
           company: vValues[1].trim(),
@@ -116,7 +116,7 @@ class CvAgendaScreen extends StatelessWidget {
                     onPressed: () => state.saveCvContacts([
                       for (final vOther in state.cvContacts)
                         if (vOther.id == vContact.id)
-                          CvContact(
+                          CvPerson(
                             id: vOther.id,
                             name: vOther.name,
                             company: vOther.company,
