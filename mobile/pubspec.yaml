@@ -14,6 +14,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  # Paquet de départ décompressé en Dart pur, aussi dans le navigateur
+  archive: ^4.0.7
+  # Stockage du navigateur pour la version web
+  web: ^1.1.1
   # Jeton de l'API rangé dans le stockage chiffré du téléphone
   flutter_local_notifications: ^23.0.3
   flutter_secure_storage: ^11.2.0

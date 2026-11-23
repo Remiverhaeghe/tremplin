@@ -944,5 +944,6 @@
       }
     }
   },
-  "voiceEmpty": "Aucune question à choix à revoir pour l'instant."
+  "voiceEmpty": "Aucune question à choix à revoir pour l'instant.",
+  "connectWebNoScan": "Dans le navigateur, le PC ne se cherche pas tout seul : scannez son QR code ou tapez son adresse. Ouvrez d'abord cette adresse dans Safari pour accepter son certificat."
 }

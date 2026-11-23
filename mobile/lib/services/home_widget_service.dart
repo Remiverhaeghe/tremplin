@@ -1,12 +1,6 @@
 // Widget de l'écran d'accueil Android : questions à revoir et prochain entretien,
 // mis à jour après chaque synchronisation.
 
-import 'dart:async';
-import 'dart:developer';
-
-import 'package:flutter/services.dart';
-import 'package:home_widget/home_widget.dart';
-
 import '../logic/interview_alerts.dart';
 
 /// Nom de la classe Kotlin qui dessine le widget (android/app/src/main/kotlin).
@@ -58,28 +52,4 @@ abstract class HomeWidgetUpdater {
   /// Adresses par lesquelles le widget a ouvert l'application : celle du lancement, puis
   /// chaque toucher pendant qu'elle tourne.
   Stream<Uri?> launches();
-}
-
-class AndroidHomeWidget implements HomeWidgetUpdater {
-  @override
-  Future<void> show((String, String) pLines) async {
-    try {
-      await HomeWidget.saveWidgetData<String>('due', pLines.$1);
-      await HomeWidget.saveWidgetData<String>('next', pLines.$2);
-      await HomeWidget.updateWidget(androidName: widgetProviderName);
-    } on PlatformException catch (vException) {
-      // Un widget indisponible n'empêche pas la synchronisation.
-      log('Widget non mis à jour : ${vException.message}', name: 'widget');
-    }
-  }
-
-  @override
-  Stream<Uri?> launches() async* {
-    try {
-      yield await HomeWidget.initiallyLaunchedFromHomeWidget();
-    } on PlatformException catch (vException) {
-      log('Lancement du widget illisible : ${vException.message}', name: 'widget');
-    }
-    yield* HomeWidget.widgetClicked;
-  }
 }

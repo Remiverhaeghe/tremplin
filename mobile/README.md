@@ -161,6 +161,28 @@ modification : `dart run flutter_launcher_icons`.
 - Échec de `ninja` sur un chemin contenant un accent : voir `PUB_CACHE` et
   `GRADLE_USER_HOME` plus haut.
 
+## Version web, sur l'iPhone
+
+La CI publie une version web à chaque fusion sur `main` :
+`https://remiverhaeghe.github.io/tremplin/`. Dans Safari, Partager puis « Sur l'écran
+d'accueil » l'installe comme une application, en plein écran. Elle se garde en cache
+(service worker écrit par `tools/web_service_worker.py`) : « Réviser sans le PC » marche
+ensuite sans réseau.
+
+Ce qui reste sur Android : notifications, widget, vérification des offres en arrière-plan,
+recherche du PC sur le Wi-Fi, certificat épinglé et bac à sable SQL. Pour synchroniser
+depuis le navigateur, ouvrir une fois l'adresse du PC dans Safari pour accepter son
+certificat, puis scanner le QR code ou taper l'adresse ; le serveur n'accepte que les
+origines de `MOBILE_WEB_ORIGINS` (GitHub Pages par défaut).
+
+Construction à la main :
+
+```powershell
+flutter create --platforms=web --project-name jobboard_revision .
+flutter build web --release --base-href /tremplin/
+python ..\tools\web_service_worker.py build\web
+```
+
 ## Premier lancement
 
 1. Sur le PC, lancer le tableau de bord en écoutant sur le réseau (`WEB_HOST`
