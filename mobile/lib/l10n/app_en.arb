@@ -633,5 +633,32 @@
   "cvModelesMessage": "Short message",
   "cvModelesEnregistres": "Templates saved",
   "cvReponses": "Form answers",
-  "cvReponseCopiee": "Answer copied"
+  "cvReponseCopiee": "Answer copied",
+  "cvSectionCertifications": "Certifications and licences",
+  "cvVersionVirage": "Why the career change?",
+  "cvVersionVirageAide": "A few sentences for this kind of job; they go into the full letter.",
+  "cvAjouter": "Add a project or a certification",
+  "cvAjouterProjet": "Project",
+  "cvAjouterHabilitation": "Certification",
+  "cvAjouterNom": "Name",
+  "cvAjouterLien": "Public link of the project",
+  "cvAjouterLignes": "What it does, one line per sentence",
+  "cvAjouterDetail": "Issuer or level",
+  "cvAjouterDates": "Date or year",
+  "cvAjouterDansVersions": "Add to the developer versions",
+  "cvAjouterOk": "Added to your background",
+  "cvAjouterVide": "Enter at least a name.",
+  "cvTraductions": "Trade words to reuse",
+  "cvTraductionsAide": "Your CV says “{value0}”, the offer says “{value1}”. Use the offer's word only if it is true.",
+  "@cvTraductionsAide": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvTraductionsUtiliser": "Use"
 }

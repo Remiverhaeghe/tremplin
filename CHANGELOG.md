@@ -5,6 +5,12 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot D (habilitations, virage, mots du secteur, ajout)
+- Section « Habilitations et permis » (habilitations, permis, formations courtes), activable par version
+- « Pourquoi ce changement de métier ? » : un texte par version, écrit par Rémi, repris dans la lettre complète
+- Mots du secteur : quand l'offre emploie « maintenance préventive » et que le CV dit « contrôles périodiques », l'appli propose le mot de l'offre ; Rémi l'accepte ou non, un mot à la fois, pour cette candidature seulement. Équivalences de départ dans `cv_translate.dart`
+- Ajouter un projet ou une habilitation depuis l'appli : le projet rejoint les versions qui ont une section Projets, l'habilitation ajoute sa section aux versions qui ne l'avaient pas
+
 ### Appli mobile : CV, lot C (lettre, relecture, réponses de formulaire)
 - Lettre de motivation à modèles, sans IA : Rémi écrit ses modèles une fois (début, exemple de projet, fin, message court) ; l'appli remplit l'entreprise, le poste, ses coordonnées et les deux projets les plus proches de l'offre. Trois longueurs : complète, courte (formulaire en ligne), message (courriel ou LinkedIn)
 - Relecture : formules toutes faites (« je me permets », « n'hésitez pas »…), trois phrases de suite en « je », texte trop long, mot à remplir oublié, chiffre à pouvoir défendre, entreprise manquante

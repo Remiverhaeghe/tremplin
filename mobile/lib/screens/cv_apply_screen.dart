@@ -7,6 +7,7 @@ import '../l10n/texts.dart';
 import '../logic/cv_check.dart';
 import '../logic/cv_document.dart';
 import '../logic/cv_tailor.dart';
+import '../logic/cv_translate.dart';
 import '../revision_state.dart';
 import '../services/file_sender.dart';
 import '../theme.dart';
@@ -42,6 +43,9 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
   String? aVersionId;
   bool aTailored = true;
 
+  /// Mots du métier acceptés pour cette candidature : ancien mot vers mot de l'offre.
+  final Map<String, String> aWording = {};
+
   @override
   Widget build(BuildContext context) {
     final vTexts = context.texts;
@@ -69,7 +73,9 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
       (pItem) => pItem.id == aVersionId,
       orElse: () => vBest.version,
     );
-    final vFinal = aTailored ? tailorVersion(vProfile, vChosen, vOffer) : vChosen;
+    final vTailored = aTailored ? tailorVersion(vProfile, vChosen, vOffer) : vChosen;
+    final vFinal = vTailored.copyWith(wording: {...vTailored.wording, ...aWording});
+    final vSuggestions = suggestWordings(vOffer, vProfile, pApplied: vFinal.wording);
     final vReport = keywordReport(vOffer, buildCvDocument(vProfile, vFinal));
     final vCompany = '${widget.offer['company'] ?? ''}';
 
@@ -129,6 +135,29 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
                 ),
             ],
           ),
+          if (vSuggestions.isNotEmpty || aWording.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Text(vTexts.cvTraductions, style: vTheme.textTheme.titleSmall),
+            for (final vWording in vSuggestions)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(vTexts.cvTraductionsAide(vWording.from, vWording.to)),
+                trailing: TextButton(
+                  onPressed: () => setState(() => aWording[vWording.from] = vWording.to),
+                  child: Text(vTexts.cvTraductionsUtiliser),
+                ),
+              ),
+            Wrap(
+              spacing: 6,
+              children: [
+                for (final vEntry in aWording.entries)
+                  InputChip(
+                    label: Text('${vEntry.key} → ${vEntry.value}'),
+                    onDeleted: () => setState(() => aWording.remove(vEntry.key)),
+                  ),
+              ],
+            ),
+          ],
           const SizedBox(height: 12),
           OutlinedButton.icon(
             onPressed: () => Navigator.of(context).push(
