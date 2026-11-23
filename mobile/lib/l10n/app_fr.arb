@@ -1344,5 +1344,10 @@
   },
   "setupLangue": "Langue",
   "setupFrancais": "Français",
-  "setupEnglish": "English"
+  "setupEnglish": "English",
+  "navReviser": "Réviser",
+  "navOffres": "Offres",
+  "navSuivi": "Suivi",
+  "navEntretien": "Entretien",
+  "navPlus": "Plus"
 }

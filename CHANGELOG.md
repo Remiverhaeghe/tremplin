@@ -5,6 +5,10 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : barre du bas traduite
+- Les libellés de la barre du bas passent dans l'ARB : ils restaient en français dans la version anglaise. « Candidatures » devient « Suivi », qui tient sur une ligne sur un écran de 360 dp
+- Captures aussi en anglais (`mobile-en-*.png`, dans l'artefact du workflow Captures), pour une future fiche du Play Store
+
 ### Appli mobile : choix de la langue
 - Réglage « Langue » : comme le téléphone, français ou anglais. Les notifications et le
   widget d'accueil suivent ce choix, tâche d'arrière-plan comprise.

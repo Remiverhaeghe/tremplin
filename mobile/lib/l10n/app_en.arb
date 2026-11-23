@@ -390,5 +390,10 @@
   "interviewAlertWhen": "{what}, at {time}",
   "setupLangue": "Language",
   "setupFrancais": "Français",
-  "setupEnglish": "English"
+  "setupEnglish": "English",
+  "navReviser": "Study",
+  "navOffres": "Jobs",
+  "navSuivi": "Tracking",
+  "navEntretien": "Interview",
+  "navPlus": "More"
 }

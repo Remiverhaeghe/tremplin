@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:jobboard_revision/l10n/texts.dart';
 import 'package:jobboard_revision/main.dart';
 import 'package:jobboard_revision/screens/dive_log_screen.dart';
 import 'package:jobboard_revision/screens/dive_result_screen.dart';
@@ -50,7 +51,7 @@ Future<void> settle(WidgetTester pTester) async {
 void main() {
   setUpAll(loadFonts);
 
-  testWidgets('accueil, bilan de plongée et carnet de la semaine', (pTester) async {
+  testWidgets('accueil, bilan de plongée et carnet, en français et en anglais', (pTester) async {
     // Écran d'un téléphone courant : 1080 × 2340 pixels
     pTester.view.physicalSize = const Size(1080, 2340);
     pTester.view.devicePixelRatio = 3;
@@ -71,32 +72,40 @@ void main() {
     });
 
     await pTester.pumpWidget(RevisionApp(state: vState!));
-    await settle(pTester);
-    await capture('mobile-accueil');
+    addTearDown(() => aChosenLanguage = 'system');
 
-    final vNavigator = pTester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(
-      vNavigator.push(
-        MaterialPageRoute<void>(
-          builder: (_) => const DiveResultScreen(
-            title: 'Docker',
-            dive: (answered: 8, correct: 7, before: 1.2, after: 1.9),
+    // Même parcours en français, puis en anglais pour une future fiche du Play Store
+    for (final (vLanguage, vPrefix) in [('fr', 'mobile'), ('en', 'mobile-en')]) {
+      await pTester.runAsync(() => vState.setDisplay(pLanguage: vLanguage));
+      await settle(pTester);
+      await capture('$vPrefix-accueil');
+
+      final vNavigator = pTester.state<NavigatorState>(find.byType(Navigator).first);
+      unawaited(
+        vNavigator.push(
+          MaterialPageRoute<void>(
+            builder: (_) => const DiveResultScreen(
+              title: 'Docker',
+              dive: (answered: 8, correct: 7, before: 1.2, after: 1.9),
+            ),
           ),
         ),
-      ),
-    );
-    await settle(pTester);
-    await capture('mobile-bilan-plongee');
-    vNavigator.pop();
-    await settle(pTester);
+      );
+      await settle(pTester);
+      await capture('$vPrefix-bilan-plongee');
+      vNavigator.pop();
+      await settle(pTester);
 
-    unawaited(
-      vNavigator.push(
-        MaterialPageRoute<void>(builder: (_) => DiveLogScreen(state: vState, today: vToday)),
-      ),
-    );
-    await settle(pTester);
-    await capture('mobile-carnet-plongee');
+      unawaited(
+        vNavigator.push(
+          MaterialPageRoute<void>(builder: (_) => DiveLogScreen(state: vState, today: vToday)),
+        ),
+      );
+      await settle(pTester);
+      await capture('$vPrefix-carnet-plongee');
+      vNavigator.pop();
+      await settle(pTester);
+    }
     // Remis avant le contrôle des variables de dessin, fait avant les addTearDown
     debugDisableShadows = true;
   });

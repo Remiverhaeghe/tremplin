@@ -168,30 +168,30 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       bottomNavigationBar: NavigationBar(
         selectedIndex: tab,
         onDestinationSelected: openTab,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.school_outlined),
+            icon: const Icon(Icons.school_outlined),
             selectedIcon: Icon(Icons.school),
-            label: 'Réviser',
+            label: context.texts.navReviser,
           ),
           NavigationDestination(
-            icon: Icon(Icons.work_outline),
+            icon: const Icon(Icons.work_outline),
             selectedIcon: Icon(Icons.work),
-            label: 'Offres',
+            label: context.texts.navOffres,
           ),
           NavigationDestination(
-            icon: Icon(Icons.assignment_outlined),
+            icon: const Icon(Icons.assignment_outlined),
             selectedIcon: Icon(Icons.assignment),
-            label: 'Candidatures',
+            label: context.texts.navSuivi,
           ),
           NavigationDestination(
-            icon: Icon(Icons.record_voice_over_outlined),
+            icon: const Icon(Icons.record_voice_over_outlined),
             selectedIcon: Icon(Icons.record_voice_over),
-            label: 'Entretien',
+            label: context.texts.navEntretien,
           ),
           NavigationDestination(
-            icon: Icon(Icons.more_horiz),
-            label: 'Plus',
+            icon: const Icon(Icons.more_horiz),
+            label: context.texts.navPlus,
           ),
         ],
       ),
