@@ -12,7 +12,7 @@ import 'cv_version.dart';
 enum LetterLength { full, short, message }
 
 /// Les modèles de Rémi. Les mots entre accolades sont remplis : `{poste}`, `{entreprise}`,
-/// `{nom}`, `{telephone}`, `{disponibilite}`, `{preavis}`, `{accroche}`, `{projet}`,
+/// `{nom}`, `{telephone}`, `{disponibilite}`, `{preavis}`, `{accroche}`, `{virage}`, `{projet}`,
 /// `{projet_detail}`.
 class LetterKit {
   const LetterKit({
@@ -121,6 +121,7 @@ List<String> buildLetter({
     'disponibilite': _sentence(vContact.availability),
     'preavis': _sentence(vContact.notice),
     'accroche': pVersion.summary.trim(),
+    'virage': pVersion.pivot.trim(),
   };
 
   String proof(({String name, String detail}) pProof) => fillTemplate(
@@ -137,6 +138,9 @@ List<String> buildLetter({
     rParagraphs.add(fillTemplate(pKit.hook, vBase));
     if (pLength == LetterLength.full && vBase['accroche']!.isNotEmpty) {
       rParagraphs.add(vBase['accroche']!);
+    }
+    if (pLength == LetterLength.full && vBase['virage']!.isNotEmpty) {
+      rParagraphs.add(vBase['virage']!);
     }
     rParagraphs.addAll(vProofs.map(proof));
     rParagraphs.add(fillTemplate(pKit.closing, vBase));

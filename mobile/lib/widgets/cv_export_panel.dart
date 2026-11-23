@@ -38,6 +38,7 @@ String cvSectionLabel(AppLocalizations pTexts, CvSection pSection) => switch (pS
       CvSection.projects => pTexts.cvSectionProjects,
       CvSection.skills => pTexts.cvSectionSkills,
       CvSection.education => pTexts.cvSectionEducation,
+      CvSection.certifications => pTexts.cvSectionCertifications,
       CvSection.languages => pTexts.cvSectionLanguages,
       CvSection.strengths => pTexts.cvSectionStrengths,
       CvSection.interests => pTexts.cvSectionInterests,

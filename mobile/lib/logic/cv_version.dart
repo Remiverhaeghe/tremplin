@@ -4,7 +4,17 @@
 import 'cv_profile.dart';
 
 /// Sections possibles, dans l'ordre où une version les range.
-enum CvSection { summary, experience, projects, skills, education, languages, strengths, interests }
+enum CvSection {
+  summary,
+  experience,
+  projects,
+  skills,
+  education,
+  certifications,
+  languages,
+  strengths,
+  interests,
+}
 
 class CvVersion {
   const CvVersion({
@@ -16,6 +26,8 @@ class CvVersion {
     this.experienceIds = const [],
     this.projectIds = const [],
     this.skillIds = const [],
+    this.pivot = '',
+    this.wording = const {},
     this.withPhoto = false,
   });
 
@@ -37,6 +49,13 @@ class CvVersion {
   final List<String> experienceIds;
   final List<String> projectIds;
   final List<String> skillIds;
+
+  /// Pourquoi ce changement de métier, écrit par Rémi pour ce type de poste ; repris dans la lettre.
+  final String pivot;
+
+  /// Mots du parcours remplacés par ceux du secteur visé, choisis un par un : « ancien mot » vers
+  /// « nouveau mot ». Appliqués aux lignes d'expérience, de projet et à l'accroche.
+  final Map<String, String> wording;
   final bool withPhoto;
 
   CvVersion copyWith({
@@ -47,6 +66,8 @@ class CvVersion {
     List<String>? experienceIds,
     List<String>? projectIds,
     List<String>? skillIds,
+    String? pivot,
+    Map<String, String>? wording,
     bool? withPhoto,
   }) =>
       CvVersion(
@@ -58,6 +79,8 @@ class CvVersion {
         experienceIds: experienceIds ?? this.experienceIds,
         projectIds: projectIds ?? this.projectIds,
         skillIds: skillIds ?? this.skillIds,
+        pivot: pivot ?? this.pivot,
+        wording: wording ?? this.wording,
         withPhoto: withPhoto ?? this.withPhoto,
       );
 
@@ -70,6 +93,8 @@ class CvVersion {
         'experienceIds': experienceIds,
         'projectIds': projectIds,
         'skillIds': skillIds,
+        'pivot': pivot,
+        'wording': wording,
         'withPhoto': withPhoto,
       };
 
@@ -91,6 +116,11 @@ class CvVersion {
       experienceIds: strings('experienceIds'),
       projectIds: strings('projectIds'),
       skillIds: strings('skillIds'),
+      pivot: pJson['pivot'] as String? ?? '',
+      wording: {
+        for (final vEntry in (pJson['wording'] as Map?)?.entries ?? const <MapEntry>[])
+          '${vEntry.key}': '${vEntry.value}',
+      },
       withPhoto: pJson['withPhoto'] as bool? ?? false,
     );
   }
@@ -108,12 +138,13 @@ List<CvVersion> startingVersions(CvProfile pProfile) {
     CvVersion(
       id: 'developpeur',
       label: 'Développeur',
-      sections: const [
+      sections: [
         CvSection.summary,
         CvSection.experience,
         CvSection.projects,
         CvSection.skills,
         CvSection.education,
+        if (pProfile.certifications.isNotEmpty) CvSection.certifications,
         CvSection.languages,
       ],
       experienceIds: vExperiences,
@@ -123,11 +154,12 @@ List<CvVersion> startingVersions(CvProfile pProfile) {
     CvVersion(
       id: 'industrie',
       label: 'Industrie et méthodes',
-      sections: const [
+      sections: [
         CvSection.summary,
         CvSection.experience,
         CvSection.skills,
         CvSection.education,
+        if (pProfile.certifications.isNotEmpty) CvSection.certifications,
         CvSection.languages,
         CvSection.strengths,
       ],
