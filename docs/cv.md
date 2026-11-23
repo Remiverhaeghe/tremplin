@@ -30,3 +30,7 @@ Numéros : les 30 évolutions validées le 23 novembre 2026.
 - PDF visuel : bandeau et titres de section en couleur, même texte, pour l'envoi par courriel.
 - Word (`.docx`) et texte brut.
 - Le fichier part par la feuille de partage du système (courriel, Drive, enregistrer).
+
+## PDF visuel
+
+Dessiné en vecteurs autour du texte (`lib/logic/cv_pdf_visual.dart`) : photo ronde, pastilles de contact, bandeaux de section, frise du parcours, étoiles de niveau. Champs facultatifs du parcours : `photo` (JPEG en base 64) et `level` (1 à 5) sur chaque famille de compétences. Le PDF sobre, fait pour les logiciels de tri, n'a ni photo ni décor.

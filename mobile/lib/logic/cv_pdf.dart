@@ -9,6 +9,8 @@ import 'dart:typed_data';
 import 'cv_document.dart';
 import 'cv_version.dart';
 
+part 'cv_pdf_visual.dart';
+
 enum CvPdfStyle { plain, visual }
 
 const _pageWidth = 595.28;
@@ -16,7 +18,6 @@ const _pageHeight = 841.89;
 const _marginSide = 50.0;
 const _marginTop = 52.0;
 const _marginBottom = 48.0;
-const _bandHeight = 96.0;
 
 /// Largeurs Helvetica des caractères 32 à 126, en millièmes de corps.
 const _regularWidths = <int>[
@@ -190,13 +191,22 @@ class _Painter {
   final pages = <StringBuffer>[StringBuffer()];
   double top = _marginTop;
 
+  /// Photo du PDF visuel, null sans photo.
+  _Photo? photo;
+
+  /// Place laissée à droite du texte, pour les étoiles d'une ligne de compétences.
+  double reserve = 0;
+
+  /// Rang de la famille de compétences en cours, pour sa couleur.
+  int family = 0;
+
   bool get visual => style == CvPdfStyle.visual;
 
   StringBuffer get page => pages.last;
 
   double get right => _pageWidth - _marginSide;
 
-  double get textWidth => right - _marginSide;
+  double get textWidth => right - _marginSide - reserve;
 
   void ensure(double pHeight) {
     if (top + pHeight > _pageHeight - _marginBottom) {
@@ -241,7 +251,7 @@ class _Painter {
   }
 
   /// « Libellé : texte » avec le libellé en gras, sur la même ligne.
-  void labelled(String pLabel, String pText, {double pSize = 10}) {
+  void labelled(String pLabel, String pText, {double pSize = 10, int pLabelRgb = 0x1A1A1A}) {
     final vLead = pSize * 1.35;
     final vLabel = '$pLabel : ';
     final vLabelWidth = cvTextWidth(vLabel, pSize: pSize, pBold: true);
@@ -264,7 +274,7 @@ class _Painter {
     for (final vPart in vParts) {
       ensure(vLead);
       if (vPart.$2) {
-        text(vLabel, pSize: pSize, pBold: true);
+        text(vLabel, pSize: pSize, pBold: true, pRgb: pLabelRgb);
         text(vPart.$1, pSize: pSize, pX: _marginSide + vLabelWidth);
       } else {
         text(vPart.$1, pSize: pSize);
@@ -289,57 +299,66 @@ Uint8List buildCvPdf(
   CvPdfStyle pStyle = CvPdfStyle.plain,
   int pAccent = 0x1F5F8B,
 }) =>
-    _assemble(_paint(pDocument, pStyle, pAccent), pDocument);
+    _assembleFrom(_paint(pDocument, pStyle, pAccent), pDocument);
 
 /// Nombre de pages que prendrait le document.
 int cvPageCount(CvDocument pDocument, {CvPdfStyle pStyle = CvPdfStyle.plain}) =>
-    _paint(pDocument, pStyle, 0x1F5F8B).length;
+    _paint(pDocument, pStyle, 0x1F5F8B).pages.length;
 
-List<StringBuffer> _paint(CvDocument pDocument, CvPdfStyle pStyle, int pAccent) {
+_Painter _paint(CvDocument pDocument, CvPdfStyle pStyle, int pAccent) {
   final vPainter = _Painter(pStyle, pAccent);
 
   if (vPainter.visual) {
-    vPainter.page.writeln('${_color(pAccent)} rg 0 ${_number(_pageHeight - _bandHeight)} '
-        '${_number(_pageWidth)} ${_number(_bandHeight)} re f');
-    vPainter.top = 28;
-    vPainter.text(pDocument.name, pSize: 24, pBold: true, pRgb: 0xFFFFFF);
-    vPainter.top += 30;
-    if (pDocument.headline.isNotEmpty) {
-      vPainter.text(pDocument.headline, pSize: 12.5, pRgb: 0xFFFFFF);
-    }
-    vPainter.top = _bandHeight + 16;
+    vPainter.photo = pDocument.photo.isEmpty ? null : _Photo.tryRead(pDocument.photo);
+    vPainter.header(pDocument);
   } else {
     vPainter.paragraph(pDocument.name, pSize: 22, pBold: true, pAfter: 1);
     if (pDocument.headline.isNotEmpty) {
       vPainter.paragraph(pDocument.headline, pSize: 12.5, pAfter: 2);
     }
   }
-  if (pDocument.contactLines.isNotEmpty) {
+  if (!vPainter.visual && pDocument.contactLines.isNotEmpty) {
     vPainter.paragraph(pDocument.contactLines.join('   |   '),
         pSize: 9.5, pRgb: vPainter.visual ? 0x44505A : 0x1A1A1A, pAfter: 6);
   }
 
   for (final vSection in pDocument.sections) {
-    vPainter
-      ..top += 6
-      ..ensure(40)
-      ..paragraph(vSection.heading,
-          pSize: 12, pBold: true, pRgb: vPainter.visual ? pAccent : 0x1A1A1A, pAfter: 0);
-    vPainter
-      ..top -= 2
-      ..rule(vPainter.visual ? pAccent : 0x1A1A1A, vPainter.visual ? 0.9 : 0.5)
-      ..top += 6;
+    if (vPainter.visual) {
+      vPainter.band(vSection.heading);
+    } else {
+      vPainter
+        ..top += 6
+        ..ensure(40)
+        ..paragraph(vSection.heading, pSize: 12, pBold: true, pAfter: 0);
+      vPainter
+        ..top -= 2
+        ..rule(0x1A1A1A, 0.5)
+        ..top += 6;
+    }
+    vPainter.family = 0;
     for (final vBlock in vSection.blocks) {
       _block(vPainter, vSection.section, vBlock);
     }
   }
 
-  return vPainter.pages;
+  return vPainter;
 }
 
 void _block(_Painter pPainter, CvSection pSection, CvBlock pBlock) {
   final vMuted = pPainter.visual ? 0x44505A : 0x1A1A1A;
   switch (pSection) {
+    case CvSection.skills when pBlock.title.isNotEmpty && pPainter.visual:
+      final vColor = _palette[pPainter.family++ % _palette.length];
+      final vStars = pBlock.level > 0;
+
+      pPainter.ensure(24);
+      pPainter.fillRect(_marginSide - 8, pPainter.top, 3, 13.5, vColor);
+      if (vStars) {
+        pPainter.stars(pBlock.level, 13.5);
+        pPainter.reserve = 70;
+      }
+      pPainter.labelled(pBlock.title, pBlock.lines.join(', '), pLabelRgb: vColor);
+      pPainter.reserve = 0;
     case CvSection.skills when pBlock.title.isNotEmpty:
     case CvSection.languages when pBlock.title.isNotEmpty:
       pPainter.labelled(pBlock.title, pBlock.lines.join(', '));
@@ -354,6 +373,11 @@ void _block(_Painter pPainter, CvSection pSection, CvBlock pBlock) {
       }
     default:
       pPainter.ensure(40);
+      final vPage = pPainter.pages.length - 1;
+      final vFrom = pPainter.top;
+      if (pPainter.visual && pBlock.title.isNotEmpty) {
+        pPainter.timelineDot(vFrom);
+      }
       if (pBlock.title.isNotEmpty) {
         pPainter.paragraph(pBlock.title, pBold: true, pSize: 10.5, pAfter: 0);
       }
@@ -364,11 +388,22 @@ void _block(_Painter pPainter, CvSection pSection, CvBlock pBlock) {
       for (final vLine in pBlock.lines) {
         pPainter.paragraph(vLine, pIndent: 12, pBullet: '•', pAfter: 1);
       }
+      if (pPainter.visual && pBlock.title.isNotEmpty) {
+        pPainter.timeline(vPage, vFrom, pPainter.top);
+      }
       pPainter.top += 5;
   }
 }
 
-Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument, {String pTitle = ''}) {
+Uint8List _assembleFrom(_Painter pPainter, CvDocument pDocument) =>
+    _assemble(pPainter.pages, pDocument, pPhoto: pPainter.photo);
+
+Uint8List _assemble(
+  List<StringBuffer> pPages,
+  CvDocument pDocument, {
+  String pTitle = '',
+  _Photo? pPhoto,
+}) {
   final vObjects = <String>[];
   final vFirstPage = 6;
   final vKids = [
@@ -387,9 +422,15 @@ Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument, {String pTi
     final vContent = pPages[vIndex].toString();
     vObjects
       ..add('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${_number(_pageWidth)} '
-          '${_number(_pageHeight)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> '
+          '${_number(_pageHeight)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >>${pPhoto == null ? '' : ' /XObject << /Im1 ${vFirstPage + pPages.length * 2} 0 R >>'} >> '
           '/Contents ${vFirstPage + vIndex * 2 + 1} 0 R >>')
       ..add('<< /Length ${vContent.length} >>\nstream\n$vContent\nendstream');
+  }
+  if (pPhoto != null) {
+    vObjects.add(
+        '<< /Type /XObject /Subtype /Image /Width ${pPhoto.width} /Height ${pPhoto.height} '
+        '/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${pPhoto.bytes.length} >>\n'
+        'stream\n${String.fromCharCodes(pPhoto.bytes)}\nendstream');
   }
 
   final vFile = StringBuffer('%PDF-1.4\n');

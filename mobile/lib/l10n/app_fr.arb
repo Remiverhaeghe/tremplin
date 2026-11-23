@@ -1827,5 +1827,7 @@
   "cvRestaureOk": "CV restauré.",
   "cvRestaureNon": "Mot de passe ou sauvegarde incorrect.",
   "cvDossier": "Exporter tout en texte",
-  "cvDossierAide": "Un seul fichier lisible sans l'appli : parcours, versions, candidatures, modèles. Il n'est pas chiffré : garde-le pour toi."
+  "cvDossierAide": "Un seul fichier lisible sans l'appli : parcours, versions, candidatures, modèles. Il n'est pas chiffré : garde-le pour toi.",
+  "cvVersionPhoto": "Photo dans le PDF visuel",
+  "cvVersionPhotoAide": "Il faut un champ « photo » (JPEG en base 64) dans le parcours importé. Le PDF sobre et le Word n'ont jamais de photo."
 }

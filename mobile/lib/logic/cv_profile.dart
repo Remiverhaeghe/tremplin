@@ -143,18 +143,28 @@ class CvProject {
 
 /// Un groupe de compétences : « Développement », avec ses mots-clés.
 class CvSkillGroup {
-  const CvSkillGroup({required this.id, required this.title, this.items = const []});
+  const CvSkillGroup({
+    required this.id,
+    required this.title,
+    this.items = const [],
+    this.level = 0,
+  });
 
   final String id;
   final String title;
   final List<String> items;
 
-  Map<String, Object?> toJson() => {'id': id, 'title': title, 'items': items};
+  /// Niveau de 1 à 5, montré en étoiles dans le PDF visuel ; 0 si Rémi ne le note pas.
+  final int level;
+
+  Map<String, Object?> toJson() =>
+      {'id': id, 'title': title, 'items': items, if (level > 0) 'level': level};
 
   static CvSkillGroup fromJson(Map<String, Object?> pJson) => CvSkillGroup(
         id: pJson['id']! as String,
         title: pJson['title']! as String,
         items: _strings(pJson['items']),
+        level: ((pJson['level'] as num?)?.toInt() ?? 0).clamp(0, 5),
       );
 }
 
@@ -183,6 +193,7 @@ class CvProfile {
     this.languages = const [],
     this.strengths = const [],
     this.interests = const [],
+    this.photo = '',
   });
 
   final CvContact contact;
@@ -197,6 +208,9 @@ class CvProfile {
   final List<String> strengths;
   final List<String> interests;
 
+  /// Photo en JPEG codée en base 64 ; vide sans photo. Elle ne sert qu'au PDF visuel.
+  final String photo;
+
   bool get isEmpty => contact.name.isEmpty && experiences.isEmpty && education.isEmpty;
 
   Map<String, Object?> toJson() => {
@@ -209,6 +223,7 @@ class CvProfile {
         'languages': [for (final vItem in languages) vItem.toJson()],
         'strengths': strengths,
         'interests': interests,
+        if (photo.isNotEmpty) 'photo': photo,
       };
 
   static CvProfile fromJson(Map<String, Object?> pJson) {
@@ -227,6 +242,7 @@ class CvProfile {
       languages: list('languages', CvLanguage.fromJson),
       strengths: _strings(pJson['strengths']),
       interests: _strings(pJson['interests']),
+      photo: pJson['photo'] as String? ?? '',
     );
   }
 
