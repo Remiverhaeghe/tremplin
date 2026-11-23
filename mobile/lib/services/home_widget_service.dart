@@ -1,8 +1,6 @@
 // Widget de l'écran d'accueil Android : questions à revoir et prochain entretien,
 // mis à jour après chaque synchronisation.
 
-
-
 import '../logic/interview_alerts.dart';
 
 /// Nom de la classe Kotlin qui dessine le widget (android/app/src/main/kotlin).
