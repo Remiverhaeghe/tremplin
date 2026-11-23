@@ -553,5 +553,85 @@
       }
     }
   },
-  "cvPlusieursAucune": "No offer to analyse."
+  "cvPlusieursAucune": "No offer to analyse.",
+  "cvLettre": "Letter",
+  "cvPostulerLettre": "Write the letter",
+  "cvLettreTitre": "Letter: {value0}",
+  "@cvLettreTitre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvLettreLongueur": "Length",
+  "cvLettreComplete": "Full",
+  "cvLettreCourte": "Short",
+  "cvLettreMessage": "Message",
+  "cvLettreRegenerer": "Start again from the template",
+  "cvLettreCopier": "Copy",
+  "cvLettreCopiee": "Letter copied",
+  "cvLettrePdf": "PDF",
+  "cvLettreRelecture": "Review",
+  "cvLettreRien": "Nothing to report.",
+  "cvRelectureFormule": "Stock phrase: “{value0}”",
+  "@cvRelectureFormule": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureJe": "Three sentences in a row start with “I”: {value0}",
+  "@cvRelectureJe": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureLong": "Too long: {value0} characters for {value1} advised",
+  "@cvRelectureLong": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureAccolade": "Word to fill in: {value0}",
+  "@cvRelectureAccolade": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureChiffre": "Figure you must be able to defend: {value0}",
+  "@cvRelectureChiffre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureEntreprise": "Company not filled in.",
+  "cvModeles": "Templates and answers",
+  "cvModelesAide": "Words filled in for each offer: {value0}",
+  "@cvModelesAide": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvModelesDebut": "Start of the letter",
+  "cvModelesPreuve": "Project example",
+  "cvModelesFin": "End of the letter",
+  "cvModelesMessage": "Short message",
+  "cvModelesEnregistres": "Templates saved",
+  "cvReponses": "Form answers",
+  "cvReponseCopiee": "Answer copied"
 }

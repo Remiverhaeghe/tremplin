@@ -10,6 +10,7 @@ import '../logic/cv_version.dart';
 import '../revision_state.dart';
 import '../services/file_sender.dart';
 import 'cv_batch_screen.dart';
+import 'cv_templates_screen.dart';
 import 'cv_version_screen.dart';
 
 String truthLabel(AppLocalizations pTexts, CvTruthIssue pIssue) => switch (pIssue.kind) {
@@ -116,6 +117,15 @@ class CvScreen extends StatelessWidget {
                   ),
                   icon: const Icon(Icons.checklist),
                   label: Text(vTexts.cvPlusieurs),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(pContext).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => CvTemplatesScreen(state: state),
+                    ),
+                  ),
+                  icon: const Icon(Icons.edit_note),
+                  label: Text(vTexts.cvModeles),
                 ),
                 TextButton(
                   onPressed: () => importProfile(pContext),

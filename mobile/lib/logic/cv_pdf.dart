@@ -357,7 +357,7 @@ void _block(_Painter pPainter, CvSection pSection, CvBlock pBlock) {
   }
 }
 
-Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument) {
+Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument, {String pTitle = ''}) {
   final vObjects = <String>[];
   final vFirstPage = 6;
   final vKids = [
@@ -369,7 +369,7 @@ Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument) {
     ..add('<< /Type /Pages /Kids [${vKids.join(' ')}] /Count ${pPages.length} >>')
     ..add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>')
     ..add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>')
-    ..add('<< /Title ${_pdfString('CV ${pDocument.name}')} /Author ${_pdfString(pDocument.name)} '
+    ..add('<< /Title ${_pdfString(pTitle.isEmpty ? 'CV ${pDocument.name}' : pTitle)} /Author ${_pdfString(pDocument.name)} '
         '/Subject ${_pdfString(pDocument.headline)} >>');
   for (var vIndex = 0; vIndex < pPages.length; vIndex++) {
     final vContent = pPages[vIndex].toString();
@@ -395,4 +395,30 @@ Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument) {
       'startxref\n$vXref\n%%EOF\n');
 
   return Uint8List.fromList(latin1.encode(vFile.toString()));
+}
+
+/// Lettre en PDF : le nom et les coordonnées en haut, puis un paragraphe par élément.
+Uint8List buildLetterPdf({
+  required String pName,
+  required List<String> pContactLines,
+  required List<String> pParagraphs,
+  CvPdfStyle pStyle = CvPdfStyle.plain,
+  int pAccent = 0x1F5F8B,
+}) {
+  final vPainter = _Painter(pStyle, pAccent);
+  final vColor = vPainter.visual ? pAccent : 0x1A1A1A;
+
+  vPainter.paragraph(pName, pSize: 15, pBold: true, pRgb: vColor, pAfter: 1);
+  if (pContactLines.isNotEmpty) {
+    vPainter.paragraph(pContactLines.join('   |   '), pSize: 9.5, pAfter: 18);
+  }
+  for (final vParagraph in pParagraphs) {
+    vPainter.paragraph(vParagraph, pSize: 11, pAfter: 9);
+  }
+
+  return _assemble(
+    vPainter.pages,
+    CvDocument(name: pName, headline: '', contactLines: pContactLines, sections: const []),
+    pTitle: 'Lettre de motivation $pName',
+  );
 }
