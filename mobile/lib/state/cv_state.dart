@@ -5,6 +5,8 @@ part of '../revision_state.dart';
 mixin CvState on ChangeNotifier {
   Map<String, dynamic> get preferences;
 
+  Reminders? get reminders;
+
   Future<void> savePreference(String pKey, Object pValue);
 
   CvProfile get cvProfile {
@@ -98,7 +100,12 @@ mixin CvState on ChangeNotifier {
       vAll[vIndex]['snapshot'] = '';
     }
     await savePreference(cvSentPreference, vAll);
+    await scheduleCvFollowUps();
   }
+
+  /// Replanifie les rappels de relance d'après les envois sans réponse.
+  Future<void> scheduleCvFollowUps() async =>
+      reminders?.scheduleFollowUps(followUpAlerts(cvSent, DateTime.now()));
 
   /// Change des champs d'un envoi noté (réponse reçue, relance faite, pièce jointe ajoutée).
   Future<void> updateCvSent(String pId, Map<String, Object?> pChanges) async {
@@ -106,8 +113,16 @@ mixin CvState on ChangeNotifier {
     final vAt = vAll.indexWhere((pItem) => '${pItem['id']}' == pId);
 
     if (vAt >= 0) {
-      vAll[vAt] = {...vAll[vAt], ...pChanges};
+      final vAnswered =
+          '${pChanges['outcome'] ?? ''}'.isNotEmpty && '${vAll[vAt]['answered_at'] ?? ''}'.isEmpty;
+
+      vAll[vAt] = {
+        ...vAll[vAt],
+        ...pChanges,
+        if (vAnswered) 'answered_at': DateTime.now().toIso8601String().split('.').first,
+      };
       await savePreference(cvSentPreference, vAll);
+      await scheduleCvFollowUps();
     }
   }
 

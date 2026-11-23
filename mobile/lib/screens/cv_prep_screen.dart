@@ -78,6 +78,14 @@ class CvPrepScreen extends StatelessWidget {
               ),
             ),
           ),
+          Text(vTexts.cvPrepAPoser, style: Theme.of(context).textTheme.titleSmall),
+          for (final vAsk in questionsToAsk(
+            offerText(offer),
+            state.cvProfile,
+            vVersion,
+            pCompany: '${offer['company'] ?? ''}',
+          ))
+            ListTile(dense: true, title: Text(vAsk)),
           for (final vItem in vQuestions)
             Card(
               child: ListTile(
