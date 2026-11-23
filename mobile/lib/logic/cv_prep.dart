@@ -35,16 +35,15 @@ List<CvPrepQuestion> prepQuestions(
     if (pCompany.trim().isNotEmpty) CvPrepQuestion('why-company', pCompany.trim()),
     if (pVersion.pivot.trim().isNotEmpty) CvPrepQuestion('pivot', '', pVersion.pivot.trim()),
     if (pProfile.projects.isNotEmpty)
-      CvPrepQuestion('project', pProfile.projects.first.name, pProfile.projects.first.lines.join(' ')),
+      CvPrepQuestion(
+          'project', pProfile.projects.first.name, pProfile.projects.first.lines.join(' ')),
   ];
 
   for (final vWord in offerKeywords(pOffer, pLimit: 12)) {
     final vFound = vLines.where((pLine) => cvPlain(pLine).contains(vWord)).toList();
 
     rQuestions.add(
-      vFound.isEmpty
-          ? CvPrepQuestion('learn', vWord)
-          : CvPrepQuestion('used', vWord, vFound.first),
+      vFound.isEmpty ? CvPrepQuestion('learn', vWord) : CvPrepQuestion('used', vWord, vFound.first),
     );
   }
 

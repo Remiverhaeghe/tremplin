@@ -63,8 +63,8 @@ CvStats cvStats(List<Map<String, dynamic>> pSent) {
       final vByAnswers = pB.answered.compareTo(pA.answered);
       return vByAnswers != 0 ? vByAnswers : pB.sent.compareTo(pA.sent);
     });
-  final vSortedMonths = Map.fromEntries(vMonths.entries.toList()
-    ..sort((pA, pB) => pA.key.compareTo(pB.key)));
+  final vSortedMonths =
+      Map.fromEntries(vMonths.entries.toList()..sort((pA, pB) => pA.key.compareTo(pB.key)));
 
   return CvStats(
     total: pSent.length,
