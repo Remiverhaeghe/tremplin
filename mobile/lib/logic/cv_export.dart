@@ -34,8 +34,14 @@ CvReadiness cvReadiness(CvDocument pDocument) {
   ];
 
   return CvReadiness(
-    blocking: [for (final vCode in vFailed) if (cvBlockingChecks.contains(vCode)) vCode],
-    warnings: [for (final vCode in vFailed) if (!cvBlockingChecks.contains(vCode)) vCode],
+    blocking: [
+      for (final vCode in vFailed)
+        if (cvBlockingChecks.contains(vCode)) vCode
+    ],
+    warnings: [
+      for (final vCode in vFailed)
+        if (!cvBlockingChecks.contains(vCode)) vCode
+    ],
   );
 }
 

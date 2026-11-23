@@ -81,7 +81,8 @@ void main() {
   });
 
   test('contrôle : un CV complet passe, un CV sans dates ni accroche non', () {
-    expect(checkCv(buildCvDocument(sampleProfile, sampleVersion)).every((pCheck) => pCheck.ok), isTrue);
+    expect(checkCv(buildCvDocument(sampleProfile, sampleVersion)).every((pCheck) => pCheck.ok),
+        isTrue);
 
     final vWeak = buildCvDocument(
       const CvProfile(

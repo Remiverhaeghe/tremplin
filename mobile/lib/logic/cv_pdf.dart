@@ -352,7 +352,9 @@ void _block(_Painter pPainter, CvSection pSection, CvBlock pBlock) {
 Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument) {
   final vObjects = <String>[];
   final vFirstPage = 6;
-  final vKids = [for (var vIndex = 0; vIndex < pPages.length; vIndex++) '${vFirstPage + vIndex * 2} 0 R'];
+  final vKids = [
+    for (var vIndex = 0; vIndex < pPages.length; vIndex++) '${vFirstPage + vIndex * 2} 0 R'
+  ];
 
   vObjects
     ..add('<< /Type /Catalog /Pages 2 0 R /Lang (fr-FR) >>')

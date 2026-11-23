@@ -143,7 +143,8 @@ void main() {
           home: CvApplyScreen(
             state: vState,
             offer: offer,
-            send: (pBytes, pName, pMime) async => vSent.add((bytes: pBytes, name: pName, mime: pMime)),
+            send: (pBytes, pName, pMime) async =>
+                vSent.add((bytes: pBytes, name: pName, mime: pMime)),
           ),
         ),
       );
