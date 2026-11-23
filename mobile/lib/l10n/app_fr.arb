@@ -1309,5 +1309,40 @@
   "seasonChannel": "Bilan de la semaine",
   "seasonChannelHelp": "XP, quêtes et candidatures de la semaine écoulée, le lundi",
   "interviewsChannel": "Rappels d'entretien",
-  "interviewsChannelHelp": "La veille et une heure avant chaque entretien"
+  "interviewsChannelHelp": "La veille et une heure avant chaque entretien",
+  "interviewAlertTomorrow": "Entretien demain à {time}",
+  "@interviewAlertTomorrow": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "interviewAlertSoon": "Entretien dans une heure",
+  "interviewAlertUntitled": "Entretien",
+  "interviewAlertWhere": "{title} chez {company}",
+  "@interviewAlertWhere": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "company": {
+        "type": "String"
+      }
+    }
+  },
+  "interviewAlertWhen": "{what}, à {time}",
+  "@interviewAlertWhen": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "setupLangue": "Langue",
+  "setupFrancais": "Français",
+  "setupEnglish": "English"
 }
