@@ -18,56 +18,15 @@ class CvScreen extends StatelessWidget {
 
   Future<void> importProfile(BuildContext pContext) async {
     final vMessenger = ScaffoldMessenger.of(pContext);
-    final vTexts = pContext.texts;
-    final vController = TextEditingController();
-    String? vError;
+    final vOk = pContext.texts.cvImporterOk;
 
     final vImported = await showDialog<bool>(
       context: pContext,
-      builder: (pDialogContext) => StatefulBuilder(
-        builder: (pBuilderContext, pSetState) => AlertDialog(
-          title: Text(vTexts.cvImporterTitre),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(vTexts.cvImporterAide),
-              const SizedBox(height: 8),
-              TextField(
-                controller: vController,
-                autofocus: true,
-                minLines: 4,
-                maxLines: 8,
-                decoration: InputDecoration(errorText: vError),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(pDialogContext).pop(false),
-              child: Text(vTexts.commonAnnuler),
-            ),
-            FilledButton(
-              onPressed: () async {
-                final vOk = await state.importCvProfile(vController.text);
-
-                if (vOk && pDialogContext.mounted) {
-                  Navigator.of(pDialogContext).pop(true);
-                } else {
-                  pSetState(() => vError = vTexts.cvImporterInvalide);
-                }
-              },
-              child: Text(vTexts.cvImporterBouton),
-            ),
-          ],
-        ),
-      ),
+      builder: (_) => _ImportDialog(state: state),
     );
 
-    vController.dispose();
-
     if (vImported == true) {
-      vMessenger.showSnackBar(SnackBar(content: Text(vTexts.cvImporterOk)));
+      vMessenger.showSnackBar(SnackBar(content: Text(vOk)));
     }
   }
 
@@ -167,5 +126,72 @@ class CvScreen extends StatelessWidget {
     );
 
     return rScreen;
+  }
+}
+
+/// Fenêtre de collage du parcours : elle garde elle-même son champ, pour qu'il ne soit pas
+/// libéré pendant l'animation de fermeture.
+class _ImportDialog extends StatefulWidget {
+  const _ImportDialog({required this.state});
+
+  final RevisionState state;
+
+  @override
+  State<_ImportDialog> createState() => _ImportDialogState();
+}
+
+class _ImportDialogState extends State<_ImportDialog> {
+  final aController = TextEditingController();
+  String? aError;
+
+  @override
+  void dispose() {
+    aController.dispose();
+    super.dispose();
+  }
+
+  Future<void> submit() async {
+    final vInvalid = context.texts.cvImporterInvalide;
+    final vNavigator = Navigator.of(context);
+    final vOk = await widget.state.importCvProfile(aController.text);
+
+    if (vOk) {
+      vNavigator.pop(true);
+    } else if (mounted) {
+      setState(() => aError = vInvalid);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final vTexts = context.texts;
+
+    final rDialog = AlertDialog(
+      title: Text(vTexts.cvImporterTitre),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(vTexts.cvImporterAide),
+          const SizedBox(height: 8),
+          TextField(
+            controller: aController,
+            autofocus: true,
+            minLines: 4,
+            maxLines: 8,
+            decoration: InputDecoration(errorText: aError),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text(vTexts.commonAnnuler),
+        ),
+        FilledButton(onPressed: submit, child: Text(vTexts.cvImporterBouton)),
+      ],
+    );
+
+    return rDialog;
   }
 }
