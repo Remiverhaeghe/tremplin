@@ -146,8 +146,8 @@ class _TimeAttackScreenState extends State<TimeAttackScreen> with TickerProvider
       unawaited(
         showCelebration(
           context,
-          title: 'Record !',
-          subtitle: '${score.points} points',
+          title: context.texts.timeAttackRecord,
+          subtitle: context.texts.timeAttackPoints('${score.points}'),
           detail: vBest > 0
               ? context.texts.timeAttackAncienRecordPoints('$vBest')
               : context.texts.timeAttackPremierRecordEtabli,

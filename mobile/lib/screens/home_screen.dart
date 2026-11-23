@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     if (mounted) {
       await showCelebration(
         context,
-        title: 'Niveau $vLevel',
+        title: context.texts.homeLevel('$vLevel'),
         subtitle: '${state.game?['title'] ?? ''}',
         detail: context.texts.homeProchainTitre('${state.game?['next_title'] ?? ''}'),
       );

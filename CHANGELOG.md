@@ -5,6 +5,10 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : écran « À propos »
+- Nouvel écran depuis le menu Plus : version, langue choisie (lien vers les réglages), où vivent les données, code source sur GitHub et licences des bibliothèques. Un test vérifie que la version affichée suit `pubspec.yaml`
+- Derniers titres restés en français dans la version anglaise : menu Plus, examen, niveau atteint, record du contre-la-montre
+
 ### Appli mobile : barre du bas traduite
 - Les libellés de la barre du bas passent dans l'ARB : ils restaient en français dans la version anglaise, comme « acquises », « réponses » et l'unité des jours de suite (« j »). « Candidatures » devient « Suivi », qui tient sur une ligne sur un écran de 360 dp
 - Captures aussi en anglais (`mobile-en-*.png`, dans l'artefact du workflow Captures), pour une future fiche du Play Store
