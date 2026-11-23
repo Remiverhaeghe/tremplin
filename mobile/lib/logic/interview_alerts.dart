@@ -57,9 +57,8 @@ List<InterviewAlert> buildInterviewAlerts(
     }
 
     final vTitle = '${vInterview['title'] ?? pTexts.untitled}';
-    final vWhat = vInterview['company'] == null
-        ? vTitle
-        : pTexts.where(vTitle, '${vInterview['company']}');
+    final vWhat =
+        vInterview['company'] == null ? vTitle : pTexts.where(vTitle, '${vInterview['company']}');
     final vTime = '${twoDigits(vAt.hour)}:${twoDigits(vAt.minute)}';
     final vEvening = DateTime(vAt.year, vAt.month, vAt.day - 1, eveningReminderHour);
     final vLast = vAt.subtract(lastReminderDelay);
