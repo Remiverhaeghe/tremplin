@@ -1,6 +1,6 @@
 // Statistiques des candidatures : combien, par version, avec quelles réponses.
 
-const cvOutcomes = ['reponse', 'entretien', 'refus'];
+const cvOutcomes = ['reponse', 'entretien', 'offre', 'refus'];
 
 typedef CvVersionStat = ({String version, int sent, int answered, int interviews});
 
@@ -45,7 +45,7 @@ CvStats cvStats(List<Map<String, dynamic>> pSent) {
       vAnswered++;
       vCounts[1]++;
     }
-    if (vOutcome == 'entretien') {
+    if (vOutcome == 'entretien' || vOutcome == 'offre') {
       vInterviews++;
       vCounts[2]++;
     }

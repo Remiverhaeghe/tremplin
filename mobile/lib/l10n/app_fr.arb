@@ -1353,17 +1353,47 @@
   "homeAcquises": "acquises",
   "statisticsReponses": "réponses",
   "streakDays": "{days} j",
-  "@streakDays": {"placeholders": {"days": {"type": "String"}}},
+  "@streakDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "questionExamTitle": "Examen : {title}",
-  "@questionExamTitle": {"placeholders": {"title": {"type": "String"}}},
+  "@questionExamTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "homeLevel": "Niveau {level}",
-  "@homeLevel": {"placeholders": {"level": {"type": "String"}}},
+  "@homeLevel": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "timeAttackRecord": "Record !",
   "timeAttackPoints": "{points} points",
-  "@timeAttackPoints": {"placeholders": {"points": {"type": "String"}}},
+  "@timeAttackPoints": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
   "aboutTitle": "À propos",
   "aboutVersion": "Version {version}",
-  "@aboutVersion": {"placeholders": {"version": {"type": "String"}}},
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "aboutPurpose": "Révision des entretiens techniques et suivi de la recherche d'emploi, avec le serveur Tremplin qui tourne sur votre PC.",
   "aboutLanguagePhone": "Comme le téléphone",
   "aboutDataTitle": "Vos données",
@@ -1850,5 +1880,24 @@
         "type": "String"
       }
     }
-  }
+  },
+  "followUpsChannel": "Relances de candidature",
+  "followUpsChannelHelp": "Un rappel quand une candidature reste sans réponse",
+  "cvSuiviOffre": "Offre reçue",
+  "cvSuiviKanban": "Tableau des candidatures",
+  "cvSuiviDelais": "Délais de réponse",
+  "cvSuiviDelaisVide": "Note une réponse dans l'historique pour voir les délais.",
+  "cvSuiviDelai": "{value0} : {value1} jours en moyenne",
+  "@cvSuiviDelai": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSuiviExportCsv": "Exporter le suivi en tableur",
+  "cvPrepAPoser": "Questions à poser au recruteur"
 }

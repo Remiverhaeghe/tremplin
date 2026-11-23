@@ -5,6 +5,14 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot J (suivi des candidatures)
+- Rappel de relance par notification : un par candidature sans réponse, sept jours après l'envoi à 9 h (le lendemain si le jour est passé), replanifié à chaque envoi ou changement de réponse
+- Tableau des candidatures par état (pas de réponse, réponse, entretien, offre, refus) et nouvel état « Offre reçue »
+- Délais de réponse moyens par entreprise, d'après la date à laquelle la réponse est notée
+- Export du suivi en tableur (CSV avec séparateur point-virgule, lisible par Excel et LibreOffice)
+- Questions à poser au recruteur dans la préparation d'entretien, tirées de l'offre
+- Tests : `test/cv_lot_j_test.dart`
+
 ### Appli mobile : CV, lot I (couleur, métier, doublon, présentation, accessibilité)
 - Couleur d'accent du PDF visuel choisie par version (six couleurs)
 - Dictionnaire de mots du métier étendu à vingt équivalences

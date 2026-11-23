@@ -49,3 +49,28 @@ List<CvPrepQuestion> prepQuestions(
 
   return rQuestions.take(pMax).toList();
 }
+
+/// Questions à poser au recruteur : celles qui montrent que l'offre a été lue, et une par mot de
+/// l'offre que le parcours ne montre pas encore.
+List<String> questionsToAsk(
+  String pOffer,
+  CvProfile pProfile,
+  CvVersion pVersion, {
+  String pCompany = '',
+  int pMax = 6,
+}) {
+  final vLearn = [
+    for (final vQuestion in prepQuestions(pOffer, pProfile, pVersion, pMax: 40))
+      if (vQuestion.kind == 'learn') vQuestion.subject,
+  ];
+  final vCompany = pCompany.trim().isEmpty ? 'l’équipe' : pCompany.trim();
+
+  return [
+    'À quoi ressemblent les premières semaines pour quelqu’un qui arrive sur ce poste ?',
+    for (final vWord in vLearn.take(2))
+      'Comment $vCompany utilise-t-elle $vWord aujourd’hui, et comment accompagner quelqu’un qui le découvre ?',
+    if (pVersion.pivot.trim().isNotEmpty)
+      'Y a-t-il déjà, dans l’équipe, des personnes venues d’un autre métier ?',
+    'Quelles sont les prochaines étapes du recrutement, et dans quel délai ?',
+  ].take(pMax).toList();
+}
