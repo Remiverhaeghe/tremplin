@@ -91,6 +91,17 @@ String cvPdfEncode(String pText) {
   return rText.toString();
 }
 
+/// Texte lu dans un PDF écrit par cv_pdf : l'opération inverse de [cvPdfEncode].
+String cvPdfDecode(String pEncoded) {
+  final vBack = {for (final vEntry in _windows1252.entries) vEntry.value: vEntry.key};
+  final rText = StringBuffer();
+  for (final vUnit in pEncoded.codeUnits) {
+    rText.writeCharCode(vBack[vUnit] ?? vUnit);
+  }
+
+  return rText.toString();
+}
+
 String _escape(String pEncoded) =>
     pEncoded.replaceAll(r'\', r'\\').replaceAll('(', r'\(').replaceAll(')', r'\)');
 

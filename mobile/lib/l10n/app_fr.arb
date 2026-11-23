@@ -1619,5 +1619,58 @@
       }
     }
   },
-  "cvTraductionsUtiliser": "Utiliser"
+  "cvTraductionsUtiliser": "Utiliser",
+  "cvAvantApres": "Avant / après adaptation",
+  "cvAvantApresAucun": "L'adaptation ne change rien à ce CV.",
+  "cvEcart": "Ce que les offres demandent et que ton parcours ne montre pas",
+  "cvEcartAide": "Mots qui reviennent dans au moins deux offres. À apprendre, ou à citer seulement si c'est vrai.",
+  "cvEcartVide": "Aucun mot répété ne manque à ton parcours.",
+  "cvEcartMot": "{value0} : {value1} offres",
+  "@cvEcartMot": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvLecture": "Tester la lecture du PDF",
+  "cvLectureOk": "Le PDF se relit en entier : chaque mot est retrouvé, accents compris.",
+  "cvLectureManque": "Mots non retrouvés dans le PDF : {value0}",
+  "@cvLectureManque": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvVersionAnnees": "Années d'expérience dans ce domaine",
+  "cvVersionAnneesAide": "Sert à repérer les offres qui demandent plus. 0 si tu ne veux pas l'indiquer.",
+  "cvAuDela": "Cette offre vise plus haut que ton profil",
+  "cvAuDelaAnnees": "Elle demande {value0} ans d'expérience, la version en indique {value1}.",
+  "@cvAuDelaAnnees": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAuDelaSenior": "Elle cherche un profil confirmé ou senior.",
+  "cvAuDelaDiplome": "Elle demande bac+{value0}, ta formation indique bac+{value1}.",
+  "@cvAuDelaDiplome": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAuDelaAide": "Tu peux quand même postuler : c'est un signal, pas un refus."
 }
