@@ -64,11 +64,10 @@ String describeMachine(Simulator pSimulator, [AppLocalizations? pText]) {
 
   final rText = switch (pSimulator.kind) {
     'verin' => vText.ladderVerinSorti('${100 * vPosition ~/ verinStroke}'),
-    'tapis' => vText.ladderTapisPiecePassee(
-        vValues['tapis'] == true ? 'en marche' : 'arrêté',
+    'tapis' => vText.ladderTapisPiecePassee(vValues['tapis'] == true ? 'en marche' : 'arrêté',
         '${pSimulator.machine['run']! ~/ piecePeriod}'),
-    'percage' => vText.ladderBrocheDescendue('${100 * vPosition ~/ spindleStroke}',
-        vValues['rotation'] == true ? ', en rotation' : ''),
+    'percage' => vText.ladderBrocheDescendue(
+        '${100 * vPosition ~/ spindleStroke}', vValues['rotation'] == true ? ', en rotation' : ''),
     _ =>
       'Moteur : ${motorOutputs.any((pName) => vValues[pName] == true) ? (vValues['arriere'] == true ? 'tourne en arrière' : 'tourne') : 'arrêté'}',
   };
