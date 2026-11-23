@@ -18,6 +18,10 @@ const seasonNotificationId = 5;
 const firstInterviewAlertId = 100;
 const maxInterviewAlerts = 20;
 
+// Rappels de relance de candidature : identifiants réservés
+const firstFollowUpAlertId = 200;
+const maxFollowUpAlerts = 20;
+
 /// Résume une réponse : « Entretien chez Kiabi le 05/11 à 14:00 », « Refus de Kiabi ».
 String describeReply(Map<String, dynamic> pReply, [AppLocalizations? pText]) {
   final vText = pText ?? deviceTexts();
@@ -71,6 +75,9 @@ abstract class Reminders {
 
   /// Remplace les rappels d'entretien par ceux donnés.
   Future<void> scheduleInterviews(List<InterviewAlert> pAlerts);
+
+  /// Remplace les rappels de relance de candidature par ceux donnés.
+  Future<void> scheduleFollowUps(List<InterviewAlert> pAlerts);
 
   /// Lance ou arrête la vérification périodique des offres en arrière-plan.
   Future<void> scheduleOfferChecks(bool pEnabled);
