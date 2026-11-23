@@ -9,9 +9,8 @@ mixin CvState on ChangeNotifier {
 
   CvProfile get cvProfile {
     final vRaw = preferences[cvProfilePreference];
-    final rProfile = vRaw is Map
-        ? CvProfile.fromJson(Map<String, Object?>.from(vRaw))
-        : const CvProfile();
+    final rProfile =
+        vRaw is Map ? CvProfile.fromJson(Map<String, Object?>.from(vRaw)) : const CvProfile();
 
     return rProfile;
   }
@@ -59,8 +58,10 @@ mixin CvState on ChangeNotifier {
     await saveCvVersions(vVersions);
   }
 
-  Future<void> removeCvVersion(String pId) =>
-      saveCvVersions([for (final vItem in cvVersions) if (vItem.id != pId) vItem]);
+  Future<void> removeCvVersion(String pId) => saveCvVersions([
+        for (final vItem in cvVersions)
+          if (vItem.id != pId) vItem
+      ]);
 
   /// Note un CV envoyé : quelle version, à qui, dans quel format.
   Future<void> recordCvSent({
