@@ -5,6 +5,11 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot F (supports publics)
+- Écran « Supports publics » : texte du profil GitHub (160 caractères), page CV du portfolio en Markdown sans coordonnées privées, contrôle d'un texte publié contre le parcours (poste, projets, chiffres) (`cv_supports.dart`)
+- Modèles de lettre par secteur (industrie, numérique, banque, public) dans « Modèles et réponses »
+- Tests : `test/cv_lot_f_test.dart`
+
 ### Appli mobile : CV, lot E (écart, avant/après, lecture, au-delà du profil)
 - Lot d'offres : mots demandés dans au moins deux offres et absents du parcours (`cv_gap.dart`)
 - Candidature : « Avant / après adaptation », lignes retirées et ajoutées (`cv_diff.dart`)
