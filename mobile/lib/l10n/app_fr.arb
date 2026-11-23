@@ -1672,5 +1672,55 @@
       }
     }
   },
-  "cvAuDelaAide": "Tu peux quand même postuler : c'est un signal, pas un refus."
+  "cvAuDelaAide": "Tu peux quand même postuler : c'est un signal, pas un refus.",
+  "cvSupports": "Supports publics",
+  "cvSupportsAide": "Textes tirés de ton parcours, sans téléphone ni courriel. Relis-les avant de les publier.",
+  "cvSupportsVersion": "Version utilisée",
+  "cvSupportsBio": "Texte du profil GitHub",
+  "cvSupportsBioLongueur": "{value0} caractères sur {value1}",
+  "@cvSupportsBioLongueur": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSupportsPage": "Page CV du portfolio (Markdown)",
+  "cvSupportsCopie": "Texte copié.",
+  "cvSupportsComparer": "Texte publié à comparer",
+  "cvSupportsComparerAide": "Colle le texte de ton portfolio, de LinkedIn ou de ton profil GitHub : on repère ce qui ne colle pas avec le parcours.",
+  "cvSupportsCoherent": "Rien ne s'écarte du parcours.",
+  "cvDriftPoste": "Le poste « {value0} » n'apparaît pas.",
+  "@cvDriftPoste": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvDriftProjet": "Le projet « {value0} » n'est pas cité.",
+  "@cvDriftProjet": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvDriftChiffre": "Le chiffre « {value0} » n'est pas dans ton parcours.",
+  "@cvDriftChiffre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSecteur": "Modèles d'un secteur",
+  "cvSecteurAide": "Remplit les champs ci-dessous ; rien n'est enregistré avant « Garder ».",
+  "cvSecteurIndustrie": "Industrie",
+  "cvSecteurNumerique": "Numérique",
+  "cvSecteurBanque": "Banque et assurance",
+  "cvSecteurPublic": "Secteur public"
 }
