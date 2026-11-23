@@ -1512,5 +1512,85 @@
       }
     }
   },
-  "cvPlusieursAucune": "Aucune offre à analyser."
+  "cvPlusieursAucune": "Aucune offre à analyser.",
+  "cvLettre": "Lettre",
+  "cvPostulerLettre": "Écrire la lettre",
+  "cvLettreTitre": "Lettre : {value0}",
+  "@cvLettreTitre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvLettreLongueur": "Longueur",
+  "cvLettreComplete": "Complète",
+  "cvLettreCourte": "Courte",
+  "cvLettreMessage": "Message",
+  "cvLettreRegenerer": "Reprendre le modèle",
+  "cvLettreCopier": "Copier",
+  "cvLettreCopiee": "Lettre copiée",
+  "cvLettrePdf": "PDF",
+  "cvLettreRelecture": "Relecture",
+  "cvLettreRien": "Rien à signaler.",
+  "cvRelectureFormule": "Formule toute faite : « {value0} »",
+  "@cvRelectureFormule": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureJe": "Trois phrases de suite commencent par « je » : {value0}",
+  "@cvRelectureJe": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureLong": "Trop long : {value0} signes pour {value1} conseillés",
+  "@cvRelectureLong": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureAccolade": "Mot à remplir : {value0}",
+  "@cvRelectureAccolade": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureChiffre": "Chiffre à pouvoir défendre : {value0}",
+  "@cvRelectureChiffre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureEntreprise": "Entreprise non renseignée.",
+  "cvModeles": "Modèles et réponses",
+  "cvModelesAide": "Mots remplis à chaque offre : {value0}",
+  "@cvModelesAide": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvModelesDebut": "Début de la lettre",
+  "cvModelesPreuve": "Exemple de projet",
+  "cvModelesFin": "Fin de la lettre",
+  "cvModelesMessage": "Message court",
+  "cvModelesEnregistres": "Modèles enregistrés",
+  "cvReponses": "Réponses de formulaire",
+  "cvReponseCopiee": "Réponse copiée"
 }
