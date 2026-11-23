@@ -411,5 +411,84 @@
   "aboutData": "Answers, progress and applications stay on the phone and on your PC, synced directly: no account, no online service.",
   "aboutSource": "Source code",
   "aboutLicenses": "Library licenses",
-  "hubAboutSubtitle": "Version, language, data and source code"
+  "hubAboutSubtitle": "Version, language, data and source code",
+  "cvTitre": "CV",
+  "cvHubSousTitre": "Versions, tailoring to an offer, PDF and Word",
+  "cvImporterTitre": "Import my background",
+  "cvImporterAide": "Paste the content of the background file (JSON). It stays on this phone and is never sent to the PC.",
+  "cvImporterBouton": "Import",
+  "cvImporterInvalide": "This text is not a background file: check that the whole file is pasted.",
+  "cvImporterOk": "Background imported",
+  "cvAucunParcours": "Import your background first to create CVs.",
+  "cvVersions": "Versions",
+  "cvVersionNouvelle": "New version",
+  "cvVersionSupprimer": "Delete this version",
+  "cvVersionNom": "Version name",
+  "cvVersionPoste": "Target job, under the name",
+  "cvVersionAccroche": "Summary",
+  "cvVersionAccrocheAide": "A few sentences in your own words, true and defensible in an interview.",
+  "cvVersionSections": "Sections shown",
+  "cvVersionEnregistree": "Version saved",
+  "cvSectionSummary": "Profile",
+  "cvSectionExperience": "Experience",
+  "cvSectionProjects": "Projects",
+  "cvSectionSkills": "Skills",
+  "cvSectionEducation": "Education",
+  "cvSectionLanguages": "Languages",
+  "cvSectionStrengths": "Strengths",
+  "cvSectionInterests": "Interests",
+  "cvApercu": "Preview",
+  "cvControles": "Checks before sending",
+  "cvControlesPret": "Ready to send",
+  "cvControlesBloque": "Export blocked: fix the points marked with a cross.",
+  "cvCheckName": "Name present",
+  "cvCheckEmail": "Readable email",
+  "cvCheckPhone": "Readable phone number",
+  "cvCheckHeadline": "Target job under the name",
+  "cvCheckSummary": "Summary written",
+  "cvCheckExperience": "Experience section",
+  "cvCheckEducation": "Education section",
+  "cvCheckDates": "A year in the dates of every job",
+  "cvExportPdfSobre": "Plain PDF (applicant tracking systems)",
+  "cvExportPdfVisuel": "Designed PDF (sent by email)",
+  "cvExportWord": "Word (.docx)",
+  "cvExportTexte": "Plain text",
+  "cvPostuler": "Apply with a CV",
+  "cvPostulerTitre": "Apply: {value0}",
+  "@cvPostulerTitre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvChoisirVersion": "Version to send",
+  "cvVersionProposee": "Closest version to the offer: {value0} ({value1} % of the words)",
+  "@cvVersionProposee": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAdapter": "Tailor to the offer",
+  "cvAdapterAide": "Projects and skills follow the order of the offer. Nothing is added.",
+  "cvMotsTrouves": "Offer words already in the CV",
+  "cvMotsManquants": "Missing words: add them only if they are true",
+  "cvEnvoyes": "CVs prepared",
+  "cvEnvoyesVide": "No CV prepared for an offer yet.",
+  "cvEnvoyeSur": "{value0} · {value1}",
+  "@cvEnvoyeSur": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  }
 }

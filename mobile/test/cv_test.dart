@@ -8,66 +8,11 @@ import 'package:jobboard_revision/logic/cv_document.dart';
 import 'package:jobboard_revision/logic/cv_profile.dart';
 import 'package:jobboard_revision/logic/cv_version.dart';
 
-/// Parcours fictif : aucune donnée réelle dans les tests.
-const _profile = CvProfile(
-  contact: CvContact(
-    name: 'Camille Durand',
-    email: 'camille.durand@example.org',
-    phone: '+33 6 00 00 00 00',
-    city: 'Lille (59)',
-    notice: 'Préavis : 1 mois',
-  ),
-  experiences: [
-    CvExperience(
-      id: 'dev',
-      title: 'Développeuse Java',
-      company: 'Atelier Exemple',
-      dates: '2020 à aujourd’hui',
-      lines: ['Maintenance d’une application métier', 'Interfaces avec un ERP en SFTP'],
-    ),
-    CvExperience(
-      id: 'maint',
-      title: 'Responsable de maintenance',
-      company: 'Usine Exemple',
-      dates: '2010 - 2019',
-      lines: ['Planification des interventions'],
-    ),
-  ],
-  education: [
-    CvEducation(id: 'bts', title: 'BTS Maintenance', place: 'Lycée Exemple', dates: '2008')
-  ],
-  projects: [
-    CvProject(
-        id: 'p1', name: 'Calculatrice', url: 'https://example.org/calc', lines: ['Java Swing']),
-  ],
-  skills: [
-    CvSkillGroup(id: 's1', title: 'Développement', items: ['Java', 'SQL', 'API REST']),
-  ],
-  languages: [CvLanguage(name: 'Anglais', level: 'B2')],
-  strengths: ['Rigueur', 'Esprit d’analyse'],
-);
-
-const _version = CvVersion(
-  id: 'dev',
-  label: 'Développeur',
-  headline: 'Développeuse Java',
-  summary: 'Dix ans d’industrie, cinq ans d’informatique.',
-  sections: [
-    CvSection.summary,
-    CvSection.experience,
-    CvSection.projects,
-    CvSection.skills,
-    CvSection.education,
-    CvSection.languages,
-  ],
-  experienceIds: ['dev', 'maint', 'inconnu'],
-  projectIds: ['p1'],
-  skillIds: ['s1'],
-);
+import 'support/cv_samples.dart';
 
 void main() {
   test('le parcours survit à un aller-retour JSON', () {
-    final vBack = CvProfile.tryParse(jsonEncode(_profile.toJson()))!;
+    final vBack = CvProfile.tryParse(jsonEncode(sampleProfile.toJson()))!;
 
     expect(vBack.contact.name, 'Camille Durand');
     expect(vBack.experiences.map((pItem) => pItem.id), ['dev', 'maint']);
@@ -82,11 +27,11 @@ void main() {
     expect(CvProfile.tryParse('[1, 2]'), isNull);
     expect(CvProfile.tryParse('{"experiences": [{"title": "sans id"}]}'), isNull);
     expect(const CvProfile().isEmpty, isTrue);
-    expect(_profile.isEmpty, isFalse);
+    expect(sampleProfile.isEmpty, isFalse);
   });
 
   test('la version garde ses sections dans l\'ordre et ignore un identifiant inconnu', () {
-    final vDocument = buildCvDocument(_profile, _version);
+    final vDocument = buildCvDocument(sampleProfile, sampleVersion);
 
     expect(vDocument.sections.map((pItem) => pItem.heading), [
       'Profil',
@@ -107,8 +52,8 @@ void main() {
 
   test('une section vide n\'apparaît pas', () {
     final vDocument = buildCvDocument(
-      _profile,
-      _version.copyWith(
+      sampleProfile,
+      sampleVersion.copyWith(
         summary: '  ',
         sections: [CvSection.summary, CvSection.interests, CvSection.strengths],
       ),
@@ -118,7 +63,7 @@ void main() {
   });
 
   test('la version se relit depuis son JSON, section inconnue ignorée', () {
-    final vJson = _version.toJson()..['sections'] = ['experience', 'nimporte'];
+    final vJson = sampleVersion.toJson()..['sections'] = ['experience', 'nimporte'];
     final vBack = CvVersion.fromJson(jsonDecode(jsonEncode(vJson)) as Map<String, Object?>);
 
     expect(vBack.sections, [CvSection.experience]);
@@ -127,7 +72,7 @@ void main() {
   });
 
   test('les versions de départ reprennent tout le parcours, sans phrase écrite', () {
-    final vVersions = startingVersions(_profile);
+    final vVersions = startingVersions(sampleProfile);
 
     expect(vVersions.map((pItem) => pItem.id), ['developpeur', 'industrie']);
     expect(vVersions.first.projectIds, ['p1']);
@@ -136,7 +81,7 @@ void main() {
   });
 
   test('contrôle : un CV complet passe, un CV sans dates ni accroche non', () {
-    expect(checkCv(buildCvDocument(_profile, _version)).every((pCheck) => pCheck.ok), isTrue);
+    expect(checkCv(buildCvDocument(sampleProfile, sampleVersion)).every((pCheck) => pCheck.ok), isTrue);
 
     final vWeak = buildCvDocument(
       const CvProfile(
@@ -179,7 +124,7 @@ void main() {
   });
 
   test('mots-clés : présents et absents du CV, accents ignorés', () {
-    final vDocument = buildCvDocument(_profile, _version);
+    final vDocument = buildCvDocument(sampleProfile, sampleVersion);
     final vReport =
         keywordReport('Java SQL Hibernate Développeuse robotique Kubernetes', vDocument);
 
@@ -190,7 +135,7 @@ void main() {
   test('Word : un zip valide, du vrai texte, les caractères spéciaux protégés', () {
     final vDocument = buildCvDocument(
       CvProfile(
-        contact: _profile.contact,
+        contact: sampleProfile.contact,
         experiences: const [
           CvExperience(
             id: 'a',

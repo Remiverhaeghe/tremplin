@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../l10n/texts.dart';
 import '../revision_state.dart';
 import '../theme.dart';
+import 'cv_apply_screen.dart';
 import 'offer_detail_screen.dart';
 import 'triage_screen.dart';
 
@@ -179,6 +180,11 @@ class OfferCard extends StatelessWidget {
               offer: offer,
               onOpen: () => open(context),
               onNote: (pText) => state.addOfferNote(offer, pText),
+              onApply: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => CvApplyScreen(state: state, offer: offer),
+                ),
+              ),
             ),
           ),
         ),
