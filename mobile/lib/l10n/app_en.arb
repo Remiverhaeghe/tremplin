@@ -398,5 +398,18 @@
   "navPlus": "More",
   "homeAcquises": "learned",
   "statisticsReponses": "answers",
-  "streakDays": "{days} d"
+  "streakDays": "{days} d",
+  "questionExamTitle": "Exam: {title}",
+  "homeLevel": "Level {level}",
+  "timeAttackRecord": "Record!",
+  "timeAttackPoints": "{points} points",
+  "aboutTitle": "About",
+  "aboutVersion": "Version {version}",
+  "aboutPurpose": "Technical interview practice and job search tracking, with the Tremplin server running on your PC.",
+  "aboutLanguagePhone": "Same as the phone",
+  "aboutDataTitle": "Your data",
+  "aboutData": "Answers, progress and applications stay on the phone and on your PC, synced directly: no account, no online service.",
+  "aboutSource": "Source code",
+  "aboutLicenses": "Library licenses",
+  "hubAboutSubtitle": "Version, language, data and source code"
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../l10n/texts.dart';
 import '../revision_state.dart';
 import '../theme.dart';
+import 'about_screen.dart';
 import 'interview_screen.dart';
 import 'labs_screen.dart';
 import 'library_screen.dart';
@@ -96,7 +97,7 @@ class InterviewHub extends StatelessWidget {
           ),
           HubTile(
             icon: Icons.tune,
-            title: 'Auto-évaluation',
+            title: context.texts.skillsAutoEvaluation,
             subtitle: context.texts.hubNoteTonNiveauSur,
             onTap: () => _open(context, () => SkillsScreen(state: state)),
           ),
@@ -126,7 +127,7 @@ class MoreTab extends StatelessWidget {
         children: [
           HubTile(
             icon: Icons.insights,
-            title: 'Statistiques',
+            title: context.texts.statisticsStatistiques,
             subtitle: context.texts.hubActiviteDerniersJoursReussite,
             onTap: () => _open(context, () => StatisticsScreen(state: state)),
           ),
@@ -138,7 +139,7 @@ class MoreTab extends StatelessWidget {
           ),
           HubTile(
             icon: Icons.build_circle_outlined,
-            title: 'Simulations',
+            title: context.texts.labsSimulations,
             subtitle: context.texts.hubPannesAutomateSchemasGit,
             onTap: () => _open(context, () => LabsScreen(state: state)),
           ),
@@ -152,9 +153,15 @@ class MoreTab extends StatelessWidget {
           ),
           HubTile(
             icon: Icons.settings_outlined,
-            title: 'Paramètres',
+            title: context.texts.setupParametres,
             subtitle: context.texts.hubConnexionAuPcApparence,
             onTap: () => _open(context, () => SetupScreen(state: state)),
+          ),
+          HubTile(
+            icon: Icons.info_outline,
+            title: context.texts.aboutTitle,
+            subtitle: context.texts.hubAboutSubtitle,
+            onTap: () => _open(context, () => AboutScreen(state: state)),
           ),
         ],
       ),

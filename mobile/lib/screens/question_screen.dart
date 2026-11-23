@@ -338,7 +338,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 MaterialPageRoute<void>(
                   builder: (_) => ExamScreen(
                     state: widget.state,
-                    title: 'Examen : $title',
+                    title: context.texts.questionExamTitle(title),
                     questions: questions,
                   ),
                 ),
