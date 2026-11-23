@@ -1,0 +1,71 @@
+name: Rendu du CV
+
+# Génère le CV en PDF (sobre et visuel) sur un parcours fictif et le convertit en images :
+# artefact et journal, pour relire le rendu sans téléphone.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "mobile/lib/logic/cv_*.dart"
+      - "mobile/test/render/**"
+      - ".github/workflows/cv-rendu.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cv-rendu-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  rendu:
+    name: Rendu du CV
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mobile
+
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: 3.47.7
+          cache: true
+
+      - name: PDF du parcours fictif
+        run: |
+          sudo apt-get install -y --no-install-recommends poppler-utils imagemagick >/dev/null
+          mkdir -p build/cv-rendu
+          convert -size 300x300 gradient:'#6fb1d6-#1f5f8b' build/cv-rendu/photo.jpg
+          flutter pub get
+          flutter gen-l10n
+          CV_RENDER_DIR="$PWD/build/cv-rendu" CV_RENDER_PHOTO="$(base64 -w 0 build/cv-rendu/photo.jpg)" \
+            flutter test test/render/cv_render_test.dart
+
+      - name: Pages en images
+        run: |
+          for vFile in build/cv-rendu/*.pdf; do
+            pdftoppm -r 70 -png "$vFile" "${vFile%.pdf}"
+          done
+
+      # Aperçu dans le journal, lisible par l'API quand l'artefact ne l'est pas
+      - name: Aperçu dans le journal
+        if: always()
+        run: |
+          for vFile in build/cv-rendu/*.png; do
+            echo "=== RENDU $(basename "$vFile" .png)"
+            base64 -w 0 "$vFile"
+            echo
+          done
+
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cv-rendu
+          path: |
+            mobile/build/cv-rendu/*.pdf
+            mobile/build/cv-rendu/*.png
+          if-no-files-found: warn
