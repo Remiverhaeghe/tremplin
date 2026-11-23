@@ -44,10 +44,10 @@ CvDocument bigDocument() => CvDocument(
               CvBlock(title: 'Projet $vProject', lines: lines('Détail du projet $vProject', 3)),
           ],
         ),
-        CvSectionText(
+        const CvSectionText(
           section: CvSection.education,
           heading: 'Formation',
-          blocks: const [CvBlock(title: 'BTS Exemple', dates: '2008')],
+          blocks: [CvBlock(title: 'BTS Exemple', dates: '2008')],
         ),
         CvSectionText(
           section: CvSection.strengths,
