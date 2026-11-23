@@ -56,7 +56,6 @@ void main() {
     pTester.view.devicePixelRatio = 3;
     addTearDown(pTester.view.reset);
     debugDisableShadows = false;
-    addTearDown(() => debugDisableShadows = true);
 
     final vToday = DateTime(2026, 11, 20);
     final vState = await pTester.runAsync(() async {
@@ -98,5 +97,7 @@ void main() {
     );
     await settle(pTester);
     await capture('mobile-carnet-plongee');
+    // Remis avant le contrôle des variables de dessin, fait avant les addTearDown
+    debugDisableShadows = true;
   });
 }

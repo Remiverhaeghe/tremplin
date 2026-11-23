@@ -790,7 +790,7 @@
       }
     }
   },
-  "diveDepthChange": "Profondeur du thème : {before} → {after}",
+  "diveDepthChange": "Profondeur du thème : de {before} à {after}",
   "@diveDepthChange": {
     "placeholders": {
       "before": {
