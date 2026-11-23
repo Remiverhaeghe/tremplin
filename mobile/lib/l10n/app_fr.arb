@@ -1349,5 +1349,9 @@
   "navOffres": "Offres",
   "navSuivi": "Suivi",
   "navEntretien": "Entretien",
-  "navPlus": "Plus"
+  "navPlus": "Plus",
+  "homeAcquises": "acquises",
+  "statisticsReponses": "réponses",
+  "streakDays": "{days} j",
+  "@streakDays": {"placeholders": {"days": {"type": "String"}}}
 }

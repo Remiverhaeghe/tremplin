@@ -308,9 +308,9 @@ class SummaryCard extends StatelessWidget {
           children: [
             Statistic(
               value: '${vStatistics['acquired'] ?? 0} / ${vStatistics['total'] ?? 0}',
-              label: 'acquises',
+              label: context.texts.homeAcquises,
             ),
-            Statistic(value: '${vStatistics['streak'] ?? 0} j', label: context.texts.homeSuite),
+            Statistic(value: context.texts.streakDays('${vStatistics['streak'] ?? 0}'), label: context.texts.homeSuite),
             Statistic(value: '${state.pending.length}', label: context.texts.homeReponseEnvoyer),
             if (state.examResults.isNotEmpty)
               Statistic(
