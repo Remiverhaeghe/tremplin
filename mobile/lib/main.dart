@@ -40,7 +40,8 @@ class RevisionApp extends StatelessWidget {
         theme: buildTheme(Brightness.light),
         darkTheme: buildTheme(Brightness.dark),
         themeMode: themeModes[state.appearance],
-        locale: const Locale('fr'),
+        // Français, ou anglais si le téléphone est en anglais
+        localeResolutionCallback: (pLocale, _) => appLocale(pLocale),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

@@ -28,7 +28,8 @@ String formatMoment(String? pValue) {
 }
 
 /// Ligne de détail d'une candidature : prochain entretien, sinon prochaine relance.
-String describeTracking(Map<String, dynamic> pApplication) {
+String describeTracking(Map<String, dynamic> pApplication, [AppLocalizations? pText]) {
+  final vText = pText ?? deviceTexts();
   final vInterview = formatMoment(pApplication['interview_at'] as String?);
   // Une relance se prévoit au jour près : l'heure enregistrée n'a pas de sens.
   final vFollowUpDate = '${pApplication['follow_up_date'] ?? ''}';
@@ -39,8 +40,8 @@ String describeTracking(Map<String, dynamic> pApplication) {
   final rText = [
     pApplication['company'],
     pApplication['status_label'],
-    if (vInterview.isNotEmpty) 'entretien le $vInterview',
-    if (vInterview.isEmpty && vFollowUp.isNotEmpty) 'relance le $vFollowUp',
+    if (vInterview.isNotEmpty) vText.trackingEntretien(vInterview),
+    if (vInterview.isEmpty && vFollowUp.isNotEmpty) vText.trackingRelance(vFollowUp),
   ].where((vPart) => vPart != null && '$vPart'.isNotEmpty).join(' · ');
 
   return rText;
