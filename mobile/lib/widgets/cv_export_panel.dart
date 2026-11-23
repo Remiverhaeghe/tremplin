@@ -82,8 +82,8 @@ class CvExportPanel extends StatefulWidget {
   /// Entreprise visée, ajoutée au nom du fichier.
   final String company;
 
-  /// Appelé après l'envoi, avec le format choisi.
-  final void Function(String format)? onExported;
+  /// Appelé après l'envoi, avec le format choisi et le nom du fichier.
+  final void Function(String format, String fileName)? onExported;
 
   @override
   State<CvExportPanel> createState() => _CvExportPanelState();
@@ -116,7 +116,7 @@ class _CvExportPanelState extends State<CvExportPanel> {
         cvFileName(widget.profile, widget.version, vOut.extension, pCompany: widget.company);
 
     await widget.send(Uint8List.fromList(vOut.bytes), vName, vOut.mime);
-    widget.onExported?.call(pFormat);
+    widget.onExported?.call(pFormat, vName);
   }
 
   @override
