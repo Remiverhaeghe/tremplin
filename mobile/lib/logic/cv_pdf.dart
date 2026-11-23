@@ -369,7 +369,8 @@ Uint8List _assemble(List<StringBuffer> pPages, CvDocument pDocument, {String pTi
     ..add('<< /Type /Pages /Kids [${vKids.join(' ')}] /Count ${pPages.length} >>')
     ..add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>')
     ..add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>')
-    ..add('<< /Title ${_pdfString(pTitle.isEmpty ? 'CV ${pDocument.name}' : pTitle)} /Author ${_pdfString(pDocument.name)} '
+    ..add(
+        '<< /Title ${_pdfString(pTitle.isEmpty ? 'CV ${pDocument.name}' : pTitle)} /Author ${_pdfString(pDocument.name)} '
         '/Subject ${_pdfString(pDocument.headline)} >>');
   for (var vIndex = 0; vIndex < pPages.length; vIndex++) {
     final vContent = pPages[vIndex].toString();

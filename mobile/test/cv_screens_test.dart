@@ -298,7 +298,8 @@ void main() {
 
       TextEditingController field() =>
           pTester.widget<TextField>(find.byType(TextField)).controller!;
-      expect(field().text, startsWith('Je candidate au poste de Développeur Java chez Exemple SA.'));
+      expect(
+          field().text, startsWith('Je candidate au poste de Développeur Java chez Exemple SA.'));
       expect(find.text('Rien à signaler.'), findsOneWidget);
 
       await pTester.enterText(find.byType(TextField), 'Je me permets de vous écrire.');

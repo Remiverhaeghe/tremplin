@@ -107,7 +107,8 @@ void main() {
       final vParagraphs = buildLetter(
         pProfile: profile,
         pVersion: version,
-        pKit: const LetterKit(hook: 'Bonjour {entreprise}, parlons de {poste}.', closing: 'À bientôt, {nom}.'),
+        pKit: const LetterKit(
+            hook: 'Bonjour {entreprise}, parlons de {poste}.', closing: 'À bientôt, {nom}.'),
         pLength: LetterLength.short,
         pCompany: 'Exemple SA',
         pJob: 'Technicien',
@@ -143,10 +144,16 @@ void main() {
       expect(kinds('Je candidate au poste de technicien. Mon CV est joint.'), isEmpty);
     });
 
-    test('les formules toutes faites sont repérées, sans accent ni casse, apostrophe courbe comprise', () {
+    test(
+        'les formules toutes faites sont repérées, sans accent ni casse, apostrophe courbe comprise',
+        () {
       expect(
         kinds('Je me permets de vous écrire. N’hésitez pas à me contacter. MOTIVÉ ET DYNAMIQUE.'),
-        [LetterFindingKind.stockPhrase, LetterFindingKind.stockPhrase, LetterFindingKind.stockPhrase],
+        [
+          LetterFindingKind.stockPhrase,
+          LetterFindingKind.stockPhrase,
+          LetterFindingKind.stockPhrase
+        ],
       );
     });
 
@@ -181,7 +188,8 @@ void main() {
         text: 'Le poste de {poste} chez {entreprise} correspond à mon parcours.',
       );
 
-      expect(questionFor(vAnswer, pCompany: 'Exemple SA', pJob: 'Technicien'), 'Pourquoi Exemple SA ?');
+      expect(questionFor(vAnswer, pCompany: 'Exemple SA', pJob: 'Technicien'),
+          'Pourquoi Exemple SA ?');
       expect(
         answerFor(vAnswer, pCompany: 'Exemple SA', pJob: 'Technicien'),
         'Le poste de Technicien chez Exemple SA correspond à mon parcours.',
@@ -200,7 +208,8 @@ void main() {
 
       expect(vText, contains('Camille Durand'));
       expect(vText, contains('Je candidate au poste de Développeur web chez Exemple SA.'));
-      expect(cvLetterFileName('Camille Durand', 'Société Générale'), 'Camille-Durand-Lettre-Societe-Generale.pdf');
+      expect(cvLetterFileName('Camille Durand', 'Société Générale'),
+          'Camille-Durand-Lettre-Societe-Generale.pdf');
     });
   });
 }
