@@ -119,3 +119,6 @@ const cvSentPreference = 'cv_sent';
 
 /// Envois de CV gardés, les plus récents d'abord
 const maxCvSent = 500;
+
+/// Phrases du CV avec un chiffre que Rémi a confirmé pouvoir défendre
+const cvConfirmedPreference = 'cv_confirmed';
