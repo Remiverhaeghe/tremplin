@@ -15,6 +15,7 @@ import '../services/file_sender.dart';
 import '../theme.dart';
 import '../widgets/cv_export_panel.dart';
 import 'cv_letter_screen.dart';
+import 'cv_prep_screen.dart';
 import 'cv_templates_screen.dart';
 
 /// Texte de l'offre lu pour les mots-clés : titre, description, compétences demandées.
@@ -231,19 +232,31 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
             icon: const Icon(Icons.question_answer_outlined),
             label: Text(vTexts.cvReponses),
           ),
+          OutlinedButton.icon(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    CvPrepScreen(state: widget.state, offer: widget.offer, versionId: vChosen.id),
+              ),
+            ),
+            icon: const Icon(Icons.record_voice_over_outlined),
+            label: Text(vTexts.cvPrep),
+          ),
           const SizedBox(height: 20),
           CvExportPanel(
             profile: vProfile,
             version: vFinal,
             send: widget.send,
             company: vCompany,
-            onExported: (pFormat) => widget.state.recordCvSent(
+            onExported: (pFormat, pFile) => widget.state.recordCvSent(
               pVersion: vChosen,
               pFormat: pFormat,
               pCompany: vCompany,
               pTitle: '${widget.offer['title'] ?? ''}',
               pUrl: '${widget.offer['url'] ?? ''}',
               pTailored: aTailored,
+              pFile: pFile,
+              pSnapshot: buildCvDocument(vProfile, vFinal).plainText,
             ),
           ),
         ],

@@ -11,7 +11,9 @@ import '../revision_state.dart';
 import '../services/file_sender.dart';
 import 'cv_add_screen.dart';
 import 'cv_batch_screen.dart';
+import 'cv_backup_screen.dart';
 import 'cv_supports_screen.dart';
+import 'cv_track_screen.dart';
 import 'cv_templates_screen.dart';
 import 'cv_version_screen.dart';
 
@@ -126,6 +128,22 @@ class CvScreen extends StatelessWidget {
                   ),
                   icon: const Icon(Icons.library_add_outlined),
                   label: Text(vTexts.cvAjouter),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(pContext).push(
+                    MaterialPageRoute<void>(builder: (_) => CvTrackScreen(state: state)),
+                  ),
+                  icon: const Icon(Icons.insights_outlined),
+                  label: Text(vTexts.cvSuivi),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => Navigator.of(pContext).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => CvBackupScreen(state: state, send: send),
+                    ),
+                  ),
+                  icon: const Icon(Icons.lock_outline),
+                  label: Text(vTexts.cvSauvegarde),
                 ),
                 OutlinedButton.icon(
                   onPressed: () => Navigator.of(pContext).push(
