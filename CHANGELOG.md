@@ -5,6 +5,9 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : captures d'écran
+- Workflow Captures : un test monte l'appli sur des données fictives et capture l'accueil, le bilan d'une plongée et le carnet de la semaine, ajoutés au README (`docs/captures/mobile-*.png`). Sauté par `flutter test`
+- Jauge de profondeur : ses repères 1 m, 2 m, 3 m prennent la police du thème ; le bilan dit « de 1,2 m à 1,9 m »
 ### Appli mobile : choix de la langue
 - Réglage « Langue » : comme le téléphone, français ou anglais. Les notifications et le
   widget d'accueil suivent ce choix, tâche d'arrière-plan comprise.
