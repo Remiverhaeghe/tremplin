@@ -9,6 +9,7 @@ import 'dart:math' show Random, max;
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
+import 'l10n/texts.dart';
 import 'logic/devops.dart';
 import 'logic/dive.dart';
 import 'logic/circuit_drawing.dart';
@@ -208,6 +209,14 @@ class RevisionState extends ChangeNotifier
     return rAppearance;
   }
 
+  String get language {
+    final vLanguage = preferences[languagePreference];
+
+    final rLanguage = languages.contains(vLanguage) ? vLanguage as String : 'system';
+
+    return rLanguage;
+  }
+
   double get textScale {
     final vScale = (preferences[textScalePreference] as num?)?.toDouble();
 
@@ -216,13 +225,15 @@ class RevisionState extends ChangeNotifier
     return rScale;
   }
 
-  /// Enregistre l'apparence et la taille du texte ; l'application se redessine.
-  Future<void> setDisplay({String? pAppearance, double? pTextScale}) async {
+  /// Enregistre l'apparence, la taille du texte et la langue ; l'application se redessine.
+  Future<void> setDisplay({String? pAppearance, double? pTextScale, String? pLanguage}) async {
     preferences = {
       ...preferences,
       if (pAppearance != null) appearancePreference: pAppearance,
       if (pTextScale != null) textScalePreference: pTextScale,
+      if (pLanguage != null) languagePreference: pLanguage,
     };
+    aChosenLanguage = language;
     await store.savePreferences(preferences);
     notifyListeners();
   }
@@ -245,6 +256,7 @@ class RevisionState extends ChangeNotifier
     progress = await store.loadProgress() ?? {};
     pending = await store.loadPending();
     preferences = await store.loadPreferences();
+    aChosenLanguage = language;
     examResults = [
       for (final vItem in await store.loadExamResults()) ExamResult.fromJson(vItem),
     ];
@@ -564,7 +576,11 @@ class RevisionState extends ChangeNotifier
 
     try {
       await reminders!.scheduleInterviews(
-        buildInterviewAlerts(await pClient.downloadInterviews(), DateTime.now()),
+        buildInterviewAlerts(
+          await pClient.downloadInterviews(),
+          DateTime.now(),
+          interviewAlertTexts(deviceTexts()),
+        ),
       );
     } on ApiException catch (vException) {
       if (vException.unreachable) {
