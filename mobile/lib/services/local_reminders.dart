@@ -209,6 +209,34 @@ class LocalReminders implements Reminders {
   }
 
   @override
+  Future<void> scheduleFollowUps(List<InterviewAlert> pAlerts) async {
+    await initialize();
+
+    for (var vIndex = 0; vIndex < maxFollowUpAlerts; vIndex++) {
+      await plugin.cancel(id: firstFollowUpAlertId + vIndex);
+    }
+
+    for (final (vIndex, vAlert) in pAlerts.take(maxFollowUpAlerts).indexed) {
+      await plugin.zonedSchedule(
+        id: firstFollowUpAlertId + vIndex,
+        scheduledDate: tz.TZDateTime.from(vAlert.at, tz.local),
+        title: vAlert.title,
+        body: vAlert.body,
+        notificationDetails: NotificationDetails(
+          android: AndroidNotificationDetails(
+            'followups',
+            deviceTexts().followUpsChannel,
+            channelDescription: deviceTexts().followUpsChannelHelp,
+          ),
+        ),
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      );
+    }
+
+    log("${pAlerts.length} rappel(s) de relance planifié(s)", name: 'cv');
+  }
+
+  @override
   Future<void> scheduleOfferChecks(bool pEnabled) async {
     if (pEnabled) {
       await Workmanager().registerPeriodicTask(

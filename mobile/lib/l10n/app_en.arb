@@ -891,5 +891,24 @@
         "type": "String"
       }
     }
-  }
+  },
+  "followUpsChannel": "Application follow-ups",
+  "followUpsChannelHelp": "A reminder when an application stays unanswered",
+  "cvSuiviOffre": "Offer received",
+  "cvSuiviKanban": "Applications board",
+  "cvSuiviDelais": "Response times",
+  "cvSuiviDelaisVide": "Note an answer in the history to see response times.",
+  "cvSuiviDelai": "{value0}: {value1} days on average",
+  "@cvSuiviDelai": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSuiviExportCsv": "Export the tracking as a spreadsheet",
+  "cvPrepAPoser": "Questions to ask the recruiter"
 }
