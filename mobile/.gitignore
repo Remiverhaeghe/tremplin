@@ -49,3 +49,6 @@ app.*.map.json
 
 # Textes générés par flutter gen-l10n
 lib/l10n/gen/
+
+# Captures d’écran produites par le workflow Captures
+/test/captures/png/

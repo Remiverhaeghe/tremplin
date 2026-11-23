@@ -1,45 +1,61 @@
-# Captures du tableau de bord sur des données fictives (tools/web_captures.py), pour le
-# README et le portfolio. Elles sont jointes au passage comme artefact.
 name: Captures
 
+# Captures d'écran de l'appli mobile sur des données fictives (mobile/test/captures),
+# en artefact et dans le journal : pour le README et le portfolio.
 on:
   workflow_dispatch:
   pull_request:
     paths:
-      - "tools/web_captures.py"
-      - "web/templates/**"
-      - "web/static/**"
+      - "mobile/lib/**"
+      - "mobile/test/captures/**"
       - ".github/workflows/captures.yml"
 
 permissions:
   contents: read
 
+# Un nouveau commit sur la branche rend le passage précédent inutile : il est arrêté.
+concurrency:
+  group: captures-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   captures:
-    name: Captures du tableau de bord
+    name: Captures d'écran
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mobile
 
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
-          persist-credentials: false
-
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: "3.14"
-          cache: pip
-
-      - name: Installation des dépendances
-        run: pip install -r requirements.txt
-
-      - name: Installation de Chromium pour Playwright
-        run: python -m playwright install --with-deps chromium
+          channel: stable
+          flutter-version: 3.47.7
+          cache: true
 
       - name: Captures
-        run: python -m tools.web_captures captures
+        run: |
+          flutter pub get
+          flutter gen-l10n
+          export FLUTTER_ROOT="$(dirname "$(dirname "$(command -v flutter)")")"
+          flutter test --tags captures --run-skipped --update-goldens test/captures
 
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      # Aperçu dans le journal, lisible par l'API quand l'artefact ne l'est pas
+      - name: Aperçu dans le journal
+        if: always()
+        run: |
+          for vFile in test/captures/png/*.png; do
+            echo "=== CAPTURE $(basename "$vFile" .png)"
+            base64 -w 0 "$vFile"
+            echo
+          done
+
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: captures-tableau-de-bord
-          path: captures/*.png
-          if-no-files-found: error
+          name: captures-mobile
+          path: mobile/test/captures/png/*.png
+          if-no-files-found: warn
