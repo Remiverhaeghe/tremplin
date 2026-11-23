@@ -713,5 +713,55 @@
       }
     }
   },
-  "cvAuDelaAide": "You can still apply: this is a signal, not a refusal."
+  "cvAuDelaAide": "You can still apply: this is a signal, not a refusal.",
+  "cvSupports": "Public profiles",
+  "cvSupportsAide": "Texts built from your background, without phone or email. Read them before publishing.",
+  "cvSupportsVersion": "Version used",
+  "cvSupportsBio": "GitHub profile text",
+  "cvSupportsBioLongueur": "{value0} characters out of {value1}",
+  "@cvSupportsBioLongueur": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSupportsPage": "Portfolio CV page (Markdown)",
+  "cvSupportsCopie": "Text copied.",
+  "cvSupportsComparer": "Published text to compare",
+  "cvSupportsComparerAide": "Paste the text of your portfolio, LinkedIn or GitHub profile: anything that does not match your background is flagged.",
+  "cvSupportsCoherent": "Nothing differs from your background.",
+  "cvDriftPoste": "The job title \"{value0}\" does not appear.",
+  "@cvDriftPoste": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvDriftProjet": "The project \"{value0}\" is not mentioned.",
+  "@cvDriftProjet": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvDriftChiffre": "The figure \"{value0}\" is not in your background.",
+  "@cvDriftChiffre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSecteur": "Sector templates",
+  "cvSecteurAide": "Fills the fields below; nothing is saved until \"Keep\".",
+  "cvSecteurIndustrie": "Industry",
+  "cvSecteurNumerique": "Tech",
+  "cvSecteurBanque": "Banking and insurance",
+  "cvSecteurPublic": "Public sector"
 }
