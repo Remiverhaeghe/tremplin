@@ -11,7 +11,6 @@ import 'package:jobboard_revision/logic/cv_pdf.dart';
 import 'package:jobboard_revision/logic/cv_profile.dart';
 import 'package:jobboard_revision/logic/cv_readback.dart';
 import 'package:jobboard_revision/logic/cv_stretch.dart';
-import 'package:jobboard_revision/logic/cv_version.dart';
 import 'package:jobboard_revision/revision_state.dart';
 import 'package:jobboard_revision/screens/cv_apply_screen.dart';
 import 'package:jobboard_revision/screens/cv_batch_screen.dart';
