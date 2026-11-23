@@ -21,10 +21,8 @@ Future<void> loadFonts() async {
   if (vRoot == null) {
     fail('FLUTTER_ROOT doit pointer vers le SDK Flutter pour charger les polices');
   }
-  final vFiles = Directory('$vRoot/bin/cache/artifacts/material_fonts')
-      .listSync()
-      .whereType<File>()
-      .toList();
+  final vFiles =
+      Directory('$vRoot/bin/cache/artifacts/material_fonts').listSync().whereType<File>().toList();
   ByteData vRead(File pFile) => ByteData.sublistView(pFile.readAsBytesSync());
   bool vNamed(File pFile, String pStart) =>
       pFile.uri.pathSegments.last.toLowerCase().startsWith(pStart);
