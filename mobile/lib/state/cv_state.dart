@@ -103,6 +103,22 @@ mixin CvState on ChangeNotifier {
     await scheduleCvFollowUps();
   }
 
+  List<CvPerson> get cvContacts => [
+        for (final vItem in preferences[cvContactsPreference] as List? ?? const [])
+          CvPerson.fromJson(Map<String, Object?>.from(vItem as Map)),
+      ];
+
+  Future<void> saveCvContacts(List<CvPerson> pContacts) =>
+      savePreference(cvContactsPreference, [for (final vItem in pContacts) vItem.toJson()]);
+
+  List<CvTraining> get cvTrainings => [
+        for (final vItem in preferences[cvTrainingsPreference] as List? ?? const [])
+          CvTraining.fromJson(Map<String, Object?>.from(vItem as Map)),
+      ];
+
+  Future<void> saveCvTrainings(List<CvTraining> pTrainings) =>
+      savePreference(cvTrainingsPreference, [for (final vItem in pTrainings) vItem.toJson()]);
+
   /// Replanifie les rappels de relance d'après les envois sans réponse.
   Future<void> scheduleCvFollowUps() async =>
       reminders?.scheduleFollowUps(followUpAlerts(cvSent, DateTime.now()));
