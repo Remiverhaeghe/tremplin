@@ -1,9 +1,9 @@
 // Suivi des candidatures : statistiques par version, relances à faire, réponses reçues, et le CV
 // tel qu'il est parti.
 
-import 'package:flutter/material.dart';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../l10n/texts.dart';
