@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import '../l10n/texts.dart';
 import '../logic/cv_answers.dart';
 import '../logic/cv_letter.dart';
+import '../logic/cv_supports.dart';
 import '../revision_state.dart';
 
 const _fillWords = '{poste} {entreprise} {nom} {telephone} {disponibilite} {preavis} '
@@ -54,6 +55,17 @@ class _CvTemplatesScreenState extends State<CvTemplatesScreen> {
       vController.dispose();
     }
     super.dispose();
+  }
+
+  void applySector(String pSector) {
+    final vKit = sectorKit(pSector);
+
+    setState(() {
+      aKit['hook']!.text = vKit.hook;
+      aKit['proof']!.text = vKit.proof;
+      aKit['closing']!.text = vKit.closing;
+      aKit['message']!.text = vKit.message;
+    });
   }
 
   Future<void> save() async {
@@ -107,6 +119,24 @@ class _CvTemplatesScreenState extends State<CvTemplatesScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           Text(vTexts.cvModelesAide(_fillWords)),
+          const SizedBox(height: 12),
+          Text(vTexts.cvSecteur, style: Theme.of(context).textTheme.titleSmall),
+          Text(vTexts.cvSecteurAide),
+          Wrap(
+            spacing: 8,
+            children: [
+              for (final vSector in cvSectors)
+                ActionChip(
+                  label: Text(switch (vSector) {
+                    'industrie' => vTexts.cvSecteurIndustrie,
+                    'banque' => vTexts.cvSecteurBanque,
+                    'public' => vTexts.cvSecteurPublic,
+                    _ => vTexts.cvSecteurNumerique,
+                  }),
+                  onPressed: () => applySector(vSector),
+                ),
+            ],
+          ),
           const SizedBox(height: 12),
           field('hook', vTexts.cvModelesDebut),
           field('proof', vTexts.cvModelesPreuve),
