@@ -7,6 +7,7 @@ import '../logic/cv_pitch.dart';
 import '../logic/cv_prep.dart';
 import '../revision_state.dart';
 import 'cv_apply_screen.dart';
+import 'cv_simulation_screen.dart';
 
 class CvPrepScreen extends StatelessWidget {
   const CvPrepScreen({super.key, required this.state, required this.offer, this.versionId});
@@ -77,6 +78,14 @@ class CvPrepScreen extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          OutlinedButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => CvSimulationScreen(state: state, offer: offer),
+              ),
+            ),
+            child: Text(vTexts.cvSimulation),
           ),
           Text(vTexts.cvPrepAPoser, style: Theme.of(context).textTheme.titleSmall),
           for (final vAsk in questionsToAsk(

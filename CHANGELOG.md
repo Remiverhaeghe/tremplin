@@ -5,6 +5,13 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot K (anglais, agenda, simulation)
+- Titres de section en anglais par version (le contenu reste celui que tu as écrit)
+- Carnet de contacts (nom, entreprise, note, prochaine reprise de contact) et suivi des formations (à faire, en cours, faite, échéance), inclus dans la sauvegarde chiffrée
+- Tableau de la semaine : relances à faire, contacts à reprendre et formations à avancer sur sept jours, le retard ramené à aujourd'hui
+- Simulation d'entretien liée à l'offre : cinq questions tirées de l'offre et du parcours, une à la fois, tirage reproductible par graine
+- Tests : `test/cv_lot_k_test.dart`
+
 ### Appli mobile : CV, lot J (suivi des candidatures)
 - Rappel de relance par notification : un par candidature sans réponse, sept jours après l'envoi à 9 h (le lendemain si le jour est passé), replanifié à chaque envoi ou changement de réponse
 - Tableau des candidatures par état (pas de réponse, réponse, entretien, offre, refus) et nouvel état « Offre reçue »
