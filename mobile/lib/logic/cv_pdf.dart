@@ -427,7 +427,8 @@ Uint8List _assemble(
       ..add('<< /Length ${vContent.length} >>\nstream\n$vContent\nendstream');
   }
   if (pPhoto != null) {
-    vObjects.add('<< /Type /XObject /Subtype /Image /Width ${pPhoto.width} /Height ${pPhoto.height} '
+    vObjects.add(
+        '<< /Type /XObject /Subtype /Image /Width ${pPhoto.width} /Height ${pPhoto.height} '
         '/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${pPhoto.bytes.length} >>\n'
         'stream\n${String.fromCharCodes(pPhoto.bytes)}\nendstream');
   }
