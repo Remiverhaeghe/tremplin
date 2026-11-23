@@ -19,9 +19,23 @@ void main() {
       ...sampleProfile.toJson(),
       'photo': vPhoto,
       'skills': [
-        {'id': 's1', 'title': 'Développement', 'items': ['Java', 'SQL', 'API REST'], 'level': 4},
-        {'id': 's2', 'title': 'Méthodes', 'items': ['Analyse', 'Amélioration continue'], 'level': 3},
-        {'id': 's3', 'title': 'Outils', 'items': ['Git', 'Docker', 'Maven']},
+        {
+          'id': 's1',
+          'title': 'Développement',
+          'items': ['Java', 'SQL', 'API REST'],
+          'level': 4
+        },
+        {
+          'id': 's2',
+          'title': 'Méthodes',
+          'items': ['Analyse', 'Amélioration continue'],
+          'level': 3
+        },
+        {
+          'id': 's3',
+          'title': 'Outils',
+          'items': ['Git', 'Docker', 'Maven']
+        },
       ],
     });
     final vVersion = sampleVersion.copyWith(
