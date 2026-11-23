@@ -6,8 +6,14 @@ typedef CvDiffLine = ({CvDiffKind kind, String text});
 
 /// Différence ligne à ligne (plus longue sous-suite commune), lignes vides ignorées.
 List<CvDiffLine> diffLines(String pBefore, String pAfter) {
-  final vA = [for (final vLine in pBefore.split('\n')) if (vLine.trim().isNotEmpty) vLine.trimRight()];
-  final vB = [for (final vLine in pAfter.split('\n')) if (vLine.trim().isNotEmpty) vLine.trimRight()];
+  final vA = [
+    for (final vLine in pBefore.split('\n'))
+      if (vLine.trim().isNotEmpty) vLine.trimRight()
+  ];
+  final vB = [
+    for (final vLine in pAfter.split('\n'))
+      if (vLine.trim().isNotEmpty) vLine.trimRight()
+  ];
   final vTable = List.generate(vA.length + 1, (_) => List.filled(vB.length + 1, 0));
 
   for (var vI = vA.length - 1; vI >= 0; vI--) {

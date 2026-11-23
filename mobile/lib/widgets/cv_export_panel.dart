@@ -199,7 +199,8 @@ class _CvExportPanelState extends State<CvExportPanel> {
               vUnread.isEmpty
                   ? vTexts.cvLectureOk
                   : vTexts.cvLectureManque(vUnread.take(10).join(', ')),
-              style: TextStyle(color: vUnread.isEmpty ? successColorOf(context) : dangerColorOf(context)),
+              style: TextStyle(
+                  color: vUnread.isEmpty ? successColorOf(context) : dangerColorOf(context)),
             ),
           ),
         const SizedBox(height: 10),
