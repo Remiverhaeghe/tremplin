@@ -32,8 +32,12 @@ void main() {
     final vState = await pTester.runAsync(buildState);
 
     await pTester.pumpWidget(MaterialApp(home: MoreTab(state: vState!, onExam: null)));
-    await pTester.scrollUntilVisible(find.text('À propos'), 200);
-    await pTester.tap(find.text('À propos'));
+    // La tuile est la dernière de la liste : on la fait entrer en entier avant de la toucher
+    final vTile = find.widgetWithText(ListTile, 'À propos');
+    await pTester.scrollUntilVisible(vTile, 200);
+    await pTester.ensureVisible(vTile);
+    await pTester.pumpAndSettle();
+    await pTester.tap(vTile);
     await pTester.pumpAndSettle();
 
     expect(find.byType(AboutScreen), findsOneWidget);
