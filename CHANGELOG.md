@@ -5,6 +5,11 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot B (vérité, plusieurs offres, longueur)
+- Garde-fou de vérité : un projet sans lien public ou hors GitHub, et un chiffre dans une phrase (« 30 % », « 12 personnes »), sont signalés sur l'écran CV ; Rémi confirme un chiffre qu'il peut défendre et il n'est plus signalé
+- Plusieurs offres d'un coup : on colle des offres séparées par une ligne `---`, ou on prend celles du téléphone ; chacune reçoit la version la plus proche, sa couverture et ses mots manquants, et un appui ouvre l'envoi
+- Longueur du CV : libre, 1 page ou 2 pages. Pour tenir, on retire d'abord les centres d'intérêt et les atouts, puis les projets en trop, puis les détails des anciens postes ; jamais les postes, la formation ni les coordonnées. Ce qui est retiré est dit à l'écran
+
 ### Appli mobile : CV, lot A (écrans, PDF, postuler depuis une offre)
 - Onglet Entretien > CV : parcours importé par collage du fichier JSON (il reste sur le téléphone), versions modifiables (nom, poste visé, accroche, sections), aperçu et liste des CV préparés
 - Postuler depuis la fiche d'une offre : version la plus proche proposée, mots de l'offre présents ou absents, projets et compétences réordonnés selon l'offre (rien n'est ajouté, les expériences gardent l'ordre chronologique)
