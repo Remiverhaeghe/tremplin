@@ -12,7 +12,7 @@ const starterPackageAsset = 'assets/revision/depart.json.gz';
 Future<String> loadStarterPackage([AssetBundle? pBundle]) async {
   final vData = await (pBundle ?? rootBundle).load(starterPackageAsset);
   // Décompression en Dart pur : la même sur le téléphone et dans le navigateur
-  final rContent = utf8.decode(GZipDecoder().decodeBytes(vData.buffer.asUint8List()));
+  final rContent = utf8.decode(const GZipDecoder().decodeBytes(vData.buffer.asUint8List()));
 
   return rContent;
 }
