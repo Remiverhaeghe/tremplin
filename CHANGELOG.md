@@ -5,6 +5,41 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : version web pour l'iPhone
+- Version web installable depuis Safari (« Sur l'écran d'accueil »), publiée sur
+  GitHub Pages à `https://remiverhaeghe.github.io/tremplin/` par la CI : icône, nom et
+  couleurs de Tremplin, ouverture en plein écran. Un service worker
+  (`tools/web_service_worker.py`) garde le site en cache : on révise sans réseau avec le
+  paquet livré, réponses gardées dans le stockage du navigateur.
+- Ce qui dépend d'Android est séparé par plate-forme (`lib/platform/`,
+  `lib/services/net/`, `sql_engine`) : fichiers, notifications, widget, tâches de fond,
+  certificat épinglé, recherche du PC sur le Wi-Fi et SQLite restent sur le téléphone.
+  Dans le navigateur, le PC se connecte par QR code ou adresse tapée, après avoir accepté
+  son certificat dans Safari ; le bac à sable SQL renvoie vers l'application Android.
+- Le serveur accepte les appels de l'API depuis l'origine de la version web
+  (`MOBILE_WEB_ORIGINS`, GitHub Pages par défaut), sans cookie : les pages du PC restent
+  fermées aux autres sites.
+- Le paquet de départ est décompressé en Dart pur (`archive`), pareil partout.
+
+### Appli mobile : plongeon, carnet, voix et candidatures notées
+- Textes des écrans dans `lib/l10n/app_fr.arb` (`context.texts`), prêts à traduire ;
+  `revision_state.dart` découpé (clés des préférences, bilan de synchronisation,
+  progression du jeu à part).
+- Profondeur des thèmes : la jauge de chaque thème descend de 0 à 3 m selon la boîte
+  moyenne de ses questions, avec les repères 1 m, 2 m et 3 m du bord du bassin.
+  « Sortir de l'eau » ouvre le bilan du plongeon : réponses, justes, profondeur avant et
+  après.
+- Carnet de plongée : la semaine du lundi au dimanche, réponses par jour, meilleur jour
+  et comparaison avec la semaine précédente, gardé huit semaines sur le téléphone.
+- Widget : bouton « 5 min » qui ouvre directement la révision express.
+- Révision à la voix : question et choix lus, réponse dite (lettre, rang ou texte du
+  choix) par la reconnaissance vocale du téléphone, correction lue. L'application ne
+  demande pas la permission d'enregistrer : c'est la reconnaissance du système qui écoute.
+- Candidature notée sur le téléphone (envoyée ailleurs que dans Tremplin) : entreprise,
+  poste, lien, note et date, gardée hors ligne puis enregistrée sur le PC à la
+  synchronisation (`POST /api/v1/quick-applications`) comme offre manuelle au statut
+  Postulé, sans doublon si le lot est renvoyé.
+
 ### Appli mobile : connexion par code, onglets et nouvelle identité
 - Connexion par code : le téléphone cherche le PC sur le Wi-Fi dès l'ouverture ; sur
   le PC (Paramètres de l'application de bureau ou de la page web), « Connecter un

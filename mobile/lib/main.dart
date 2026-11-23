@@ -3,33 +3,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:workmanager/workmanager.dart';
 
 import 'l10n/texts.dart';
+import 'platform/app_services.dart';
 import 'revision_state.dart';
 import 'screens/home_screen.dart';
 import 'screens/connect_screen.dart';
-import 'services/file_store.dart';
-import 'services/home_widget_service.dart';
-import 'services/offer_checks.dart';
-import 'services/reminders.dart';
 import 'theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Point d'entrée de la vérification des offres, lancée par Android même
-  // application fermée.
-  await Workmanager().initialize(checkOffersInBackground);
+  // Vérification des offres en arrière-plan sur Android ; rien dans le navigateur.
+  await startBackgroundTasks();
 
-  runApp(
-    RevisionApp(
-      state: RevisionState(
-        FileRevisionStore(),
-        reminders: LocalReminders(),
-        homeWidget: AndroidHomeWidget(),
-      ),
-    ),
-  );
+  runApp(RevisionApp(state: createRevisionState()));
 }
 
 class RevisionApp extends StatelessWidget {

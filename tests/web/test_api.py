@@ -263,6 +263,35 @@ def test_quick_notes_from_the_phone(api, tmp_path):
     assert api.post("/api/v1/notes", json={"notes": "x"}).status_code == 422
 
 
+def test_web_version_may_call_the_api_without_cookie(api):
+    """Vérifie que la version web publiée appelle l'API, et elle seule, sans cookie."""
+
+    vClient = api
+    vAllowed = vClient.options(
+        "/api/v1/ping",
+        headers={
+            "Origin": "https://remiverhaeghe.github.io",
+            "Access-Control-Request-Method": "GET",
+            "Access-Control-Request-Headers": "Authorization",
+        },
+    )
+    vOther = vClient.options(
+        "/api/v1/ping",
+        headers={
+            "Origin": "https://exemple.test",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+
+    assert vAllowed.status_code == 200
+    assert (
+        vAllowed.headers["access-control-allow-origin"]
+        == "https://remiverhaeghe.github.io"
+    )
+    assert "access-control-allow-credentials" not in vAllowed.headers
+    assert "access-control-allow-origin" not in vOther.headers
+
+
 def test_quick_applications_from_the_phone(api, tmp_path):
     """Vérifie les candidatures notées sur le téléphone : offre manuelle au statut Postulé."""
 
