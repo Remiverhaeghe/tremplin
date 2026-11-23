@@ -27,7 +27,10 @@ List<CvCheck> checkCv(CvDocument pDocument) {
   final vYear = RegExp(r'(19|20)\d{2}');
   final rChecks = <CvCheck>[
     (code: CvCheckCode.name, ok: pDocument.name.trim().isNotEmpty),
-    (code: CvCheckCode.email, ok: RegExp(r'[^\s@]+@[^\s@]+\.[a-z]{2,}', caseSensitive: false).hasMatch(vText)),
+    (
+      code: CvCheckCode.email,
+      ok: RegExp(r'[^\s@]+@[^\s@]+\.[a-z]{2,}', caseSensitive: false).hasMatch(vText)
+    ),
     (code: CvCheckCode.phone, ok: RegExp(r'\d[\d .]{7,}\d').hasMatch(vText)),
     (code: CvCheckCode.headline, ok: pDocument.headline.trim().isNotEmpty),
     (code: CvCheckCode.summary, ok: find(CvSection.summary) != null),
@@ -35,9 +38,7 @@ List<CvCheck> checkCv(CvDocument pDocument) {
     (code: CvCheckCode.education, ok: find(CvSection.education) != null),
     (
       code: CvCheckCode.dates,
-      ok:
-          vExperience != null &&
-          vExperience.blocks.every((pBlock) => vYear.hasMatch(pBlock.dates)),
+      ok: vExperience != null && vExperience.blocks.every((pBlock) => vYear.hasMatch(pBlock.dates)),
     ),
   ];
 
@@ -46,13 +47,78 @@ List<CvCheck> checkCv(CvDocument pDocument) {
 
 /// Mots trop courants pour compter comme mots-clés d'une offre.
 const _commonWords = {
-  'avec', 'dans', 'pour', 'vous', 'nous', 'votre', 'notre', 'vos', 'nos', 'les', 'des', 'une',
-  'sur', 'par', 'plus', 'aussi', 'sont', 'être', 'etre', 'avoir', 'cette', 'ces', 'ses', 'leur',
-  'leurs', 'entre', 'sans', 'sous', 'tout', 'tous', 'toute', 'toutes', 'bien', 'mais', 'comme',
-  'ainsi', 'chez', 'dont', 'afin', 'ainsi', 'poste', 'offre', 'recherche', 'rejoindre',
-  'mission', 'missions', 'profil', 'candidat', 'entreprise', 'société', 'societe', 'h/f', 'cdi',
-  'cdd', 'stage', 'alternance', 'expérience', 'experience', 'ans', 'année', 'années', 'annee',
-  'annees', 'équipe', 'equipe', 'sera', 'serez', 'être', 'peut', 'doit', 'faire', 'travail',
+  'avec',
+  'dans',
+  'pour',
+  'vous',
+  'nous',
+  'votre',
+  'notre',
+  'vos',
+  'nos',
+  'les',
+  'des',
+  'une',
+  'sur',
+  'par',
+  'plus',
+  'aussi',
+  'sont',
+  'être',
+  'etre',
+  'avoir',
+  'cette',
+  'ces',
+  'ses',
+  'leur',
+  'leurs',
+  'entre',
+  'sans',
+  'sous',
+  'tout',
+  'tous',
+  'toute',
+  'toutes',
+  'bien',
+  'mais',
+  'comme',
+  'ainsi',
+  'chez',
+  'dont',
+  'afin',
+  'ainsi',
+  'poste',
+  'offre',
+  'recherche',
+  'rejoindre',
+  'mission',
+  'missions',
+  'profil',
+  'candidat',
+  'entreprise',
+  'société',
+  'societe',
+  'h/f',
+  'cdi',
+  'cdd',
+  'stage',
+  'alternance',
+  'expérience',
+  'experience',
+  'ans',
+  'année',
+  'années',
+  'annee',
+  'annees',
+  'équipe',
+  'equipe',
+  'sera',
+  'serez',
+  'être',
+  'peut',
+  'doit',
+  'faire',
+  'travail',
 };
 
 /// Même mot avec ou sans accent, en minuscules.
@@ -94,8 +160,14 @@ List<String> offerKeywords(String pOffer, {int pLimit = 20}) {
   final vCv = _plain(pDocument.plainText);
   final vWords = offerKeywords(pOffer);
   final rReport = (
-    found: [for (final vWord in vWords) if (vCv.contains(vWord)) vWord],
-    missing: [for (final vWord in vWords) if (!vCv.contains(vWord)) vWord],
+    found: [
+      for (final vWord in vWords)
+        if (vCv.contains(vWord)) vWord
+    ],
+    missing: [
+      for (final vWord in vWords)
+        if (!vCv.contains(vWord)) vWord
+    ],
   );
 
   return rReport;

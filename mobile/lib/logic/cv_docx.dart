@@ -43,7 +43,8 @@ String _body(CvDocument pDocument, String pAccent) {
     rBody.write(_para(_run(pDocument.contactLines.join('  |  '), pSize: 20), pAfter: 160));
   }
   for (final vSection in pDocument.sections) {
-    rBody.write(_para(_run(vSection.heading, pBold: true, pColor: pAccent, pSize: 26), pStyle: 'Heading1', pAfter: 80));
+    rBody.write(_para(_run(vSection.heading, pBold: true, pColor: pAccent, pSize: 26),
+        pStyle: 'Heading1', pAfter: 80));
     for (final vBlock in vSection.blocks) {
       final vHead = [vBlock.title, vBlock.detail].where((pPart) => pPart.isNotEmpty).join(' - ');
       if (vHead.isNotEmpty) {
@@ -97,8 +98,7 @@ const _documentRels = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 /// Le CV en .docx : page A4, marges de 1,8 cm.
 Uint8List buildCvDocx(CvDocument pDocument, {String pAccent = cvAccent}) {
-  final vDocument =
-      '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+  final vDocument = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${_body(pDocument, pAccent)}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1020" w:right="1020" w:bottom="1020" w:left="1020" w:header="0" w:footer="0" w:gutter="0"/></w:sectPr></w:body></w:document>''';
   final vArchive = Archive();
   void add(String pName, String pContent) {

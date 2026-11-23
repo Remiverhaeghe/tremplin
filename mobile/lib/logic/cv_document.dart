@@ -64,15 +64,15 @@ class CvDocument {
 
 /// Titres de section : ceux que les logiciels de tri reconnaissent.
 String cvHeading(CvSection pSection) => switch (pSection) {
-  CvSection.summary => 'Profil',
-  CvSection.experience => 'Expériences professionnelles',
-  CvSection.projects => 'Projets',
-  CvSection.skills => 'Compétences',
-  CvSection.education => 'Formation',
-  CvSection.languages => 'Langues',
-  CvSection.strengths => 'Atouts',
-  CvSection.interests => "Centres d'intérêt",
-};
+      CvSection.summary => 'Profil',
+      CvSection.experience => 'Expériences professionnelles',
+      CvSection.projects => 'Projets',
+      CvSection.skills => 'Compétences',
+      CvSection.education => 'Formation',
+      CvSection.languages => 'Langues',
+      CvSection.strengths => 'Atouts',
+      CvSection.interests => "Centres d'intérêt",
+    };
 
 CvDocument buildCvDocument(CvProfile pProfile, CvVersion pVersion) {
   final vContact = pProfile.contact;
@@ -87,35 +87,43 @@ CvDocument buildCvDocument(CvProfile pProfile, CvVersion pVersion) {
   }
 
   List<CvBlock> blocksFor(CvSection pSection) => switch (pSection) {
-    CvSection.summary => [
-      if (pVersion.summary.trim().isNotEmpty) CvBlock(lines: [pVersion.summary.trim()]),
-    ],
-    CvSection.experience => [
-      for (final vId in pVersion.experienceIds)
-        if (byId(pProfile.experiences, vId, (pItem) => pItem.id) case final vItem?)
-          CvBlock(title: vItem.title, detail: vItem.company, dates: vItem.dates, lines: vItem.lines),
-    ],
-    CvSection.projects => [
-      for (final vId in pVersion.projectIds)
-        if (byId(pProfile.projects, vId, (pItem) => pItem.id) case final vItem?)
-          CvBlock(title: vItem.name, detail: vItem.url, lines: vItem.lines),
-    ],
-    CvSection.skills => [
-      for (final vId in pVersion.skillIds)
-        if (byId(pProfile.skills, vId, (pItem) => pItem.id) case final vItem?)
-          CvBlock(title: vItem.title, lines: [vItem.items.join(', ')]),
-    ],
-    CvSection.education => [
-      for (final vItem in pProfile.education)
-        CvBlock(title: vItem.title, detail: vItem.place, dates: vItem.dates),
-    ],
-    CvSection.languages => [
-      for (final vItem in pProfile.languages)
-        CvBlock(title: vItem.name, lines: [if (vItem.level.isNotEmpty) vItem.level]),
-    ],
-    CvSection.strengths => [if (pProfile.strengths.isNotEmpty) CvBlock(lines: pProfile.strengths)],
-    CvSection.interests => [if (pProfile.interests.isNotEmpty) CvBlock(lines: pProfile.interests)],
-  };
+        CvSection.summary => [
+            if (pVersion.summary.trim().isNotEmpty) CvBlock(lines: [pVersion.summary.trim()]),
+          ],
+        CvSection.experience => [
+            for (final vId in pVersion.experienceIds)
+              if (byId(pProfile.experiences, vId, (pItem) => pItem.id) case final vItem?)
+                CvBlock(
+                    title: vItem.title,
+                    detail: vItem.company,
+                    dates: vItem.dates,
+                    lines: vItem.lines),
+          ],
+        CvSection.projects => [
+            for (final vId in pVersion.projectIds)
+              if (byId(pProfile.projects, vId, (pItem) => pItem.id) case final vItem?)
+                CvBlock(title: vItem.name, detail: vItem.url, lines: vItem.lines),
+          ],
+        CvSection.skills => [
+            for (final vId in pVersion.skillIds)
+              if (byId(pProfile.skills, vId, (pItem) => pItem.id) case final vItem?)
+                CvBlock(title: vItem.title, lines: [vItem.items.join(', ')]),
+          ],
+        CvSection.education => [
+            for (final vItem in pProfile.education)
+              CvBlock(title: vItem.title, detail: vItem.place, dates: vItem.dates),
+          ],
+        CvSection.languages => [
+            for (final vItem in pProfile.languages)
+              CvBlock(title: vItem.name, lines: [if (vItem.level.isNotEmpty) vItem.level]),
+          ],
+        CvSection.strengths => [
+            if (pProfile.strengths.isNotEmpty) CvBlock(lines: pProfile.strengths)
+          ],
+        CvSection.interests => [
+            if (pProfile.interests.isNotEmpty) CvBlock(lines: pProfile.interests)
+          ],
+      };
 
   final rDocument = CvDocument(
     name: vContact.name,
