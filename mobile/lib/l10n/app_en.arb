@@ -868,5 +868,7 @@
   "cvRestaureOk": "CV restored.",
   "cvRestaureNon": "Wrong password or backup.",
   "cvDossier": "Export everything as text",
-  "cvDossierAide": "One file readable without the app: background, versions, applications, templates. It is not encrypted: keep it to yourself."
+  "cvDossierAide": "One file readable without the app: background, versions, applications, templates. It is not encrypted: keep it to yourself.",
+  "cvVersionPhoto": "Photo in the visual PDF",
+  "cvVersionPhotoAide": "Needs a \"photo\" field (base 64 JPEG) in the imported background. The plain PDF and Word never carry a photo."
 }
