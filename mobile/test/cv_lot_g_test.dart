@@ -19,7 +19,9 @@ import 'support/sample_data.dart';
 
 final now = DateTime(2026, 11, 23, 12);
 
-Map<String, dynamic> sent(String pId, String pAt, {String outcome = '', String company = 'Exemple SA'}) => {
+Map<String, dynamic> sent(String pId, String pAt,
+        {String outcome = '', String company = 'Exemple SA'}) =>
+    {
       'id': pId,
       'at': pAt,
       'version': 'Développeur',
@@ -53,7 +55,8 @@ void main() {
     });
 
     test('le message cite l\'entreprise et le poste', () {
-      final vText = followUpMessage(pName: 'Camille Durand', pCompany: 'Exemple SA', pTitle: 'Développeur');
+      final vText =
+          followUpMessage(pName: 'Camille Durand', pCompany: 'Exemple SA', pTitle: 'Développeur');
 
       expect(vText, contains('le poste de Développeur chez Exemple SA'));
       expect(vText, endsWith('Camille Durand'));
@@ -78,7 +81,8 @@ void main() {
 
   group('préparation d\'entretien', () {
     test('une question par mot de l\'offre, avec la ligne du parcours quand elle existe', () {
-      final vQuestions = prepQuestions('Développeur Java Kubernetes', sampleProfile, sampleVersion, pCompany: 'Exemple SA');
+      final vQuestions = prepQuestions('Développeur Java Kubernetes', sampleProfile, sampleVersion,
+          pCompany: 'Exemple SA');
       final vKinds = {for (final vItem in vQuestions) '${vItem.kind}:${vItem.subject}': vItem.hint};
 
       expect(vKinds.containsKey('why-company:Exemple SA'), isTrue);
@@ -87,7 +91,8 @@ void main() {
     });
 
     test('la question sur le virage vient de la version', () {
-      final vQuestions = prepQuestions('Java', sampleProfile, sampleVersion.copyWith(pivot: 'Je viens de la maintenance.'));
+      final vQuestions = prepQuestions(
+          'Java', sampleProfile, sampleVersion.copyWith(pivot: 'Je viens de la maintenance.'));
 
       expect(vQuestions.map((pItem) => pItem.kind), contains('pivot'));
     });
@@ -144,7 +149,8 @@ void main() {
       final vState = await buildState();
 
       for (var vIndex = 0; vIndex < maxCvSnapshots + 2; vIndex++) {
-        await vState.recordCvSent(pVersion: sampleVersion, pFormat: 'txt', pCompany: 'E$vIndex', pSnapshot: 'texte');
+        await vState.recordCvSent(
+            pVersion: sampleVersion, pFormat: 'txt', pCompany: 'E$vIndex', pSnapshot: 'texte');
       }
       final vSent = vState.cvSent;
 
@@ -190,7 +196,11 @@ void main() {
         MaterialApp(
           home: CvPrepScreen(
             state: vState,
-            offer: const {'title': 'Développeur Java', 'company': 'Exemple SA', 'description': 'Java Kubernetes'},
+            offer: const {
+              'title': 'Développeur Java',
+              'company': 'Exemple SA',
+              'description': 'Java Kubernetes'
+            },
           ),
         ),
       );
