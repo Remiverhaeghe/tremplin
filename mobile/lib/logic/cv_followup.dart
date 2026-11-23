@@ -27,3 +27,32 @@ String followUpMessage({required String pName, required String pCompany, String 
       'chez $pCompany. Je reste très intéressé et disponible pour échanger. '
       'Bien cordialement, $pName';
 }
+
+/// Le dernier envoi à la même entreprise et pour le même poste dans les [pDays] derniers jours ;
+/// null s'il n'y en a pas. Sert à ne pas postuler deux fois sans le vouloir.
+Map<String, dynamic>? recentDuplicate(
+  List<Map<String, dynamic>> pSent,
+  String pCompany,
+  String pTitle,
+  DateTime pNow, {
+  int pDays = 30,
+}) {
+  final vLimit = pNow.subtract(Duration(days: pDays));
+  final vCompany = pCompany.trim().toLowerCase();
+
+  if (vCompany.isEmpty) {
+    return null;
+  }
+  for (final vItem in pSent) {
+    final vAt = DateTime.tryParse('${vItem['at']}');
+
+    if ('${vItem['company']}'.toLowerCase() == vCompany &&
+        '${vItem['title']}'.toLowerCase() == pTitle.trim().toLowerCase() &&
+        vAt != null &&
+        vAt.isAfter(vLimit)) {
+      return vItem;
+    }
+  }
+
+  return null;
+}
