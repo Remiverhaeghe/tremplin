@@ -65,7 +65,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
     return rQuestions;
   }
 
-  String get title => widget.theme?.label ?? 'Révision express';
+  String get title => widget.theme?.label ?? context.texts.questionRevisionExpress;
 
   bool get timeUp => endsAt != null && !DateTime.now().isBefore(endsAt!);
 
@@ -197,7 +197,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         ? const SizedBox.shrink()
         : SchemaView(
             content: vContent,
-            description: (vVisual['alt'] as String?) ?? 'Schéma de la question',
+            description: (vVisual['alt'] as String?) ?? context.texts.questionSchemaQuestion,
           );
 
     return rSchema;
@@ -216,10 +216,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
             const SizedBox(height: 12),
             Text(
               vNext == null
-                  ? 'Aucune question dans ce thème.'
-                  : "Rien à revoir aujourd'hui dans ce thème : prochaine révision le "
-                      '${vNext.day.toString().padLeft(2, '0')}/'
-                      '${vNext.month.toString().padLeft(2, '0')}/${vNext.year}.',
+                  ? context.texts.questionAucuneQuestionDansCe
+                  : context.texts.questionRienRevoirAujourdHui(vNext.day.toString().padLeft(2, '0'),
+                      vNext.month.toString().padLeft(2, '0'), '${vNext.year}'),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),

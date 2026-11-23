@@ -182,7 +182,7 @@ class _SqlScreenState extends State<SqlScreen> {
         if (vRun['passed'] == true) ...[
           Text(
             context.texts.commonNiveauReussi(
-                first ? ' · +${widget.state.sqlXp} XP au retour sur le PC' : ''),
+                first ? context.texts.excelXpAuRetourSur('${widget.state.sqlXp}') : ''),
             style: vTheme.textTheme.titleMedium?.copyWith(color: Colors.green.shade700),
           ),
           Text(level['explanation'] as String? ?? ''),
@@ -194,8 +194,12 @@ class _SqlScreenState extends State<SqlScreen> {
         const SizedBox(height: 8),
         Text(
           context.texts.sqlVotreResultat(
-              vResult['changed'] != null ? '${vResult['changed']} ligne(s) modifiée(s) · ' : '',
-              vResult['truncated'] == true ? '200 premières lignes' : '$vRows ligne(s)'),
+              vResult['changed'] != null
+                  ? context.texts.sqlLigneModifiee('${vResult['changed']}')
+                  : '',
+              vResult['truncated'] == true
+                  ? context.texts.sql200PremieresLignes
+                  : '$vRows ligne(s)'),
           style: vTheme.textTheme.labelLarge,
         ),
         ResultTable(columns: vResult['columns'] as List, rows: vResult['rows'] as List),
@@ -242,8 +246,8 @@ class _SqlScreenState extends State<SqlScreen> {
               autocorrect: false,
               enableSuggestions: false,
               decoration: InputDecoration(
-                labelText: context.texts
-                    .sqlRequete(widget.state.sqlDialect == 'sqlserver' ? 'SQL Server' : 'MySQL'),
+                labelText: context.texts.sqlRequete(
+                    widget.state.sqlDialect == 'sqlserver' ? context.texts.sqlSqlServer : 'MySQL'),
                 border: const OutlineInputBorder(),
               ),
             ),
