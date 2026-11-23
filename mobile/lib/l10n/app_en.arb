@@ -395,5 +395,8 @@
   "navOffres": "Jobs",
   "navSuivi": "Tracking",
   "navEntretien": "Interview",
-  "navPlus": "More"
+  "navPlus": "More",
+  "homeAcquises": "learned",
+  "statisticsReponses": "answers",
+  "streakDays": "{days} d"
 }
