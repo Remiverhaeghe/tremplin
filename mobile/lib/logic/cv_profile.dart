@@ -29,24 +29,24 @@ class CvContact {
   final String availability;
 
   Map<String, Object?> toJson() => {
-    'name': name,
-    'email': email,
-    'phone': phone,
-    'city': city,
-    'licence': licence,
-    'notice': notice,
-    'availability': availability,
-  };
+        'name': name,
+        'email': email,
+        'phone': phone,
+        'city': city,
+        'licence': licence,
+        'notice': notice,
+        'availability': availability,
+      };
 
   static CvContact fromJson(Map<String, Object?> pJson) => CvContact(
-    name: pJson['name'] as String? ?? '',
-    email: pJson['email'] as String? ?? '',
-    phone: pJson['phone'] as String? ?? '',
-    city: pJson['city'] as String? ?? '',
-    licence: pJson['licence'] as String? ?? '',
-    notice: pJson['notice'] as String? ?? '',
-    availability: pJson['availability'] as String? ?? '',
-  );
+        name: pJson['name'] as String? ?? '',
+        email: pJson['email'] as String? ?? '',
+        phone: pJson['phone'] as String? ?? '',
+        city: pJson['city'] as String? ?? '',
+        licence: pJson['licence'] as String? ?? '',
+        notice: pJson['notice'] as String? ?? '',
+        availability: pJson['availability'] as String? ?? '',
+      );
 }
 
 /// Un poste : titre, employeur, dates en clair (« 2022 à aujourd'hui ») et lignes de détail.
@@ -66,20 +66,20 @@ class CvExperience {
   final List<String> lines;
 
   Map<String, Object?> toJson() => {
-    'id': id,
-    'title': title,
-    'company': company,
-    'dates': dates,
-    'lines': lines,
-  };
+        'id': id,
+        'title': title,
+        'company': company,
+        'dates': dates,
+        'lines': lines,
+      };
 
   static CvExperience fromJson(Map<String, Object?> pJson) => CvExperience(
-    id: pJson['id']! as String,
-    title: pJson['title']! as String,
-    company: pJson['company'] as String? ?? '',
-    dates: pJson['dates'] as String? ?? '',
-    lines: _strings(pJson['lines']),
-  );
+        id: pJson['id']! as String,
+        title: pJson['title']! as String,
+        company: pJson['company'] as String? ?? '',
+        dates: pJson['dates'] as String? ?? '',
+        lines: _strings(pJson['lines']),
+      );
 }
 
 /// Un diplôme ou une formation.
@@ -94,11 +94,11 @@ class CvEducation {
   Map<String, Object?> toJson() => {'id': id, 'title': title, 'place': place, 'dates': dates};
 
   static CvEducation fromJson(Map<String, Object?> pJson) => CvEducation(
-    id: pJson['id']! as String,
-    title: pJson['title']! as String,
-    place: pJson['place'] as String? ?? '',
-    dates: pJson['dates'] as String? ?? '',
-  );
+        id: pJson['id']! as String,
+        title: pJson['title']! as String,
+        place: pJson['place'] as String? ?? '',
+        dates: pJson['dates'] as String? ?? '',
+      );
 }
 
 /// Un projet réel, public, que Rémi peut défendre en entretien.
@@ -113,11 +113,11 @@ class CvProject {
   Map<String, Object?> toJson() => {'id': id, 'name': name, 'url': url, 'lines': lines};
 
   static CvProject fromJson(Map<String, Object?> pJson) => CvProject(
-    id: pJson['id']! as String,
-    name: pJson['name']! as String,
-    url: pJson['url'] as String? ?? '',
-    lines: _strings(pJson['lines']),
-  );
+        id: pJson['id']! as String,
+        name: pJson['name']! as String,
+        url: pJson['url'] as String? ?? '',
+        lines: _strings(pJson['lines']),
+      );
 }
 
 /// Un groupe de compétences : « Développement », avec ses mots-clés.
@@ -131,10 +131,10 @@ class CvSkillGroup {
   Map<String, Object?> toJson() => {'id': id, 'title': title, 'items': items};
 
   static CvSkillGroup fromJson(Map<String, Object?> pJson) => CvSkillGroup(
-    id: pJson['id']! as String,
-    title: pJson['title']! as String,
-    items: _strings(pJson['items']),
-  );
+        id: pJson['id']! as String,
+        title: pJson['title']! as String,
+        items: _strings(pJson['items']),
+      );
 }
 
 /// Une langue et son niveau.
@@ -177,21 +177,21 @@ class CvProfile {
   bool get isEmpty => contact.name.isEmpty && experiences.isEmpty && education.isEmpty;
 
   Map<String, Object?> toJson() => {
-    'contact': contact.toJson(),
-    'experiences': [for (final vItem in experiences) vItem.toJson()],
-    'education': [for (final vItem in education) vItem.toJson()],
-    'projects': [for (final vItem in projects) vItem.toJson()],
-    'skills': [for (final vItem in skills) vItem.toJson()],
-    'languages': [for (final vItem in languages) vItem.toJson()],
-    'strengths': strengths,
-    'interests': interests,
-  };
+        'contact': contact.toJson(),
+        'experiences': [for (final vItem in experiences) vItem.toJson()],
+        'education': [for (final vItem in education) vItem.toJson()],
+        'projects': [for (final vItem in projects) vItem.toJson()],
+        'skills': [for (final vItem in skills) vItem.toJson()],
+        'languages': [for (final vItem in languages) vItem.toJson()],
+        'strengths': strengths,
+        'interests': interests,
+      };
 
   static CvProfile fromJson(Map<String, Object?> pJson) {
     List<T> list<T>(String pKey, T Function(Map<String, Object?>) pRead) => [
-      for (final vItem in (pJson[pKey] as List<Object?>?) ?? const [])
-        pRead(vItem! as Map<String, Object?>),
-    ];
+          for (final vItem in (pJson[pKey] as List<Object?>?) ?? const [])
+            pRead(vItem! as Map<String, Object?>),
+        ];
 
     return CvProfile(
       contact: CvContact.fromJson((pJson['contact'] as Map<String, Object?>?) ?? const {}),
@@ -219,5 +219,5 @@ class CvProfile {
 }
 
 List<String> _strings(Object? pValue) => [
-  for (final vItem in (pValue as List<Object?>?) ?? const []) vItem! as String,
-];
+      for (final vItem in (pValue as List<Object?>?) ?? const []) vItem! as String,
+    ];

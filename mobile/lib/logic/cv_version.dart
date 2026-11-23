@@ -48,34 +48,35 @@ class CvVersion {
     List<String>? projectIds,
     List<String>? skillIds,
     bool? withPhoto,
-  }) => CvVersion(
-    id: id,
-    label: label ?? this.label,
-    headline: headline ?? this.headline,
-    summary: summary ?? this.summary,
-    sections: sections ?? this.sections,
-    experienceIds: experienceIds ?? this.experienceIds,
-    projectIds: projectIds ?? this.projectIds,
-    skillIds: skillIds ?? this.skillIds,
-    withPhoto: withPhoto ?? this.withPhoto,
-  );
+  }) =>
+      CvVersion(
+        id: id,
+        label: label ?? this.label,
+        headline: headline ?? this.headline,
+        summary: summary ?? this.summary,
+        sections: sections ?? this.sections,
+        experienceIds: experienceIds ?? this.experienceIds,
+        projectIds: projectIds ?? this.projectIds,
+        skillIds: skillIds ?? this.skillIds,
+        withPhoto: withPhoto ?? this.withPhoto,
+      );
 
   Map<String, Object?> toJson() => {
-    'id': id,
-    'label': label,
-    'headline': headline,
-    'summary': summary,
-    'sections': [for (final vSection in sections) vSection.name],
-    'experienceIds': experienceIds,
-    'projectIds': projectIds,
-    'skillIds': skillIds,
-    'withPhoto': withPhoto,
-  };
+        'id': id,
+        'label': label,
+        'headline': headline,
+        'summary': summary,
+        'sections': [for (final vSection in sections) vSection.name],
+        'experienceIds': experienceIds,
+        'projectIds': projectIds,
+        'skillIds': skillIds,
+        'withPhoto': withPhoto,
+      };
 
   static CvVersion fromJson(Map<String, Object?> pJson) {
     List<String> strings(String pKey) => [
-      for (final vItem in (pJson[pKey] as List<Object?>?) ?? const []) vItem! as String,
-    ];
+          for (final vItem in (pJson[pKey] as List<Object?>?) ?? const []) vItem! as String,
+        ];
     final vNames = {for (final vSection in CvSection.values) vSection.name: vSection};
 
     return CvVersion(

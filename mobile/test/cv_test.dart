@@ -33,9 +33,12 @@ const _profile = CvProfile(
       lines: ['Planification des interventions'],
     ),
   ],
-  education: [CvEducation(id: 'bts', title: 'BTS Maintenance', place: 'Lycée Exemple', dates: '2008')],
+  education: [
+    CvEducation(id: 'bts', title: 'BTS Maintenance', place: 'Lycée Exemple', dates: '2008')
+  ],
   projects: [
-    CvProject(id: 'p1', name: 'Calculatrice', url: 'https://example.org/calc', lines: ['Java Swing']),
+    CvProject(
+        id: 'p1', name: 'Calculatrice', url: 'https://example.org/calc', lines: ['Java Swing']),
   ],
   skills: [
     CvSkillGroup(id: 's1', title: 'Développement', items: ['Java', 'SQL', 'API REST']),
@@ -177,7 +180,8 @@ void main() {
 
   test('mots-clés : présents et absents du CV, accents ignorés', () {
     final vDocument = buildCvDocument(_profile, _version);
-    final vReport = keywordReport('Java SQL Hibernate Développeuse robotique Kubernetes', vDocument);
+    final vReport =
+        keywordReport('Java SQL Hibernate Développeuse robotique Kubernetes', vDocument);
 
     expect(vReport.found, containsAll(['java', 'sql', 'developpeuse']));
     expect(vReport.missing, containsAll(['hibernate', 'robotique', 'kubernetes']));
