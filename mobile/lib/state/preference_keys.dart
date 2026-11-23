@@ -120,9 +120,22 @@ const cvSentPreference = 'cv_sent';
 /// Envois de CV gardés, les plus récents d'abord
 const maxCvSent = 500;
 
+/// Envois pour lesquels le texte du CV figé est gardé
+const maxCvSnapshots = 30;
+
 /// Phrases du CV avec un chiffre que Rémi a confirmé pouvoir défendre
 const cvConfirmedPreference = 'cv_confirmed';
 
 /// Modèles de lettre et réponses de formulaire, écrits par Rémi
 const cvLetterKitPreference = 'cv_letter_kit';
 const cvAnswersPreference = 'cv_answers';
+
+/// Tout ce qui fait partie de la sauvegarde chiffrée du CV
+const cvPreferenceKeys = [
+  cvProfilePreference,
+  cvVersionsPreference,
+  cvSentPreference,
+  cvConfirmedPreference,
+  cvLetterKitPreference,
+  cvAnswersPreference,
+];
