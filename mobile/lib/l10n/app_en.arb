@@ -382,5 +382,13 @@
   "seasonChannel": "Weekly summary",
   "seasonChannelHelp": "XP, quests and applications from the past week, on Mondays",
   "interviewsChannel": "Interview reminders",
-  "interviewsChannelHelp": "The day before and an hour before each interview"
+  "interviewsChannelHelp": "The day before and an hour before each interview",
+  "interviewAlertTomorrow": "Interview tomorrow at {time}",
+  "interviewAlertSoon": "Interview in one hour",
+  "interviewAlertUntitled": "Interview",
+  "interviewAlertWhere": "{title} at {company}",
+  "interviewAlertWhen": "{what}, at {time}",
+  "setupLangue": "Language",
+  "setupFrancais": "Français",
+  "setupEnglish": "English"
 }

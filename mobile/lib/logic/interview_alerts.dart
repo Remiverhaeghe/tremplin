@@ -16,13 +16,37 @@ class InterviewAlert {
   final String body;
 }
 
+/// Textes des rappels dans la langue de l'application ; le français par défaut.
+class InterviewAlertTexts {
+  const InterviewAlertTexts({
+    this.tomorrowAt = _frenchTomorrow,
+    this.soon = 'Entretien dans une heure',
+    this.untitled = 'Entretien',
+    this.where = _frenchWhere,
+    this.when = _frenchWhen,
+  });
+
+  final String Function(String pTime) tomorrowAt;
+  final String soon;
+  final String untitled;
+  final String Function(String pTitle, String pCompany) where;
+  final String Function(String pWhat, String pTime) when;
+}
+
+String _frenchTomorrow(String pTime) => 'Entretien demain à $pTime';
+
+String _frenchWhere(String pTitle, String pCompany) => '$pTitle chez $pCompany';
+
+String _frenchWhen(String pWhat, String pTime) => '$pWhat, à $pTime';
+
 String twoDigits(int pValue) => pValue.toString().padLeft(2, '0');
 
 /// Retourne les rappels encore à venir des entretiens donnés, les plus proches d'abord.
 List<InterviewAlert> buildInterviewAlerts(
   List<Map<String, dynamic>> pInterviews,
-  DateTime pNow,
-) {
+  DateTime pNow, [
+  InterviewAlertTexts pTexts = const InterviewAlertTexts(),
+]) {
   final rAlerts = <InterviewAlert>[];
 
   for (final vInterview in pInterviews) {
@@ -32,7 +56,10 @@ List<InterviewAlert> buildInterviewAlerts(
       continue;
     }
 
-    final vWhere = vInterview['company'] == null ? '' : ' chez ${vInterview['company']}';
+    final vTitle = '${vInterview['title'] ?? pTexts.untitled}';
+    final vWhat = vInterview['company'] == null
+        ? vTitle
+        : pTexts.where(vTitle, '${vInterview['company']}');
     final vTime = '${twoDigits(vAt.hour)}:${twoDigits(vAt.minute)}';
     final vEvening = DateTime(vAt.year, vAt.month, vAt.day - 1, eveningReminderHour);
     final vLast = vAt.subtract(lastReminderDelay);
@@ -40,16 +67,16 @@ List<InterviewAlert> buildInterviewAlerts(
     if (vEvening.isAfter(pNow)) {
       rAlerts.add(InterviewAlert(
         vEvening,
-        'Entretien demain à $vTime',
-        '${vInterview['title'] ?? 'Entretien'}$vWhere',
+        pTexts.tomorrowAt(vTime),
+        vWhat,
       ));
     }
 
     if (vLast.isAfter(pNow)) {
       rAlerts.add(InterviewAlert(
         vLast,
-        'Entretien dans une heure',
-        '${vInterview['title'] ?? 'Entretien'}$vWhere, à $vTime',
+        pTexts.soon,
+        pTexts.when(vWhat, vTime),
       ));
     }
   }

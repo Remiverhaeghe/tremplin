@@ -57,6 +57,24 @@ class SetupScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
+          Text(context.texts.setupLangue, style: Theme.of(context).textTheme.titleSmall),
+          const SizedBox(height: 8),
+          ListenableBuilder(
+            listenable: state,
+            builder: (_, __) => SegmentedButton<String>(
+              segments: [
+                ButtonSegment(
+                    value: 'system',
+                    label: Text(context.texts.setupAuto),
+                    icon: const Icon(Icons.phone_android)),
+                ButtonSegment(value: 'fr', label: Text(context.texts.setupFrancais)),
+                ButtonSegment(value: 'en', label: Text(context.texts.setupEnglish)),
+              ],
+              selected: {state.language},
+              onSelectionChanged: (pChoice) => state.setDisplay(pLanguage: pChoice.first),
+            ),
+          ),
+          const SizedBox(height: 16),
           Text(context.texts.setupTailleTexte, style: Theme.of(context).textTheme.titleSmall),
           const SizedBox(height: 8),
           ListenableBuilder(

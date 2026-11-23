@@ -20,6 +20,10 @@ const notifiedWithdrawnPreference = 'notified_withdrawn';
 const appearancePreference = 'appearance';
 const appearances = ['system', 'light', 'dark'];
 
+/// Langue de l'application : celle du téléphone, ou imposée.
+const languagePreference = 'language';
+const languages = ['system', 'fr', 'en'];
+
 /// Questions signalées, pas encore envoyées au PC
 const flaggedPreference = 'flagged_questions';
 
