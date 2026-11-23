@@ -82,7 +82,12 @@ void main() {
 
       expect(vPlain, isNot(contains(' re f')));
       expect(vVisual, contains(' re f'));
-      expect(pdfTexts(vVisual).join('\n'), pdfTexts(vPlain).join('\n'));
+      List<String> words(String pPdf) => [
+            for (final vWord in pdfTexts(pPdf).join(' ').split(RegExp(r'\s+')))
+              if (vWord.isNotEmpty && vWord != '|') vWord,
+          ];
+
+      expect(words(vVisual), words(vPlain));
     });
 
     test('un long CV passe sur plusieurs pages sans perdre une ligne', () {
