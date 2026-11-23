@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     if (mounted) {
       await showCelebration(
         context,
-        title: 'Niveau $vLevel',
+        title: context.texts.homeLevel('$vLevel'),
         subtitle: '${state.game?['title'] ?? ''}',
         detail: context.texts.homeProchainTitre('${state.game?['next_title'] ?? ''}'),
       );
@@ -168,30 +168,30 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       bottomNavigationBar: NavigationBar(
         selectedIndex: tab,
         onDestinationSelected: openTab,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.school_outlined),
-            selectedIcon: Icon(Icons.school),
-            label: 'Réviser',
+            icon: const Icon(Icons.school_outlined),
+            selectedIcon: const Icon(Icons.school),
+            label: context.texts.navReviser,
           ),
           NavigationDestination(
-            icon: Icon(Icons.work_outline),
-            selectedIcon: Icon(Icons.work),
-            label: 'Offres',
+            icon: const Icon(Icons.work_outline),
+            selectedIcon: const Icon(Icons.work),
+            label: context.texts.navOffres,
           ),
           NavigationDestination(
-            icon: Icon(Icons.assignment_outlined),
-            selectedIcon: Icon(Icons.assignment),
-            label: 'Candidatures',
+            icon: const Icon(Icons.assignment_outlined),
+            selectedIcon: const Icon(Icons.assignment),
+            label: context.texts.navSuivi,
           ),
           NavigationDestination(
-            icon: Icon(Icons.record_voice_over_outlined),
-            selectedIcon: Icon(Icons.record_voice_over),
-            label: 'Entretien',
+            icon: const Icon(Icons.record_voice_over_outlined),
+            selectedIcon: const Icon(Icons.record_voice_over),
+            label: context.texts.navEntretien,
           ),
           NavigationDestination(
-            icon: Icon(Icons.more_horiz),
-            label: 'Plus',
+            icon: const Icon(Icons.more_horiz),
+            label: context.texts.navPlus,
           ),
         ],
       ),
@@ -308,9 +308,11 @@ class SummaryCard extends StatelessWidget {
           children: [
             Statistic(
               value: '${vStatistics['acquired'] ?? 0} / ${vStatistics['total'] ?? 0}',
-              label: 'acquises',
+              label: context.texts.homeAcquises,
             ),
-            Statistic(value: '${vStatistics['streak'] ?? 0} j', label: context.texts.homeSuite),
+            Statistic(
+                value: context.texts.streakDays('${vStatistics['streak'] ?? 0}'),
+                label: context.texts.homeSuite),
             Statistic(value: '${state.pending.length}', label: context.texts.homeReponseEnvoyer),
             if (state.examResults.isNotEmpty)
               Statistic(

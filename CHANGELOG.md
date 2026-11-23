@@ -5,6 +5,20 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : écran « À propos »
+- Nouvel écran depuis le menu Plus : version, langue choisie (lien vers les réglages), où vivent les données, code source sur GitHub et licences des bibliothèques. Un test vérifie que la version affichée suit `pubspec.yaml`
+- Derniers titres restés en français dans la version anglaise : menu Plus, examen, niveau atteint, record du contre-la-montre
+
+### Appli mobile : barre du bas traduite
+- Les libellés de la barre du bas passent dans l'ARB : ils restaient en français dans la version anglaise, comme « acquises », « réponses » et l'unité des jours de suite (« j »). « Candidatures » devient « Suivi », qui tient sur une ligne sur un écran de 360 dp
+- Captures aussi en anglais (`mobile-en-*.png`, dans l'artefact du workflow Captures), pour une future fiche du Play Store
+
+### Appli mobile : choix de la langue
+- Réglage « Langue » : comme le téléphone, français ou anglais. Les notifications et le
+  widget d'accueil suivent ce choix, tâche d'arrière-plan comprise.
+- Les rappels d'entretien (la veille au soir, une heure avant) sont traduits : la logique
+  reçoit ses textes (`InterviewAlertTexts`), français par défaut.
+
 ### Appli mobile : captures d'écran
 - Workflow Captures : un test monte l'appli sur des données fictives et capture l'accueil, le bilan d'une plongée et le carnet de la semaine, ajoutés au README (`docs/captures/mobile-*.png`). Sauté par `flutter test`
 - Jauge de profondeur : ses repères 1 m, 2 m, 3 m prennent la police du thème ; le bilan dit « de 1,2 m à 1,9 m »

@@ -34,12 +34,16 @@ class StatisticsScreen extends StatelessWidget {
                 spacing: 24,
                 runSpacing: 12,
                 children: [
-                  _Figure(value: '${vStatistics['answers'] ?? 0}', label: 'réponses'),
+                  _Figure(
+                      value: '${vStatistics['answers'] ?? 0}',
+                      label: context.texts.statisticsReponses),
                   _Figure(
                     value: vStatistics['rate'] == null ? '–' : '${vStatistics['rate']} %',
                     label: context.texts.statisticsReussite,
                   ),
-                  _Figure(value: '${vStatistics['streak'] ?? 0} j', label: context.texts.homeSuite),
+                  _Figure(
+                      value: context.texts.streakDays('${vStatistics['streak'] ?? 0}'),
+                      label: context.texts.homeSuite),
                 ],
               ),
             ),
