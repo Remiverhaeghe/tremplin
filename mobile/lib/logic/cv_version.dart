@@ -4,6 +4,9 @@
 import 'cv_profile.dart';
 
 /// Sections possibles, dans l'ordre où une version les range.
+/// Couleurs d'accent proposées pour le PDF visuel, la première est celle de départ.
+const cvAccents = <int>[0x1F5F8B, 0x2E7D32, 0xC2410C, 0xB3261E, 0x6A20C9, 0x7B2C5B];
+
 enum CvSection {
   summary,
   experience,
@@ -29,6 +32,7 @@ class CvVersion {
     this.pivot = '',
     this.wording = const {},
     this.years = 0,
+    this.accent = 0,
     this.withPhoto = false,
   });
 
@@ -60,6 +64,9 @@ class CvVersion {
 
   /// Années d'expérience dans le domaine de cette version ; 0 si Rémi ne l'a pas indiqué.
   final int years;
+
+  /// Couleur d'accent du PDF visuel, en 0xRRGGBB ; 0 pour la couleur de départ.
+  final int accent;
   final bool withPhoto;
 
   CvVersion copyWith({
@@ -73,6 +80,7 @@ class CvVersion {
     String? pivot,
     Map<String, String>? wording,
     int? years,
+    int? accent,
     bool? withPhoto,
   }) =>
       CvVersion(
@@ -87,6 +95,7 @@ class CvVersion {
         pivot: pivot ?? this.pivot,
         wording: wording ?? this.wording,
         years: years ?? this.years,
+        accent: accent ?? this.accent,
         withPhoto: withPhoto ?? this.withPhoto,
       );
 
@@ -102,6 +111,7 @@ class CvVersion {
         'pivot': pivot,
         'wording': wording,
         'years': years,
+        'accent': accent,
         'withPhoto': withPhoto,
       };
 
@@ -129,6 +139,7 @@ class CvVersion {
           '${vEntry.key}': '${vEntry.value}',
       },
       years: (pJson['years'] as num?)?.toInt() ?? 0,
+      accent: (pJson['accent'] as num?)?.toInt() ?? 0,
       withPhoto: pJson['withPhoto'] as bool? ?? false,
     );
   }

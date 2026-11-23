@@ -19,6 +19,18 @@ const defaultWordings = <CvWording>[
   (from: 'tenue des registres', to: 'traçabilité'),
   (from: 'remontée des pannes', to: 'gestion des incidents'),
   (from: 'visite des installations', to: 'ronde de surveillance'),
+  (from: 'mise en route', to: 'mise en service'),
+  (from: 'rédaction des procédures', to: 'documentation technique'),
+  (from: 'amélioration des processus', to: 'amélioration continue'),
+  (from: 'formation des collègues', to: 'transfert de compétences'),
+  (from: 'relation avec les fournisseurs', to: 'achats techniques'),
+  (from: 'lecture de plans', to: 'analyse de schémas techniques'),
+  (from: 'permanence téléphonique', to: 'support de niveau 2'),
+  (from: 'suivi des incidents', to: 'gestion des tickets'),
+  (from: 'organisation des tournées', to: 'gestion des plannings'),
+  (from: 'contrôle des pièces', to: 'assurance qualité'),
+  (from: 'fiabilisation des machines', to: 'fiabilité des équipements'),
+  (from: 'arrêt de production', to: 'arrêt technique'),
 ];
 
 /// Les équivalences utiles pour une offre : le mot du secteur est dans l'offre, l'ancien mot est
