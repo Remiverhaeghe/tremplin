@@ -86,7 +86,7 @@ void main() {
     });
 
     test('un long CV passe sur plusieurs pages sans perdre une ligne', () {
-      final vLines = [for (var vIndex = 0; vIndex < 120; vIndex++) 'Tâche numéro $vIndex']; 
+      final vLines = [for (var vIndex = 0; vIndex < 120; vIndex++) 'Tâche numéro $vIndex'];
       final vLong = CvDocument(
         name: 'Camille Durand',
         headline: 'Développeuse',
@@ -211,9 +211,11 @@ void main() {
         experiences: const [CvExperience(id: 'a', title: 'Poste', dates: 'récemment')],
         education: sampleProfile.education,
       );
-      final vReady = cvReadiness(buildCvDocument(vProfile, sampleVersion.copyWith(
-        experienceIds: ['a'],
-      )));
+      final vReady = cvReadiness(buildCvDocument(
+          vProfile,
+          sampleVersion.copyWith(
+            experienceIds: ['a'],
+          )));
 
       expect(vReady.canExport, isFalse);
       expect(vReady.blocking, containsAll([CvCheckCode.email, CvCheckCode.dates]));
