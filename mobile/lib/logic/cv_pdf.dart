@@ -462,7 +462,9 @@ Uint8List _assemble(
     vObjects
       ..add('<< /Type /StructTreeRoot /K ${vStructRoot + 1} 0 R >>')
       ..add('<< /Type /StructElem /S /Document /P $vStructRoot 0 R /K '
-          '[${[for (var vIndex = 0; vIndex < vElements.length; vIndex++) '${vStructRoot + 2 + vIndex} 0 R'].join(' ')}] >>');
+          '[${[
+        for (var vIndex = 0; vIndex < vElements.length; vIndex++) '${vStructRoot + 2 + vIndex} 0 R'
+      ].join(' ')}] >>');
     for (final vElement in vElements) {
       vObjects.add('<< /Type /StructElem /S /${vElement.$3} /P ${vStructRoot + 1} 0 R '
           '/Pg ${vFirstPage + vElement.$1 * 2} 0 R /K ${vElement.$2} >>');

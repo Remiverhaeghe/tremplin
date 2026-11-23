@@ -113,8 +113,8 @@ mixin CvState on ChangeNotifier {
     final vAt = vAll.indexWhere((pItem) => '${pItem['id']}' == pId);
 
     if (vAt >= 0) {
-      final vAnswered = '${pChanges['outcome'] ?? ''}'.isNotEmpty &&
-          '${vAll[vAt]['answered_at'] ?? ''}'.isEmpty;
+      final vAnswered =
+          '${pChanges['outcome'] ?? ''}'.isNotEmpty && '${vAll[vAt]['answered_at'] ?? ''}'.isEmpty;
 
       vAll[vAt] = {
         ...vAll[vAt],
