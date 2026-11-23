@@ -1,0 +1,4 @@
+# Captures d'écran : sautées par `flutter test`, faites par le workflow Captures.
+tags:
+  captures:
+    skip: "Captures d'écran : flutter test --tags captures --run-skipped --update-goldens test/captures"

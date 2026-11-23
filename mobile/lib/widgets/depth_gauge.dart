@@ -35,6 +35,8 @@ class DepthGauge extends StatelessWidget {
             deep: deepColor,
             edge: Theme.of(pContext).colorScheme.outlineVariant,
             ink: Theme.of(pContext).colorScheme.onSurfaceVariant,
+            // Police du thème : un TextPainter ne l'hérite pas tout seul
+            labelStyle: Theme.of(pContext).textTheme.labelSmall ?? const TextStyle(),
             barHeight: height,
           ),
         ),
@@ -53,6 +55,7 @@ class _DepthPainter extends CustomPainter {
     required this.deep,
     required this.edge,
     required this.ink,
+    required this.labelStyle,
     required this.barHeight,
   });
 
@@ -62,6 +65,7 @@ class _DepthPainter extends CustomPainter {
   final Color deep;
   final Color edge;
   final Color ink;
+  final TextStyle labelStyle;
   final double barHeight;
 
   @override
@@ -108,7 +112,7 @@ class _DepthPainter extends CustomPainter {
       final vLabel = TextPainter(
         text: TextSpan(
           text: '$vMarker m',
-          style: TextStyle(fontSize: 10, color: ink, fontWeight: FontWeight.w600),
+          style: labelStyle.copyWith(fontSize: 10, color: ink, fontWeight: FontWeight.w600),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
