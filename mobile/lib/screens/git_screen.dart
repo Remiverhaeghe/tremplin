@@ -57,7 +57,7 @@ class GitListScreen extends StatelessWidget {
 
     final rText = vBest == null
         ? '$vPar commande(s) attendue(s)'
-        : context.texts.gitReussiCommandeReference('${vBest}', '${vPar}');
+        : deviceTexts().gitReussiCommandeReference('$vBest', '$vPar');
 
     return rText;
   }

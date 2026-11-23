@@ -208,8 +208,8 @@ class NumericInput extends StatelessWidget {
       autocorrect: false,
       decoration: InputDecoration(
         labelText:
-            vUnit.isEmpty ? context.texts.questionValue : context.texts.questionValeur('${vUnit}'),
-        helperText: vUnit.isEmpty ? null : context.texts.questionPrefixeAccepte23('${vUnit}'),
+            vUnit.isEmpty ? context.texts.questionValue : context.texts.questionValeur(vUnit),
+        helperText: vUnit.isEmpty ? null : context.texts.questionPrefixeAccepte23(vUnit),
         border: const OutlineInputBorder(),
       ),
       onChanged: (pText) => onChanged(pText.trim().isEmpty ? null : pText),
@@ -394,7 +394,7 @@ class _ConstructionInputState extends State<ConstructionInput> {
 
     changed(vId == null
         ? context.texts.questionPlusCaseLibre
-        : context.texts.circuitPlaceTouchezSesBornes('${draft.label(vId)}'));
+        : context.texts.circuitPlaceTouchezSesBornes(draft.label(vId)));
   }
 
   void tap(Offset pPosition) {

@@ -140,7 +140,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
   void add(String pType) {
     final vId = draft.add(pType);
 
-    changed(vId == null ? '' : context.texts.circuitPlaceTouchezSesBornes('${draft.label(vId)}'));
+    changed(vId == null ? '' : context.texts.circuitPlaceTouchezSesBornes(draft.label(vId)));
   }
 
   void tap(Offset pPosition) {
@@ -279,7 +279,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
         Text(
           vPassed
               ? context.texts.circuitMontageReussi(
-                  '${first ? ' · +${widget.state.circuitXp} XP au retour sur le PC' : ''}')
+                  first ? ' · +${widget.state.circuitXp} XP au retour sur le PC' : '')
               : context.texts.circuitMontageNeRepondPas,
           style: vTheme.textTheme.titleMedium?.copyWith(
             color: vPassed ? Colors.green.shade700 : vTheme.colorScheme.error,

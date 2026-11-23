@@ -57,17 +57,18 @@ class LadderListScreen extends StatelessWidget {
 }
 
 /// Machine simulée en une ligne : moteur, vérin, tapis ou broche.
-String describeMachine(Simulator pSimulator) {
+String describeMachine(Simulator pSimulator, [AppLocalizations? pText]) {
+  final vText = pText ?? deviceTexts();
   final vValues = pSimulator.values;
   final vPosition = pSimulator.machine['position']!;
 
   final rText = switch (pSimulator.kind) {
-    'verin' => context.texts.ladderVerinSorti('${100 * vPosition ~/ verinStroke}'),
-    'tapis' => context.texts.ladderTapisPiecePassee(
-        '${vValues['tapis'] == true ? 'en marche' : 'arrêté'}',
+    'verin' => vText.ladderVerinSorti('${100 * vPosition ~/ verinStroke}'),
+    'tapis' => vText.ladderTapisPiecePassee(
+        vValues['tapis'] == true ? 'en marche' : 'arrêté',
         '${pSimulator.machine['run']! ~/ piecePeriod}'),
-    'percage' => context.texts.ladderBrocheDescendue('${100 * vPosition ~/ spindleStroke}',
-        '${vValues['rotation'] == true ? ', en rotation' : ''}'),
+    'percage' => vText.ladderBrocheDescendue('${100 * vPosition ~/ spindleStroke}',
+        vValues['rotation'] == true ? ', en rotation' : ''),
     _ =>
       'Moteur : ${motorOutputs.any((pName) => vValues[pName] == true) ? (vValues['arriere'] == true ? 'tourne en arrière' : 'tourne') : 'arrêté'}',
   };
@@ -278,7 +279,7 @@ class _LadderScreenState extends State<LadderScreen> {
         Text(
           vRun['passed'] == true
               ? context.texts.commonNiveauReussi(
-                  '${first ? ' · +${widget.state.ladderXp} XP au retour sur le PC' : ''}')
+                  first ? ' · +${widget.state.ladderXp} XP au retour sur le PC' : '')
               : context.texts.ladderPasEncoreRegardezVerifications,
           style: vTheme.textTheme.titleMedium,
         ),

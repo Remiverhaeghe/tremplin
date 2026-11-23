@@ -459,7 +459,7 @@ class TodayCard extends StatelessWidget {
                       builder: (_, pValue, __) => Text(
                         vDue == 0
                             ? context.texts.homeToutEstJour
-                            : context.texts.homeRevoir('${pValue}'),
+                            : context.texts.homeRevoir('$pValue'),
                         style: vTitle,
                       ),
                     ),
@@ -467,7 +467,7 @@ class TodayCard extends StatelessWidget {
                     Text(
                       vDone >= vGoal
                           ? context.texts.homeObjectifJourAtteintBravo
-                          : context.texts.homeObjectifReponsesAujourdHui('${vGoal}'),
+                          : context.texts.homeObjectifReponsesAujourdHui('$vGoal'),
                       style: const TextStyle(color: Colors.white70),
                     ),
                   ],
