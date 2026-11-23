@@ -11,7 +11,6 @@ import 'package:jobboard_revision/logic/cv_stats.dart';
 import 'package:jobboard_revision/revision_state.dart';
 import 'package:jobboard_revision/screens/cv_prep_screen.dart';
 import 'package:jobboard_revision/screens/cv_track_screen.dart';
-import 'package:jobboard_revision/state/preference_keys.dart';
 
 import 'support/cv_samples.dart';
 import 'support/fake_reminders.dart';
