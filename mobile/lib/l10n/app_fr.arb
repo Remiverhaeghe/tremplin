@@ -1370,5 +1370,84 @@
   "aboutData": "Réponses, progression et candidatures restent sur le téléphone et sur votre PC, synchronisés directement : pas de compte ni de service en ligne.",
   "aboutSource": "Code source",
   "aboutLicenses": "Licences des bibliothèques",
-  "hubAboutSubtitle": "Version, langue, données et code source"
+  "hubAboutSubtitle": "Version, langue, données et code source",
+  "cvTitre": "CV",
+  "cvHubSousTitre": "Versions, adaptation à une offre, PDF et Word",
+  "cvImporterTitre": "Importer mon parcours",
+  "cvImporterAide": "Colle le contenu du fichier de parcours (JSON). Il reste sur ce téléphone et n'est jamais envoyé au PC.",
+  "cvImporterBouton": "Importer",
+  "cvImporterInvalide": "Ce texte n'est pas un parcours : vérifie que tout le fichier est collé.",
+  "cvImporterOk": "Parcours importé",
+  "cvAucunParcours": "Importe d'abord ton parcours pour créer des CV.",
+  "cvVersions": "Versions",
+  "cvVersionNouvelle": "Nouvelle version",
+  "cvVersionSupprimer": "Supprimer cette version",
+  "cvVersionNom": "Nom de la version",
+  "cvVersionPoste": "Poste visé, sous le nom",
+  "cvVersionAccroche": "Accroche",
+  "cvVersionAccrocheAide": "Quelques phrases de toi, vraies et défendables en entretien.",
+  "cvVersionSections": "Sections affichées",
+  "cvVersionEnregistree": "Version enregistrée",
+  "cvSectionSummary": "Profil",
+  "cvSectionExperience": "Expériences",
+  "cvSectionProjects": "Projets",
+  "cvSectionSkills": "Compétences",
+  "cvSectionEducation": "Formation",
+  "cvSectionLanguages": "Langues",
+  "cvSectionStrengths": "Atouts",
+  "cvSectionInterests": "Centres d'intérêt",
+  "cvApercu": "Aperçu",
+  "cvControles": "Contrôles avant l'envoi",
+  "cvControlesPret": "Prêt à partir",
+  "cvControlesBloque": "Export bloqué : corrige les points marqués d'une croix.",
+  "cvCheckName": "Nom présent",
+  "cvCheckEmail": "Courriel lisible",
+  "cvCheckPhone": "Téléphone lisible",
+  "cvCheckHeadline": "Poste visé sous le nom",
+  "cvCheckSummary": "Accroche écrite",
+  "cvCheckExperience": "Section expériences",
+  "cvCheckEducation": "Section formation",
+  "cvCheckDates": "Une année dans les dates de chaque poste",
+  "cvExportPdfSobre": "PDF sobre (logiciels de tri)",
+  "cvExportPdfVisuel": "PDF visuel (envoi par courriel)",
+  "cvExportWord": "Word (.docx)",
+  "cvExportTexte": "Texte brut",
+  "cvPostuler": "Postuler avec un CV",
+  "cvPostulerTitre": "Postuler : {value0}",
+  "@cvPostulerTitre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvChoisirVersion": "Version à envoyer",
+  "cvVersionProposee": "Version la plus proche de l'offre : {value0} ({value1} % des mots)",
+  "@cvVersionProposee": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAdapter": "Adapter à l'offre",
+  "cvAdapterAide": "Projets et compétences passent dans l'ordre de l'offre. Rien n'est ajouté.",
+  "cvMotsTrouves": "Mots de l'offre déjà dans le CV",
+  "cvMotsManquants": "Mots absents : ajoute-les seulement s'ils sont vrais",
+  "cvEnvoyes": "CV préparés",
+  "cvEnvoyesVide": "Aucun CV préparé pour une offre pour l'instant.",
+  "cvEnvoyeSur": "{value0} · {value1}",
+  "@cvEnvoyeSur": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  }
 }

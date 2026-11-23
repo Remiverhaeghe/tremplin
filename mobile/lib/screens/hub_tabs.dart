@@ -7,6 +7,7 @@ import '../l10n/texts.dart';
 import '../revision_state.dart';
 import '../theme.dart';
 import 'about_screen.dart';
+import 'cv_screen.dart';
 import 'interview_screen.dart';
 import 'labs_screen.dart';
 import 'library_screen.dart';
@@ -83,6 +84,12 @@ class InterviewHub extends StatelessWidget {
               subtitle: context.texts.hubFichePreparationPitchQuestions,
               onTap: vSheet == null ? null : () => _open(context, () => SheetScreen(sheet: vSheet)),
             ),
+          HubTile(
+            icon: Icons.description_outlined,
+            title: context.texts.cvTitre,
+            subtitle: context.texts.cvHubSousTitre,
+            onTap: () => _open(context, () => CvScreen(state: state)),
+          ),
           HubTile(
             icon: Icons.forum_outlined,
             title: context.texts.interviewSimulationEntretien,
