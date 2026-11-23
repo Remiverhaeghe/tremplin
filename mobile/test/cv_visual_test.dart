@@ -20,7 +20,12 @@ CvProfile withExtras({String photo = '', int level = 0}) => CvProfile.fromJson({
       ...sampleProfile.toJson(),
       if (photo.isNotEmpty) 'photo': photo,
       'skills': [
-        {'id': 's1', 'title': 'Développement', 'items': ['Java', 'SQL'], 'level': level},
+        {
+          'id': 's1',
+          'title': 'Développement',
+          'items': ['Java', 'SQL'],
+          'level': level
+        },
       ],
     });
 
@@ -30,7 +35,13 @@ void main() {
 
     expect(vBack.photo, jpeg);
     expect(vBack.skills.single.level, 4);
-    expect(CvProfile.fromJson({'skills': [{'id': 'a', 'title': 'B', 'level': 9}]}).skills.single.level, 5);
+    expect(
+        CvProfile.fromJson({
+          'skills': [
+            {'id': 'a', 'title': 'B', 'level': 9}
+          ]
+        }).skills.single.level,
+        5);
   });
 
   test('un texte qui n\'est pas une photo JPEG est ignoré', () {
@@ -47,7 +58,8 @@ void main() {
   });
 
   test('le PDF visuel embarque la photo, le sobre jamais', () {
-    final vDocument = buildCvDocument(withExtras(photo: jpeg), sampleVersion.copyWith(withPhoto: true));
+    final vDocument =
+        buildCvDocument(withExtras(photo: jpeg), sampleVersion.copyWith(withPhoto: true));
     final vVisual = pdfOf(vDocument, pStyle: CvPdfStyle.visual);
 
     expect(vVisual, contains('/Subtype /Image'));
@@ -73,11 +85,13 @@ void main() {
   });
 
   test('le texte reste lisible dans l\'ordre malgré le décor', () {
-    final vDocument = buildCvDocument(withExtras(level: 3, photo: jpeg), sampleVersion.copyWith(withPhoto: true));
+    final vDocument =
+        buildCvDocument(withExtras(level: 3, photo: jpeg), sampleVersion.copyWith(withPhoto: true));
     final vTexts = pdfTexts(pdfOf(vDocument, pStyle: CvPdfStyle.visual));
 
     expect(vTexts.first, 'Camille Durand');
     expect(vTexts, contains('camille.durand@example.org'));
-    expect(vTexts.indexOf('Camille Durand'), lessThan(vTexts.indexOf('camille.durand@example.org')));
+    expect(
+        vTexts.indexOf('Camille Durand'), lessThan(vTexts.indexOf('camille.durand@example.org')));
   });
 }
