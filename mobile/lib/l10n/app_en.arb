@@ -866,5 +866,7 @@
   "cvRestaurer": "Restore a backup",
   "cvRestaurerColler": "Backup text",
   "cvRestaureOk": "CV restored.",
-  "cvRestaureNon": "Wrong password or backup."
+  "cvRestaureNon": "Wrong password or backup.",
+  "cvDossier": "Export everything as text",
+  "cvDossierAide": "One file readable without the app: background, versions, applications, templates. It is not encrypted: keep it to yourself."
 }
