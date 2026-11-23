@@ -14,6 +14,10 @@ dans l'historique git.
   pris dans la langue du téléphone (`deviceTexts`).
 - Les tests tournent en français quelle que soit la langue de la machine
   (`test/flutter_test_config.dart`).
+- Le test de synchronisation avec le vrai serveur garde le réseau réel
+  (`test/integration/flutter_test_config.dart`).
+- `requirements-server.lock` recalculé : `python-multipart` 0.0.34, `soupsieve` 4.1.2 et
+  leurs voisins, publiés depuis le dernier verrou.
 
 ### Appli mobile : version web pour l'iPhone
 - Version web installable depuis Safari (« Sur l'écran d'accueil »), publiée sur
