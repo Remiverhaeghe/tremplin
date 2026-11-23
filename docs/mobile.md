@@ -81,3 +81,7 @@ Le téléphone corrige lui-même avec le contenu téléchargé ; à l'envoi, le 
 chaque correction, ignore une réponse déjà reçue (même `id`) et refuse une date hors limites.
 Les réponses sont rangées par heure de réponse : un envoi tardif ne fausse pas la répétition
 espacée. Au plus 500 réponses par envoi.
+
+## CV
+
+Parcours, versions et export PDF, Word et texte depuis l'onglet Entretien, et « Postuler avec un CV » sur la fiche d'une offre. Détail et feuille de route : [cv.md](cv.md).

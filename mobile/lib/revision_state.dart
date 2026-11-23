@@ -13,6 +13,8 @@ import 'l10n/texts.dart';
 import 'logic/devops.dart';
 import 'logic/dive.dart';
 import 'logic/circuit_drawing.dart';
+import 'logic/cv_profile.dart';
+import 'logic/cv_version.dart';
 import 'logic/code_puzzles.dart';
 import 'logic/excel_levels.dart';
 import 'logic/sql_levels.dart';
@@ -46,6 +48,7 @@ part 'state/preference_keys.dart';
 part 'state/sync_report.dart';
 part 'state/game_progress.dart';
 part 'state/quick_applications.dart';
+part 'state/cv_state.dart';
 
 /// Les simulations sont dans des mixins, un fichier par simulation sous state/.
 class RevisionState extends ChangeNotifier
@@ -62,7 +65,8 @@ class RevisionState extends ChangeNotifier
         OralSimulation,
         InterviewSkills,
         GameProgress,
-        QuickApplications {
+        QuickApplications,
+        CvState {
   RevisionState(
     this.store, {
     ApiClient Function(ServerSettings)? pClientFactory,
