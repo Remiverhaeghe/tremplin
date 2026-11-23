@@ -117,7 +117,7 @@ class _ExamScreenState extends State<ExamScreen> {
               '${pResult.count}',
               '${pResult.seconds ~/ 60}',
               (pResult.seconds % 60).toString().padLeft(2, '0'),
-              pResult.overtime ? ', au-delà de la durée conseillée' : ''),
+              pResult.overtime ? context.texts.examAuDelaDureeConseillee : ''),
         ),
         const SizedBox(height: 16),
         if (wrong.isEmpty)
@@ -191,7 +191,9 @@ class _ExamScreenState extends State<ExamScreen> {
           FilledButton.icon(
             onPressed: next,
             icon: const Icon(Icons.arrow_forward),
-            label: Text(index + 1 < questions.length ? 'Question suivante' : 'Voir la note'),
+            label: Text(index + 1 < questions.length
+                ? context.texts.voiceNext
+                : context.texts.examVoirNote),
           ),
         ],
       ],
