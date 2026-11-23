@@ -175,6 +175,15 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
                 ),
             ],
           ),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(vTexts.cvVersionPhoto),
+            subtitle: Text(vTexts.cvVersionPhotoAide),
+            value: aVersion.withPhoto,
+            onChanged: vProfile.photo.isEmpty
+                ? null
+                : (pOn) => setState(() => aVersion = aVersion.copyWith(withPhoto: pOn)),
+          ),
           const SizedBox(height: 8),
           FilledButton(onPressed: save, child: Text(vTexts.offerDetailGarder)),
           const SizedBox(height: 20),

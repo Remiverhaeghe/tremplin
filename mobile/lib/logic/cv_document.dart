@@ -1,12 +1,20 @@
 // Le CV prêt à écrire : une version appliquée au parcours donne un document de texte simple,
 // que le Word, le PDF et le contrôle lisent tous de la même façon.
 
+import 'dart:convert';
+
 import 'cv_profile.dart';
 import 'cv_version.dart';
 
 /// Un bloc d'une section : un poste, un diplôme, un projet, un groupe de compétences.
 class CvBlock {
-  const CvBlock({this.title = '', this.detail = '', this.dates = '', this.lines = const []});
+  const CvBlock({
+    this.title = '',
+    this.detail = '',
+    this.dates = '',
+    this.lines = const [],
+    this.level = 0,
+  });
 
   final String title;
 
@@ -14,6 +22,9 @@ class CvBlock {
   final String detail;
   final String dates;
   final List<String> lines;
+
+  /// Niveau de 0 à 5 pour les étoiles du PDF visuel.
+  final int level;
 }
 
 class CvSectionText {
@@ -30,7 +41,11 @@ class CvDocument {
     required this.headline,
     required this.contactLines,
     required this.sections,
+    this.photo = const [],
   });
+
+  /// Photo JPEG pour le PDF visuel ; vide sans photo.
+  final List<int> photo;
 
   final String name;
   final String headline;
@@ -125,7 +140,7 @@ CvDocument buildCvDocument(CvProfile pProfile, CvVersion pVersion) {
         CvSection.skills => [
             for (final vId in pVersion.skillIds)
               if (byId(pProfile.skills, vId, (pItem) => pItem.id) case final vItem?)
-                CvBlock(title: vItem.title, lines: [vItem.items.join(', ')]),
+                CvBlock(title: vItem.title, lines: [vItem.items.join(', ')], level: vItem.level),
           ],
         CvSection.education => [
             for (final vItem in pProfile.education)
@@ -148,6 +163,7 @@ CvDocument buildCvDocument(CvProfile pProfile, CvVersion pVersion) {
       };
 
   final rDocument = CvDocument(
+    photo: pVersion.withPhoto ? photoBytes(pProfile.photo) : const [],
     name: vContact.name,
     headline: pVersion.headline,
     contactLines: [
@@ -169,4 +185,15 @@ CvDocument buildCvDocument(CvProfile pProfile, CvVersion pVersion) {
   );
 
   return rDocument;
+}
+
+/// Octets d'une photo JPEG codée en base 64 ; vide si le texte n'est pas une photo JPEG.
+List<int> photoBytes(String pBase64) {
+  try {
+    final vBytes = base64Decode(pBase64.trim());
+
+    return vBytes.length > 4 && vBytes[0] == 0xFF && vBytes[1] == 0xD8 ? vBytes : const [];
+  } on FormatException {
+    return const [];
+  }
 }
