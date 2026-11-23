@@ -17,7 +17,8 @@ String _firstSentence(String pText) {
   return (vEnd < 0 ? vText : vText.substring(0, vEnd)).trim();
 }
 
-String buildPitch(CvProfile pProfile, CvVersion pVersion, {String pCompany = '', String pJob = ''}) {
+String buildPitch(CvProfile pProfile, CvVersion pVersion,
+    {String pCompany = '', String pJob = ''}) {
   final vName = pProfile.contact.name.trim();
   final vParts = <String>[
     'Bonjour, je m’appelle $vName.',
