@@ -148,7 +148,7 @@ class _TimeAttackScreenState extends State<TimeAttackScreen> with TickerProvider
           context,
           title: 'Record !',
           subtitle: '${score.points} points',
-          detail: vBest > 0 ? 'Ancien record : $vBest points' : 'Premier record établi',
+          detail: vBest > 0 ? context.texts.timeAttackAncienRecordPoints('${vBest}') : context.texts.timeAttackPremierRecordEtabli,
         ),
       );
     }

@@ -132,7 +132,7 @@ class _DevopsScreenState extends State<DevopsScreen> {
     final vCommand = cleanCommand(command.text);
 
     if (vCommand.isEmpty) {
-      setState(() => message = 'Saisissez une commande.');
+      setState(() => message = context.texts.devopsSaisissezCommande);
       return;
     }
 
@@ -156,8 +156,7 @@ class _DevopsScreenState extends State<DevopsScreen> {
       final vFirst = await widget.state.recordDevops(levelId, steps);
 
       vText =
-          'Objectif atteint${vFirst ? ' · +${widget.state.devopsXp} XP au retour sur le PC' : ''}. '
-          '${level['explanation']}';
+          context.texts.devopsObjectifAtteint('${vFirst ? ' · +${widget.state.devopsXp} XP au retour sur le PC' : ''}', '${level['explanation']}');
     }
 
     setState(() {

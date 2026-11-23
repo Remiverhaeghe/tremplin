@@ -1,6 +1,7 @@
 // Rappel quotidien de révision et alerte des nouvelles offres, par notification
 // locale : aucune donnée ne quitte le téléphone.
 
+import '../l10n/texts.dart';
 import '../logic/interview_alerts.dart';
 
 /// Heure du rappel, chaque jour.
@@ -18,19 +19,25 @@ const firstInterviewAlertId = 100;
 const maxInterviewAlerts = 20;
 
 /// Résume une réponse : « Entretien chez Kiabi le 05/11 à 14:00 », « Refus de Kiabi ».
-String describeReply(Map<String, dynamic> pReply) {
-  final vCompany = '${pReply['company'] ?? 'l\'entreprise'}';
+String describeReply(Map<String, dynamic> pReply, [AppLocalizations? pText]) {
+  final vText = pText ?? deviceTexts();
+  final vCompany = '${pReply['company'] ?? vText.replyCompanyUnknown}';
 
   if (pReply['status'] != 'INTERVIEW') {
-    return 'Refus de $vCompany';
+    return vText.replyRefusal(vCompany);
   }
 
   final vDate = DateTime.tryParse('${pReply['interview_at'] ?? ''}');
 
   final rText = vDate == null
-      ? 'Entretien chez $vCompany'
-      : 'Entretien chez $vCompany le ${twoDigits(vDate.day)}/${twoDigits(vDate.month)} '
-          'à ${twoDigits(vDate.hour)}:${twoDigits(vDate.minute)}';
+      ? vText.replyInterview(vCompany)
+      : vText.replyInterviewAt(
+          vCompany,
+          twoDigits(vDate.day),
+          twoDigits(vDate.month),
+          twoDigits(vDate.hour),
+          twoDigits(vDate.minute),
+        );
 
   return rText;
 }

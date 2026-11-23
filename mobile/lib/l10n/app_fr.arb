@@ -945,5 +945,369 @@
     }
   },
   "voiceEmpty": "Aucune question à choix à revoir pour l'instant.",
-  "connectWebNoScan": "Dans le navigateur, le PC ne se cherche pas tout seul : scannez son QR code ou tapez son adresse. Ouvrez d'abord cette adresse dans Safari pour accepter son certificat."
+  "connectWebNoScan": "Dans le navigateur, le PC ne se cherche pas tout seul : scannez son QR code ou tapez son adresse. Ouvrez d'abord cette adresse dans Safari pour accepter son certificat.",
+  "circuitPlaceTouchezSesBornes": "{value0} placé : touchez ses bornes pour le relier.",
+  "@circuitPlaceTouchezSesBornes": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "circuitSolutionAfficheeVerifiezOu": "Solution affichée : vérifiez-la, ou simulez pour la manœuvrer.",
+  "circuitPlacezAuMoinsComposant": "Placez au moins un composant.",
+  "circuitMontageReussi": "Montage réussi{value0}",
+  "@circuitMontageReussi": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "circuitMontageNeRepondPas": "Le montage ne répond pas encore à toutes les étapes.",
+  "circuitComposezLibrementSimulateurCalcule": "Composez librement : le simulateur calcule tensions et courants.",
+  "circuitTouchezBornePuisAutre": "Touchez une borne puis une autre pour tirer un fil, un fil pour le retirer, un composant puis une case vide pour le déplacer. Pincez pour zoomer.",
+  "connectSaisissezAdresseJeton": "Saisissez l'adresse et le jeton.",
+  "devopsSaisissezCommande": "Saisissez une commande.",
+  "devopsObjectifAtteint": "Objectif atteint{value0}. {value1}",
+  "@devopsObjectifAtteint": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "examAuDelaDureeConseillee": ", au-delà de la durée conseillée",
+  "examVoirNote": "Voir la note",
+  "excelXpAuRetourSur": " · +{value0} XP au retour sur le PC",
+  "@excelXpAuRetourSur": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "gitReussiCommandeReference": "Réussi en {best} commande(s), référence {par}",
+  "@gitReussiCommandeReference": {
+    "placeholders": {
+      "best": {
+        "type": "String"
+      },
+      "par": {
+        "type": "String"
+      }
+    }
+  },
+  "gitXpAuRetourSur": " +{value0} XP au retour sur le PC.",
+  "@gitXpAuRetourSur": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "gitVotreDepot": "Votre dépôt",
+  "gitServeurAttendu": "Serveur attendu",
+  "gitRienCours": "rien en cours",
+  "homeProchainTitre": "Prochain titre : {value0}",
+  "@homeProchainTitre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "homeExamenBlanc": "Examen blanc",
+  "homeSuite": "de suite",
+  "homeReponseEnvoyer": "réponse(s) à envoyer",
+  "homeDernierExamenBlanc": "dernier examen blanc",
+  "homeToutEstJour": "Tout est à jour",
+  "homeRevoir": "{value} à revoir",
+  "@homeRevoir": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "homeObjectifJourAtteintBravo": "Objectif du jour atteint : bravo.",
+  "homeObjectifReponsesAujourdHui": "Objectif : {goal} réponses aujourd'hui",
+  "@homeObjectifReponsesAujourdHui": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "hubFichePreparationPitchQuestions": "Fiche de préparation : pitch, questions pièges, questions à poser",
+  "hubQuestionsTechniquesTireesTes": "Questions techniques tirées de tes thèmes, comme le jour J",
+  "hubQuestionsLuesVoixHaute": "Les questions lues à voix haute, tu réponds sans écran",
+  "hubNoteTonNiveauSur": "Note ton niveau sur chaque compétence, envoyé au PC",
+  "hubActiviteDerniersJoursReussite": "Activité des derniers jours, réussite par thème, examens",
+  "hubTousThemesChronometre": "Tous les thèmes, chronométré",
+  "hubPannesAutomateSchemasGit": "Pannes, automate, schémas, Git, SQL, Maven et Docker, sans réseau",
+  "hubGuidesPratiquesSchemasChaque": "Guides pratiques et schémas de chaque thème, sans réseau",
+  "hubConnexionAuPcApparence": "Connexion au PC, apparence, objectif du jour, notifications",
+  "ladderVerinSorti": "Vérin : sorti à {value0} %",
+  "@ladderVerinSorti": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "ladderTapisPiecePassee": "Tapis : {value0}, {value1} pièce(s) passée(s)",
+  "@ladderTapisPiecePassee": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "ladderBrocheDescendue": "Broche : descendue à {value0} %{value1}",
+  "@ladderBrocheDescendue": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "ladderPasEncoreRegardezVerifications": "Pas encore : regardez les vérifications en rouge",
+  "offerDetailDescriptionNonTransmisePar": "Description non transmise par la source.",
+  "offersProche": "proche de « {similarTo} »",
+  "@offersProche": {
+    "placeholders": {
+      "similarTo": {
+        "type": "String"
+      }
+    }
+  },
+  "oralNouvelleSeance": "Nouvelle séance",
+  "puzzleBonneReponse": "Bonne réponse",
+  "puzzleCeNEstPas": "Ce n'est pas la bonne réponse",
+  "puzzleCommencerSerie": "Commencer une série",
+  "questionRevisionExpress": "Révision express",
+  "questionSchemaQuestion": "Schéma de la question",
+  "questionAucuneQuestionDansCe": "Aucune question dans ce thème.",
+  "questionRienRevoirAujourdHui": "Rien à revoir aujourd'hui dans ce thème : prochaine révision le {value0}/{value1}/{value2}.",
+  "@questionRienRevoirAujourdHui": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      },
+      "value2": {
+        "type": "String"
+      }
+    }
+  },
+  "scanCeQrCodeN": "Ce QR code n'est pas celui de Tremplin : sur le PC, Paramètres, « Application mobile », bouton « QR code ».",
+  "scanVisezQrCodeAffiche": "Visez le QR code affiché sur le PC, dans Paramètres, « Application mobile ».",
+  "setupPasEncoreConnecte": "Pas encore connecté",
+  "sqlLigneModifiee": "{value0} ligne(s) modifiée(s) · ",
+  "@sqlLigneModifiee": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "sql200PremieresLignes": "200 premières lignes",
+  "sqlSqlServer": "SQL Server",
+  "statisticsReussite": "de réussite",
+  "statisticsReponseJuste": "{value0}/{value1} : {value2} réponse(s), {value3} juste(s)",
+  "@statisticsReponseJuste": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      },
+      "value2": {
+        "type": "String"
+      },
+      "value3": {
+        "type": "String"
+      }
+    }
+  },
+  "timeAttackAncienRecordPoints": "Ancien record : {best} points",
+  "@timeAttackAncienRecordPoints": {
+    "placeholders": {
+      "best": {
+        "type": "String"
+      }
+    }
+  },
+  "timeAttackPremierRecordEtabli": "Premier record établi",
+  "trackingEntretien": "entretien le {interview}",
+  "@trackingEntretien": {
+    "placeholders": {
+      "interview": {
+        "type": "String"
+      }
+    }
+  },
+  "trackingRelance": "relance le {followUp}",
+  "@trackingRelance": {
+    "placeholders": {
+      "followUp": {
+        "type": "String"
+      }
+    }
+  },
+  "questionValeur": "Valeur en {unit}",
+  "@questionValeur": {
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "questionPrefixeAccepte23": "Préfixe accepté : « 2,3 m{unit} »",
+  "@questionPrefixeAccepte23": {
+    "placeholders": {
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "questionPlusCaseLibre": "Plus de case libre.",
+  "questionTouchezComposantPalettePour": "Touchez un composant de la palette pour le placer, une borne puis une autre pour tirer un fil, un fil pour le retirer. Pincez pour zoomer.",
+  "questionReponseIncorrecte": "Réponse incorrecte",
+  "questionValue": "Valeur",
+  "replyCompanyUnknown": "l'entreprise",
+  "replyRefusal": "Refus de {company}",
+  "@replyRefusal": {
+    "placeholders": {
+      "company": {
+        "type": "String"
+      }
+    }
+  },
+  "replyInterview": "Entretien chez {company}",
+  "@replyInterview": {
+    "placeholders": {
+      "company": {
+        "type": "String"
+      }
+    }
+  },
+  "replyInterviewAt": "Entretien chez {company} le {day}/{month} à {hour}:{minute}",
+  "@replyInterviewAt": {
+    "placeholders": {
+      "company": {
+        "type": "String"
+      },
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "String"
+      },
+      "minute": {
+        "type": "String"
+      }
+    }
+  },
+  "widgetNothingDue": "Rien à revoir aujourd'hui",
+  "widgetDue": "{count, plural, =1{1 question à revoir} other{{count} questions à revoir}}",
+  "@widgetDue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetNoInterview": "Aucun entretien prévu",
+  "widgetInterview": "Entretien le {day}/{month} à {hour}:{minute}{company}",
+  "@widgetInterview": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      },
+      "hour": {
+        "type": "String"
+      },
+      "minute": {
+        "type": "String"
+      },
+      "company": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderTitle": "Révision du jour",
+  "reminderDue": "{count} question(s) à revoir : quelques minutes suffisent.",
+  "@reminderDue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderNew": "Quelques nouvelles questions vous attendent.",
+  "reminderChannel": "Rappel de révision",
+  "reminderChannelHelp": "Rappel quotidien des questions à revoir",
+  "offerUntitled": "Offre sans titre",
+  "offersNotification": "{count, plural, =1{Nouvelle offre pour vous} other{{count} nouvelles offres pour vous}}",
+  "@offersNotification": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "offersChannel": "Nouvelles offres",
+  "offersChannelHelp": "Nouvelles offres proches du profil, trouvées par le PC",
+  "repliesNotification": "{count, plural, =1{Réponse d'un recruteur} other{{count} réponses de recruteurs}}",
+  "@repliesNotification": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repliesChannel": "Réponses des recruteurs",
+  "repliesChannelHelp": "Refus ou entretien repérés par le PC dans vos e-mails",
+  "withdrawnNotification": "{count, plural, =1{Offre suivie retirée} other{{count} offres suivies retirées}}",
+  "@withdrawnNotification": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "withdrawnChannel": "Offres retirées",
+  "withdrawnChannelHelp": "Offres suivies que leur site ne publie plus",
+  "seasonNotification": "Bilan de la {title}",
+  "@seasonNotification": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "seasonChannel": "Bilan de la semaine",
+  "seasonChannelHelp": "XP, quêtes et candidatures de la semaine écoulée, le lundi",
+  "interviewsChannel": "Rappels d'entretien",
+  "interviewsChannelHelp": "La veille et une heure avant chaque entretien"
 }

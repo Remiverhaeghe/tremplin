@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         context,
         title: 'Niveau $vLevel',
         subtitle: '${state.game?['title'] ?? ''}',
-        detail: 'Prochain titre : ${state.game?['next_title'] ?? ''}',
+        detail: context.texts.homeProchainTitre('${state.game?['next_title'] ?? ''}'),
       );
     }
   }
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       MaterialPageRoute<void>(
         builder: (_) => ExamScreen(
           state: state,
-          title: 'Examen blanc',
+          title: context.texts.homeExamenBlanc,
           questions: state.package!.questions,
         ),
       ),
@@ -310,12 +310,12 @@ class SummaryCard extends StatelessWidget {
               value: '${vStatistics['acquired'] ?? 0} / ${vStatistics['total'] ?? 0}',
               label: 'acquises',
             ),
-            Statistic(value: '${vStatistics['streak'] ?? 0} j', label: 'de suite'),
-            Statistic(value: '${state.pending.length}', label: 'réponse(s) à envoyer'),
+            Statistic(value: '${vStatistics['streak'] ?? 0} j', label: context.texts.homeSuite),
+            Statistic(value: '${state.pending.length}', label: context.texts.homeReponseEnvoyer),
             if (state.examResults.isNotEmpty)
               Statistic(
                 value: '${state.examResults.first.score} %',
-                label: 'dernier examen blanc',
+                label: context.texts.homeDernierExamenBlanc,
               ),
             if (vLastSync != null)
               Text(
@@ -457,15 +457,15 @@ class TodayCard extends StatelessWidget {
                       tween: IntTween(begin: 0, end: vDue),
                       duration: motionOf(context, const Duration(milliseconds: 800)),
                       builder: (_, pValue, __) => Text(
-                        vDue == 0 ? 'Tout est à jour' : '$pValue à revoir',
+                        vDue == 0 ? context.texts.homeToutEstJour : context.texts.homeRevoir('${pValue}'),
                         style: vTitle,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       vDone >= vGoal
-                          ? 'Objectif du jour atteint : bravo.'
-                          : 'Objectif : $vGoal réponses aujourd\'hui',
+                          ? context.texts.homeObjectifJourAtteintBravo
+                          : context.texts.homeObjectifReponsesAujourdHui('${vGoal}'),
                       style: const TextStyle(color: Colors.white70),
                     ),
                   ],
