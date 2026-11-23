@@ -101,6 +101,27 @@ class CvEducation {
       );
 }
 
+/// Une habilitation, un permis ou une formation courte : « Habilitation électrique B1V ».
+class CvCertification {
+  const CvCertification({required this.id, required this.title, this.detail = '', this.dates = ''});
+
+  final String id;
+  final String title;
+
+  /// Organisme ou niveau.
+  final String detail;
+  final String dates;
+
+  Map<String, Object?> toJson() => {'id': id, 'title': title, 'detail': detail, 'dates': dates};
+
+  static CvCertification fromJson(Map<String, Object?> pJson) => CvCertification(
+        id: pJson['id']! as String,
+        title: pJson['title']! as String,
+        detail: pJson['detail'] as String? ?? '',
+        dates: pJson['dates'] as String? ?? '',
+      );
+}
+
 /// Un projet réel, public, que Rémi peut défendre en entretien.
 class CvProject {
   const CvProject({required this.id, required this.name, this.url = '', this.lines = const []});
@@ -156,6 +177,7 @@ class CvProfile {
     this.contact = const CvContact(),
     this.experiences = const [],
     this.education = const [],
+    this.certifications = const [],
     this.projects = const [],
     this.skills = const [],
     this.languages = const [],
@@ -166,6 +188,7 @@ class CvProfile {
   final CvContact contact;
   final List<CvExperience> experiences;
   final List<CvEducation> education;
+  final List<CvCertification> certifications;
   final List<CvProject> projects;
   final List<CvSkillGroup> skills;
   final List<CvLanguage> languages;
@@ -180,6 +203,7 @@ class CvProfile {
         'contact': contact.toJson(),
         'experiences': [for (final vItem in experiences) vItem.toJson()],
         'education': [for (final vItem in education) vItem.toJson()],
+        'certifications': [for (final vItem in certifications) vItem.toJson()],
         'projects': [for (final vItem in projects) vItem.toJson()],
         'skills': [for (final vItem in skills) vItem.toJson()],
         'languages': [for (final vItem in languages) vItem.toJson()],
@@ -197,6 +221,7 @@ class CvProfile {
       contact: CvContact.fromJson((pJson['contact'] as Map<String, Object?>?) ?? const {}),
       experiences: list('experiences', CvExperience.fromJson),
       education: list('education', CvEducation.fromJson),
+      certifications: list('certifications', CvCertification.fromJson),
       projects: list('projects', CvProject.fromJson),
       skills: list('skills', CvSkillGroup.fromJson),
       languages: list('languages', CvLanguage.fromJson),

@@ -30,6 +30,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
   late final TextEditingController aLabel;
   late final TextEditingController aHeadline;
   late final TextEditingController aSummary;
+  late final TextEditingController aPivot;
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
     aLabel = TextEditingController(text: aVersion.label);
     aHeadline = TextEditingController(text: aVersion.headline);
     aSummary = TextEditingController(text: aVersion.summary);
+    aPivot = TextEditingController(text: aVersion.pivot);
   }
 
   @override
@@ -45,6 +47,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
     aLabel.dispose();
     aHeadline.dispose();
     aSummary.dispose();
+    aPivot.dispose();
     super.dispose();
   }
 
@@ -53,6 +56,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
         label: aLabel.text.trim().isEmpty ? aVersion.label : aLabel.text.trim(),
         headline: aHeadline.text.trim(),
         summary: aSummary.text.trim(),
+        pivot: aPivot.text.trim(),
       );
 
   Future<void> save() async {
@@ -127,6 +131,18 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
             decoration: InputDecoration(
               labelText: vTexts.cvVersionAccroche,
               helperText: vTexts.cvVersionAccrocheAide,
+              helperMaxLines: 2,
+            ),
+            onChanged: (_) => setState(() {}),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: aPivot,
+            minLines: 2,
+            maxLines: 6,
+            decoration: InputDecoration(
+              labelText: vTexts.cvVersionVirage,
+              helperText: vTexts.cvVersionVirageAide,
               helperMaxLines: 2,
             ),
             onChanged: (_) => setState(() {}),

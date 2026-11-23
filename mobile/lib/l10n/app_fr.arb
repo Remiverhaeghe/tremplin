@@ -1592,5 +1592,32 @@
   "cvModelesMessage": "Message court",
   "cvModelesEnregistres": "Modèles enregistrés",
   "cvReponses": "Réponses de formulaire",
-  "cvReponseCopiee": "Réponse copiée"
+  "cvReponseCopiee": "Réponse copiée",
+  "cvSectionCertifications": "Habilitations et permis",
+  "cvVersionVirage": "Pourquoi ce changement de métier ?",
+  "cvVersionVirageAide": "Quelques phrases pour ce type de poste ; elles passent dans la lettre complète.",
+  "cvAjouter": "Ajouter un projet ou une habilitation",
+  "cvAjouterProjet": "Projet",
+  "cvAjouterHabilitation": "Habilitation",
+  "cvAjouterNom": "Nom",
+  "cvAjouterLien": "Lien public du projet",
+  "cvAjouterLignes": "Ce qu'il fait, une ligne par phrase",
+  "cvAjouterDetail": "Organisme ou niveau",
+  "cvAjouterDates": "Date ou année",
+  "cvAjouterDansVersions": "Ajouter aux versions « développeur »",
+  "cvAjouterOk": "Ajouté au parcours",
+  "cvAjouterVide": "Indique au moins un nom.",
+  "cvTraductions": "Mots du métier à reprendre",
+  "cvTraductionsAide": "Ton CV dit « {value0} », l'offre dit « {value1} ». Prends le mot de l'offre seulement si c'est vrai.",
+  "@cvTraductionsAide": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvTraductionsUtiliser": "Utiliser"
 }
