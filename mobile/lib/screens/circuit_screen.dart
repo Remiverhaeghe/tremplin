@@ -278,7 +278,8 @@ class _CircuitScreenState extends State<CircuitScreen> {
       children: [
         Text(
           vPassed
-              ? context.texts.circuitMontageReussi('${first ? ' · +${widget.state.circuitXp} XP au retour sur le PC' : ''}')
+              ? context.texts.circuitMontageReussi(
+                  '${first ? ' · +${widget.state.circuitXp} XP au retour sur le PC' : ''}')
               : context.texts.circuitMontageNeRepondPas,
           style: vTheme.textTheme.titleMedium?.copyWith(
             color: vPassed ? Colors.green.shade700 : vTheme.colorScheme.error,
@@ -342,8 +343,8 @@ class _CircuitScreenState extends State<CircuitScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text(level?['goal'] as String? ??
-              context.texts.circuitComposezLibrementSimulateurCalcule),
+          Text(
+              level?['goal'] as String? ?? context.texts.circuitComposezLibrementSimulateurCalcule),
           if (showHint)
             Text(context.texts.commonIndice('${level!['hint']}'),
                 style: vTheme.textTheme.bodySmall),
@@ -358,9 +359,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
             children: [
               Expanded(
                 child: Text(
-                  message.isEmpty
-                      ? context.texts.circuitTouchezBornePuisAutre
-                      : message,
+                  message.isEmpty ? context.texts.circuitTouchezBornePuisAutre : message,
                   style: vTheme.textTheme.bodySmall,
                 ),
               ),

@@ -208,12 +208,13 @@ class _GitScreenState extends State<GitScreen> {
         children: [
           Text.rich(TextSpan(children: markdownSpans(level['intro'] as String, vCode))),
           const SizedBox(height: 12),
-          buildGraph(context.texts.gitVotreDepot, renderGraph(vRepository.localView(), context.texts.gitVotreDepot)),
+          buildGraph(context.texts.gitVotreDepot,
+              renderGraph(vRepository.localView(), context.texts.gitVotreDepot)),
           buildGraph('Objectif', renderGraph(vGoal.localView(), 'Objectif')),
           if (vRepository.remote.isNotEmpty) ...[
             buildGraph('Serveur', renderGraph(vRepository.serverView(), 'Serveur', false)),
-            buildGraph(
-                context.texts.gitServeurAttendu, renderGraph(vGoal.serverView(), context.texts.gitServeurAttendu, false)),
+            buildGraph(context.texts.gitServeurAttendu,
+                renderGraph(vGoal.serverView(), context.texts.gitServeurAttendu, false)),
           ],
           if (vWorktree.isNotEmpty || vGoalWorktree.isNotEmpty)
             Text(

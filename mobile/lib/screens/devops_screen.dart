@@ -155,8 +155,9 @@ class _DevopsScreenState extends State<DevopsScreen> {
     if (vReached && !reached) {
       final vFirst = await widget.state.recordDevops(levelId, steps);
 
-      vText =
-          context.texts.devopsObjectifAtteint('${vFirst ? ' · +${widget.state.devopsXp} XP au retour sur le PC' : ''}', '${level['explanation']}');
+      vText = context.texts.devopsObjectifAtteint(
+          '${vFirst ? ' · +${widget.state.devopsXp} XP au retour sur le PC' : ''}',
+          '${level['explanation']}');
     }
 
     setState(() {

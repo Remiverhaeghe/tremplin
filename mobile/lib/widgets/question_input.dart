@@ -207,7 +207,8 @@ class NumericInput extends StatelessWidget {
       enabled: enabled,
       autocorrect: false,
       decoration: InputDecoration(
-        labelText: vUnit.isEmpty ? context.texts.questionValue : context.texts.questionValeur('${vUnit}'),
+        labelText:
+            vUnit.isEmpty ? context.texts.questionValue : context.texts.questionValeur('${vUnit}'),
         helperText: vUnit.isEmpty ? null : context.texts.questionPrefixeAccepte23('${vUnit}'),
         border: const OutlineInputBorder(),
       ),
@@ -491,9 +492,7 @@ class _ConstructionInputState extends State<ConstructionInput> {
             children: [
               Expanded(
                 child: Text(
-                  message.isEmpty
-                      ? context.texts.questionTouchezComposantPalettePour
-                      : message,
+                  message.isEmpty ? context.texts.questionTouchezComposantPalettePour : message,
                   style: vTheme.textTheme.bodySmall,
                 ),
               ),
