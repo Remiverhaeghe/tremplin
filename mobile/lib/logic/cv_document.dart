@@ -78,7 +78,19 @@ class CvDocument {
 }
 
 /// Titres de section : ceux que les logiciels de tri reconnaissent.
-String cvHeading(CvSection pSection) => switch (pSection) {
+String cvHeading(CvSection pSection, {String pLanguage = 'fr'}) => pLanguage == 'en'
+    ? switch (pSection) {
+        CvSection.summary => 'Profile',
+        CvSection.experience => 'Professional experience',
+        CvSection.projects => 'Projects',
+        CvSection.skills => 'Skills',
+        CvSection.education => 'Education',
+        CvSection.certifications => 'Certifications and licences',
+        CvSection.languages => 'Languages',
+        CvSection.strengths => 'Strengths',
+        CvSection.interests => 'Interests',
+      }
+    : switch (pSection) {
       CvSection.summary => 'Profil',
       CvSection.experience => 'Expériences professionnelles',
       CvSection.projects => 'Projets',
@@ -180,7 +192,7 @@ CvDocument buildCvDocument(CvProfile pProfile, CvVersion pVersion) {
     sections: [
       for (final vSection in pVersion.sections)
         if (blocksFor(vSection) case final vBlocks when vBlocks.isNotEmpty)
-          CvSectionText(section: vSection, heading: cvHeading(vSection), blocks: vBlocks),
+          CvSectionText(section: vSection, heading: cvHeading(vSection, pLanguage: pVersion.language), blocks: vBlocks),
     ],
   );
 

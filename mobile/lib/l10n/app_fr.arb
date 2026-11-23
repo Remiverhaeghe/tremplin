@@ -1899,5 +1899,67 @@
     }
   },
   "cvSuiviExportCsv": "Exporter le suivi en tableur",
-  "cvPrepAPoser": "Questions à poser au recruteur"
+  "cvPrepAPoser": "Questions à poser au recruteur",
+  "cvVersionAnglais": "Titres en anglais",
+  "cvVersionAnglaisAide": "Les titres de section passent en anglais ; le contenu reste celui que tu as écrit, à traduire toi-même.",
+  "cvAgenda": "Semaine, contacts, formations",
+  "cvAgendaSemaine": "Cette semaine",
+  "cvAgendaSemaineVide": "Rien de prévu dans les sept prochains jours.",
+  "cvAgendaRelance": "Relancer {value0}",
+  "@cvAgendaRelance": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAgendaContact": "Reprendre contact avec {value0}",
+  "@cvAgendaContact": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvAgendaFormation": "Avancer sur la formation {value0}",
+  "@cvAgendaFormation": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvContacts": "Contacts",
+  "cvContactsVide": "Aucun contact noté.",
+  "cvContactAjouter": "Ajouter un contact",
+  "cvContactNom": "Nom",
+  "cvContactEntreprise": "Entreprise",
+  "cvContactNote": "Note",
+  "cvContactReprise": "Reprendre contact le (AAAA-MM-JJ)",
+  "cvContactFait": "Contact fait",
+  "cvFormations": "Formations",
+  "cvFormationsVide": "Aucune formation suivie.",
+  "cvFormationAjouter": "Ajouter une formation",
+  "cvFormationTitre": "Titre",
+  "cvFormationEcheance": "Échéance (AAAA-MM-JJ)",
+  "cvFormationTodo": "À faire",
+  "cvFormationDoing": "En cours",
+  "cvFormationDone": "Faite",
+  "cvEnregistrer": "Enregistrer",
+  "cvSimulation": "Simuler l'entretien",
+  "cvSimulationAide": "Cinq questions tirées de l'offre et de ton parcours. Réponds à voix haute, puis passe à la suivante.",
+  "cvSimulationNumero": "Question {value0} sur {value1}",
+  "@cvSimulationNumero": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSimulationSuivante": "Question suivante",
+  "cvSimulationRecommencer": "Autre tirage",
+  "cvSimulationFin": "Simulation terminée. Reprends dans la préparation les questions qui t'ont fait hésiter."
 }
