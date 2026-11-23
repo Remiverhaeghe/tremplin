@@ -31,6 +31,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
   late final TextEditingController aHeadline;
   late final TextEditingController aSummary;
   late final TextEditingController aPivot;
+  late final TextEditingController aYears;
 
   @override
   void initState() {
@@ -40,6 +41,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
     aHeadline = TextEditingController(text: aVersion.headline);
     aSummary = TextEditingController(text: aVersion.summary);
     aPivot = TextEditingController(text: aVersion.pivot);
+    aYears = TextEditingController(text: aVersion.years > 0 ? '${aVersion.years}' : '');
   }
 
   @override
@@ -48,6 +50,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
     aHeadline.dispose();
     aSummary.dispose();
     aPivot.dispose();
+    aYears.dispose();
     super.dispose();
   }
 
@@ -57,6 +60,7 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
         headline: aHeadline.text.trim(),
         summary: aSummary.text.trim(),
         pivot: aPivot.text.trim(),
+        years: int.tryParse(aYears.text.trim()) ?? 0,
       );
 
   Future<void> save() async {
@@ -143,6 +147,17 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
             decoration: InputDecoration(
               labelText: vTexts.cvVersionVirage,
               helperText: vTexts.cvVersionVirageAide,
+              helperMaxLines: 2,
+            ),
+            onChanged: (_) => setState(() {}),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: aYears,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: vTexts.cvVersionAnnees,
+              helperText: vTexts.cvVersionAnneesAide,
               helperMaxLines: 2,
             ),
             onChanged: (_) => setState(() {}),

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 import '../l10n/texts.dart';
 import '../logic/cv_check.dart';
+import '../logic/cv_diff.dart';
 import '../logic/cv_document.dart';
+import '../logic/cv_stretch.dart';
 import '../logic/cv_tailor.dart';
 import '../logic/cv_translate.dart';
 import '../revision_state.dart';
@@ -78,6 +80,14 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
     final vSuggestions = suggestWordings(vOffer, vProfile, pApplied: vFinal.wording);
     final vReport = keywordReport(vOffer, buildCvDocument(vProfile, vFinal));
     final vCompany = '${widget.offer['company'] ?? ''}';
+    final vStretch = stretchSignals(vOffer, vProfile, pYears: vChosen.years);
+    final vDiff = [
+      for (final vLine in diffLines(
+        buildCvDocument(vProfile, vChosen).plainText,
+        buildCvDocument(vProfile, vFinal).plainText,
+      ))
+        if (vLine.kind != CvDiffKind.same) vLine,
+    ];
 
     final rScreen = Scaffold(
       appBar: AppBar(title: Text(vTexts.cvPostulerTitre('${widget.offer['title'] ?? ''}'))),
@@ -107,6 +117,30 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
             value: aTailored,
             onChanged: (pOn) => setState(() => aTailored = pOn),
           ),
+          if (vStretch.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Card(
+              color: vTheme.colorScheme.tertiaryContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(vTexts.cvAuDela, style: vTheme.textTheme.titleSmall),
+                    for (final vSignal in vStretch)
+                      Text(switch (vSignal.kind) {
+                        CvStretchKind.years =>
+                          vTexts.cvAuDelaAnnees('${vSignal.required}', '${vSignal.have}'),
+                        CvStretchKind.seniority => vTexts.cvAuDelaSenior,
+                        CvStretchKind.degree =>
+                          vTexts.cvAuDelaDiplome('${vSignal.required}', '${vSignal.have}'),
+                      }),
+                    Text(vTexts.cvAuDelaAide),
+                  ],
+                ),
+              ),
+            ),
+          ],
           const SizedBox(height: 8),
           Text(vTexts.cvMotsTrouves, style: vTheme.textTheme.titleSmall),
           Wrap(
@@ -158,6 +192,25 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
               ],
             ),
           ],
+          ExpansionTile(
+            tilePadding: EdgeInsets.zero,
+            title: Text(vTexts.cvAvantApres),
+            children: [
+              if (vDiff.isEmpty) Text(vTexts.cvAvantApresAucun),
+              for (final vLine in vDiff)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '${vLine.kind == CvDiffKind.added ? '+' : '-'} ${vLine.text}',
+                    style: TextStyle(
+                      color: vLine.kind == CvDiffKind.added
+                          ? successColorOf(context)
+                          : dangerColorOf(context),
+                    ),
+                  ),
+                ),
+            ],
+          ),
           const SizedBox(height: 12),
           OutlinedButton.icon(
             onPressed: () => Navigator.of(context).push(
