@@ -66,11 +66,11 @@ void main() {
     });
 
     test('les parenthèses et barres obliques du texte sont protégées', () {
-      final vDoc = CvDocument(
+      const vDoc = CvDocument(
         name: r'A (B) \ C',
         headline: '',
-        contactLines: const [],
-        sections: const [],
+        contactLines: [],
+        sections: [],
       );
 
       expect(pdfTexts(pdfOf(vDoc)), [r'A (B) \ C']);

@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'cv_document.dart';
+import 'cv_version.dart';
 
 enum CvPdfStyle { plain, visual }
 
