@@ -7,7 +7,6 @@ import 'package:home_widget/home_widget.dart';
 
 import 'home_widget_service.dart';
 
-
 class AndroidHomeWidget implements HomeWidgetUpdater {
   @override
   Future<void> show((String, String) pLines) async {

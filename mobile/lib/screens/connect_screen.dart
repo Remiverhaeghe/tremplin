@@ -223,7 +223,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
           title: Text(context.texts.connectPcIntrouvableSurCe),
           // Le navigateur ne voit pas le réseau local : QR code ou adresse tapée
           subtitle: Text(
-            canScanNetwork ? context.texts.connectTelephoneDoitEtreSur : context.texts.connectWebNoScan,
+            canScanNetwork
+                ? context.texts.connectTelephoneDoitEtreSur
+                : context.texts.connectWebNoScan,
           ),
           trailing: IconButton(
             tooltip: context.texts.connectChercherNouveau,

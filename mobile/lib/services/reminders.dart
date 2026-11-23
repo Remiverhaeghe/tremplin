@@ -1,7 +1,6 @@
 // Rappel quotidien de révision et alerte des nouvelles offres, par notification
 // locale : aucune donnée ne quitte le téléphone.
 
-
 import '../logic/interview_alerts.dart';
 
 /// Heure du rappel, chaque jour.

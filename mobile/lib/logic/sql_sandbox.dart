@@ -6,7 +6,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-
 import 'python_compat.dart';
 import 'sql_engine.dart';
 
