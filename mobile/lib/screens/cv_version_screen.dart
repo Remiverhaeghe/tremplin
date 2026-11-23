@@ -175,6 +175,14 @@ class _CvVersionScreenState extends State<CvVersionScreen> {
                 ),
             ],
           ),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(vTexts.cvVersionAnglais),
+            subtitle: Text(vTexts.cvVersionAnglaisAide),
+            value: aVersion.language == 'en',
+            onChanged: (pOn) =>
+                setState(() => aVersion = aVersion.copyWith(language: pOn ? 'en' : 'fr')),
+          ),
           Text(vTexts.cvVersionCouleur, style: Theme.of(context).textTheme.titleSmall),
           Wrap(
             spacing: 8,

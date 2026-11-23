@@ -34,6 +34,7 @@ class CvVersion {
     this.years = 0,
     this.accent = 0,
     this.withPhoto = false,
+    this.language = 'fr',
   });
 
   final String id;
@@ -69,6 +70,9 @@ class CvVersion {
   final int accent;
   final bool withPhoto;
 
+  /// Langue des titres de section : `fr` ou `en`. Le contenu reste celui que Rémi a écrit.
+  final String language;
+
   CvVersion copyWith({
     String? label,
     String? headline,
@@ -82,6 +86,7 @@ class CvVersion {
     int? years,
     int? accent,
     bool? withPhoto,
+    String? language,
   }) =>
       CvVersion(
         id: id,
@@ -97,6 +102,7 @@ class CvVersion {
         years: years ?? this.years,
         accent: accent ?? this.accent,
         withPhoto: withPhoto ?? this.withPhoto,
+        language: language ?? this.language,
       );
 
   Map<String, Object?> toJson() => {
@@ -113,6 +119,7 @@ class CvVersion {
         'years': years,
         'accent': accent,
         'withPhoto': withPhoto,
+        'language': language,
       };
 
   static CvVersion fromJson(Map<String, Object?> pJson) {
@@ -140,6 +147,7 @@ class CvVersion {
       },
       years: (pJson['years'] as num?)?.toInt() ?? 0,
       accent: (pJson['accent'] as num?)?.toInt() ?? 0,
+      language: pJson['language'] == 'en' ? 'en' : 'fr',
       withPhoto: pJson['withPhoto'] as bool? ?? false,
     );
   }

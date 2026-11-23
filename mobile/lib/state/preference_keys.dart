@@ -130,6 +130,10 @@ const cvConfirmedPreference = 'cv_confirmed';
 const cvLetterKitPreference = 'cv_letter_kit';
 const cvAnswersPreference = 'cv_answers';
 
+/// Carnet de contacts et formations suivies
+const cvContactsPreference = 'cv_contacts';
+const cvTrainingsPreference = 'cv_trainings';
+
 /// Tout ce qui fait partie de la sauvegarde chiffrée du CV
 const cvPreferenceKeys = [
   cvProfilePreference,
@@ -138,4 +142,6 @@ const cvPreferenceKeys = [
   cvConfirmedPreference,
   cvLetterKitPreference,
   cvAnswersPreference,
+  cvContactsPreference,
+  cvTrainingsPreference,
 ];
