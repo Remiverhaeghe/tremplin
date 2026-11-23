@@ -46,10 +46,16 @@ String cvSectionLabel(AppLocalizations pTexts, CvSection pSection) => switch (pS
     };
 
 /// Octets, extension et type de contenu d'un export.
-({List<int> bytes, String extension, String mime}) renderCv(CvDocument pDocument, String pFormat) =>
+({List<int> bytes, String extension, String mime}) renderCv(
+  CvDocument pDocument,
+  String pFormat, {
+  int pAccent = 0,
+}) =>
     switch (pFormat) {
       'pdf-visuel' => (
-          bytes: buildCvPdf(pDocument, pStyle: CvPdfStyle.visual),
+          bytes: pAccent == 0
+              ? buildCvPdf(pDocument, pStyle: CvPdfStyle.visual)
+              : buildCvPdf(pDocument, pStyle: CvPdfStyle.visual, pAccent: pAccent),
           extension: 'pdf',
           mime: mimePdf,
         ),
@@ -111,7 +117,7 @@ class _CvExportPanelState extends State<CvExportPanel> {
   }
 
   Future<void> export(String pFormat) async {
-    final vOut = renderCv(documentFor(pFormat), pFormat);
+    final vOut = renderCv(documentFor(pFormat), pFormat, pAccent: widget.version.accent);
     final vName =
         cvFileName(widget.profile, widget.version, vOut.extension, pCompany: widget.company);
 

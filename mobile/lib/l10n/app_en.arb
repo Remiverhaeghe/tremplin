@@ -870,5 +870,26 @@
   "cvDossier": "Export everything as text",
   "cvDossierAide": "One file readable without the app: background, versions, applications, templates. It is not encrypted: keep it to yourself.",
   "cvVersionPhoto": "Photo in the visual PDF",
-  "cvVersionPhotoAide": "Needs a \"photo\" field (base 64 JPEG) in the imported background. The plain PDF and Word never carry a photo."
+  "cvVersionPhotoAide": "Needs a \"photo\" field (base 64 JPEG) in the imported background. The plain PDF and Word never carry a photo.",
+  "cvVersionCouleur": "Visual PDF colour",
+  "cvDoublon": "You already sent a CV to {value0} for this job on {value1}.",
+  "@cvDoublon": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPitch": "My 30-second introduction",
+  "cvPitchDuree": "About {value0} seconds at a steady pace.",
+  "@cvPitchDuree": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  }
 }

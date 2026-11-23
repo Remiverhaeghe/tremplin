@@ -189,6 +189,9 @@ class _Painter {
   final CvPdfStyle style;
   final int accent;
   final pages = <StringBuffer>[StringBuffer()];
+
+  /// Pour chaque page, les repères de contenu écrits (balise de structure), dans l'ordre.
+  final marks = <List<String>>[[]];
   double top = _marginTop;
 
   /// Photo du PDF visuel, null sans photo.
@@ -211,6 +214,7 @@ class _Painter {
   void ensure(double pHeight) {
     if (top + pHeight > _pageHeight - _marginBottom) {
       pages.add(StringBuffer());
+      marks.add([]);
       top = _marginTop;
     }
   }
@@ -221,10 +225,19 @@ class _Painter {
     double pX = _marginSide,
     bool pBold = false,
     int pRgb = 0x1A1A1A,
+    String pTag = 'P',
   }) {
     final vY = _pageHeight - top - pSize;
-    page.writeln('BT /${pBold ? 'F2' : 'F1'} ${_number(pSize)} Tf ${_color(pRgb)} rg '
-        '${_number(pX)} ${_number(vY)} Td (${_escape(cvPdfEncode(pText))}) Tj ET');
+    final vDraw = 'BT /${pBold ? 'F2' : 'F1'} ${_number(pSize)} Tf ${_color(pRgb)} rg '
+        '${_number(pX)} ${_number(vY)} Td (${_escape(cvPdfEncode(pText))}) Tj ET';
+
+    // Les puces sont du décor : un lecteur d'écran ne doit pas les lire.
+    if (pTag == 'Artifact') {
+      page.writeln('/Artifact BMC $vDraw EMC');
+    } else {
+      page.writeln('/$pTag << /MCID ${marks.last.length} >> BDC $vDraw EMC');
+      marks.last.add(pTag);
+    }
   }
 
   /// Paragraphe coupé à la largeur, avec un retrait pour les puces.
@@ -236,15 +249,17 @@ class _Painter {
     double pIndent = 0,
     String pBullet = '',
     double pAfter = 2,
+    String pTag = 'P',
   }) {
     final vLead = pSize * 1.35;
     final vLines = cvWrap(pText, textWidth - pIndent, pSize: pSize, pBold: pBold);
     for (var vIndex = 0; vIndex < vLines.length; vIndex++) {
       ensure(vLead);
       if (vIndex == 0 && pBullet.isNotEmpty) {
-        text(pBullet, pSize: pSize, pX: _marginSide + pIndent - 9, pRgb: pRgb);
+        text(pBullet, pSize: pSize, pX: _marginSide + pIndent - 9, pRgb: pRgb, pTag: 'Artifact');
       }
-      text(vLines[vIndex], pSize: pSize, pX: _marginSide + pIndent, pBold: pBold, pRgb: pRgb);
+      text(vLines[vIndex],
+          pSize: pSize, pX: _marginSide + pIndent, pBold: pBold, pRgb: pRgb, pTag: pTag);
       top += vLead;
     }
     top += pAfter;
@@ -312,7 +327,7 @@ _Painter _paint(CvDocument pDocument, CvPdfStyle pStyle, int pAccent) {
     vPainter.photo = pDocument.photo.isEmpty ? null : _Photo.tryRead(pDocument.photo);
     vPainter.header(pDocument);
   } else {
-    vPainter.paragraph(pDocument.name, pSize: 22, pBold: true, pAfter: 1);
+    vPainter.paragraph(pDocument.name, pSize: 22, pBold: true, pAfter: 1, pTag: 'H1');
     if (pDocument.headline.isNotEmpty) {
       vPainter.paragraph(pDocument.headline, pSize: 12.5, pAfter: 2);
     }
@@ -329,7 +344,7 @@ _Painter _paint(CvDocument pDocument, CvPdfStyle pStyle, int pAccent) {
       vPainter
         ..top += 6
         ..ensure(40)
-        ..paragraph(vSection.heading, pSize: 12, pBold: true, pAfter: 0);
+        ..paragraph(vSection.heading, pSize: 12, pBold: true, pAfter: 0, pTag: 'H2');
       vPainter
         ..top -= 2
         ..rule(0x1A1A1A, 0.5)
@@ -396,22 +411,33 @@ void _block(_Painter pPainter, CvSection pSection, CvBlock pBlock) {
 }
 
 Uint8List _assembleFrom(_Painter pPainter, CvDocument pDocument) =>
-    _assemble(pPainter.pages, pDocument, pPhoto: pPainter.photo);
+    _assemble(pPainter.pages, pDocument, pPhoto: pPainter.photo, pMarks: pPainter.marks);
 
 Uint8List _assemble(
   List<StringBuffer> pPages,
   CvDocument pDocument, {
   String pTitle = '',
   _Photo? pPhoto,
+  List<List<String>>? pMarks,
 }) {
   final vObjects = <String>[];
   final vFirstPage = 6;
+  // Arbre de structure : racine, document, puis un élément par repère de contenu.
+  final vStructRoot = vFirstPage + pPages.length * 2 + (pPhoto == null ? 0 : 1);
+  final vElements = <(int, int, String)>[
+    if (pMarks != null)
+      for (var vPage = 0; vPage < pMarks.length; vPage++)
+        for (var vMark = 0; vMark < pMarks[vPage].length; vMark++)
+          (vPage, vMark, pMarks[vPage][vMark]),
+  ];
   final vKids = [
     for (var vIndex = 0; vIndex < pPages.length; vIndex++) '${vFirstPage + vIndex * 2} 0 R'
   ];
 
   vObjects
-    ..add('<< /Type /Catalog /Pages 2 0 R /Lang (fr-FR) >>')
+    ..add('<< /Type /Catalog /Pages 2 0 R /Lang (fr-FR) /MarkInfo << /Marked true >> '
+        '/ViewerPreferences << /DisplayDocTitle true >>'
+        '${pMarks == null ? '' : ' /StructTreeRoot $vStructRoot 0 R'} >>')
     ..add('<< /Type /Pages /Kids [${vKids.join(' ')}] /Count ${pPages.length} >>')
     ..add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>')
     ..add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>')
@@ -423,7 +449,7 @@ Uint8List _assemble(
     vObjects
       ..add('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${_number(_pageWidth)} '
           '${_number(_pageHeight)}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >>${pPhoto == null ? '' : ' /XObject << /Im1 ${vFirstPage + pPages.length * 2} 0 R >>'} >> '
-          '/Contents ${vFirstPage + vIndex * 2 + 1} 0 R >>')
+          '/Tabs /S /Contents ${vFirstPage + vIndex * 2 + 1} 0 R >>')
       ..add('<< /Length ${vContent.length} >>\nstream\n$vContent\nendstream');
   }
   if (pPhoto != null) {
@@ -431,6 +457,16 @@ Uint8List _assemble(
         '<< /Type /XObject /Subtype /Image /Width ${pPhoto.width} /Height ${pPhoto.height} '
         '/ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${pPhoto.bytes.length} >>\n'
         'stream\n${String.fromCharCodes(pPhoto.bytes)}\nendstream');
+  }
+  if (pMarks != null) {
+    vObjects
+      ..add('<< /Type /StructTreeRoot /K ${vStructRoot + 1} 0 R >>')
+      ..add('<< /Type /StructElem /S /Document /P $vStructRoot 0 R /K '
+          '[${[for (var vIndex = 0; vIndex < vElements.length; vIndex++) '${vStructRoot + 2 + vIndex} 0 R'].join(' ')}] >>');
+    for (final vElement in vElements) {
+      vObjects.add('<< /Type /StructElem /S /${vElement.$3} /P ${vStructRoot + 1} 0 R '
+          '/Pg ${vFirstPage + vElement.$1 * 2} 0 R /K ${vElement.$2} >>');
+    }
   }
 
   final vFile = StringBuffer('%PDF-1.4\n');
@@ -461,7 +497,7 @@ Uint8List buildLetterPdf({
   final vPainter = _Painter(pStyle, pAccent);
   final vColor = vPainter.visual ? pAccent : 0x1A1A1A;
 
-  vPainter.paragraph(pName, pSize: 15, pBold: true, pRgb: vColor, pAfter: 1);
+  vPainter.paragraph(pName, pSize: 15, pBold: true, pRgb: vColor, pAfter: 1, pTag: 'H1');
   if (pContactLines.isNotEmpty) {
     vPainter.paragraph(pContactLines.join('   |   '), pSize: 9.5, pAfter: 18);
   }
@@ -473,5 +509,6 @@ Uint8List buildLetterPdf({
     vPainter.pages,
     CvDocument(name: pName, headline: '', contactLines: pContactLines, sections: const []),
     pTitle: 'Lettre de motivation $pName',
+    pMarks: vPainter.marks,
   );
 }

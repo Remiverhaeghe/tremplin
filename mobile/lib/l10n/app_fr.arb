@@ -1829,5 +1829,26 @@
   "cvDossier": "Exporter tout en texte",
   "cvDossierAide": "Un seul fichier lisible sans l'appli : parcours, versions, candidatures, modèles. Il n'est pas chiffré : garde-le pour toi.",
   "cvVersionPhoto": "Photo dans le PDF visuel",
-  "cvVersionPhotoAide": "Il faut un champ « photo » (JPEG en base 64) dans le parcours importé. Le PDF sobre et le Word n'ont jamais de photo."
+  "cvVersionPhotoAide": "Il faut un champ « photo » (JPEG en base 64) dans le parcours importé. Le PDF sobre et le Word n'ont jamais de photo.",
+  "cvVersionCouleur": "Couleur du PDF visuel",
+  "cvDoublon": "Tu as déjà envoyé un CV à {value0} pour ce poste, le {value1}.",
+  "@cvDoublon": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPitch": "Ma présentation en 30 secondes",
+  "cvPitchDuree": "Environ {value0} secondes à voix posée.",
+  "@cvPitchDuree": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  }
 }

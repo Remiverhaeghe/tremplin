@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../l10n/texts.dart';
 import '../logic/cv_check.dart';
 import '../logic/cv_diff.dart';
+import '../logic/cv_followup.dart';
 import '../logic/cv_document.dart';
 import '../logic/cv_stretch.dart';
 import '../logic/cv_tailor.dart';
@@ -81,6 +82,12 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
     final vSuggestions = suggestWordings(vOffer, vProfile, pApplied: vFinal.wording);
     final vReport = keywordReport(vOffer, buildCvDocument(vProfile, vFinal));
     final vCompany = '${widget.offer['company'] ?? ''}';
+    final vDuplicate = recentDuplicate(
+      widget.state.cvSent,
+      vCompany,
+      '${widget.offer['title'] ?? ''}',
+      DateTime.now(),
+    );
     final vStretch = stretchSignals(vOffer, vProfile, pYears: vChosen.years);
     final vDiff = [
       for (final vLine in diffLines(
@@ -118,6 +125,18 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
             value: aTailored,
             onChanged: (pOn) => setState(() => aTailored = pOn),
           ),
+          if (vDuplicate != null) ...[
+            const SizedBox(height: 8),
+            Card(
+              color: vTheme.colorScheme.errorContainer,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Text(
+                  vTexts.cvDoublon(vCompany, '${vDuplicate['at']}'.split('T').first),
+                ),
+              ),
+            ),
+          ],
           if (vStretch.isNotEmpty) ...[
             const SizedBox(height: 8),
             Card(
