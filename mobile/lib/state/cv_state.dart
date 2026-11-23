@@ -115,4 +115,69 @@ mixin CvState on ChangeNotifier {
 
   Future<void> saveCvAnswers(List<CvAnswer> pAnswers) =>
       savePreference(cvAnswersPreference, [for (final vItem in pAnswers) vItem.toJson()]);
+
+  /// Ajoute un projet au parcours ; avec [pToProjectVersions], il rejoint les versions qui ont
+  /// une section Projets.
+  Future<void> addCvProject(CvProject pProject, {bool pToProjectVersions = true}) async {
+    final vProfile = cvProfile;
+
+    await savePreference(
+      cvProfilePreference,
+      CvProfile(
+        contact: vProfile.contact,
+        experiences: vProfile.experiences,
+        education: vProfile.education,
+        certifications: vProfile.certifications,
+        projects: [...vProfile.projects, pProject],
+        skills: vProfile.skills,
+        languages: vProfile.languages,
+        strengths: vProfile.strengths,
+        interests: vProfile.interests,
+      ).toJson(),
+    );
+    if (pToProjectVersions) {
+      await saveCvVersions([
+        for (final vVersion in cvVersions)
+          vVersion.sections.contains(CvSection.projects)
+              ? vVersion.copyWith(projectIds: [...vVersion.projectIds, pProject.id])
+              : vVersion,
+      ]);
+    }
+  }
+
+  /// Ajoute une habilitation ; les versions qui n'avaient pas la section la reçoivent.
+  Future<void> addCvCertification(CvCertification pCertification) async {
+    final vProfile = cvProfile;
+
+    await savePreference(
+      cvProfilePreference,
+      CvProfile(
+        contact: vProfile.contact,
+        experiences: vProfile.experiences,
+        education: vProfile.education,
+        certifications: [...vProfile.certifications, pCertification],
+        projects: vProfile.projects,
+        skills: vProfile.skills,
+        languages: vProfile.languages,
+        strengths: vProfile.strengths,
+        interests: vProfile.interests,
+      ).toJson(),
+    );
+    await saveCvVersions([
+      for (final vVersion in cvVersions)
+        vVersion.sections.contains(CvSection.certifications)
+            ? vVersion
+            : vVersion.copyWith(
+                sections: [
+                  for (final vSection in CvSection.values)
+                    if (vSection == CvSection.certifications ||
+                        vVersion.sections.contains(vSection))
+                      vSection,
+                ],
+              ),
+    ]);
+  }
+
+  /// Identifiant neuf pour un projet ou une habilitation.
+  String newCvId() => const Uuid().v4();
 }
