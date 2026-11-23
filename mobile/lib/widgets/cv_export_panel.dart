@@ -100,8 +100,8 @@ class _CvExportPanelState extends State<CvExportPanel> {
 
   Future<void> export(String pFormat) async {
     final vOut = renderCv(documentFor(pFormat), pFormat);
-    final vName = cvFileName(widget.profile, widget.version, vOut.extension,
-        pCompany: widget.company);
+    final vName =
+        cvFileName(widget.profile, widget.version, vOut.extension, pCompany: widget.company);
 
     await widget.send(Uint8List.fromList(vOut.bytes), vName, vOut.mime);
     widget.onExported?.call(pFormat);
