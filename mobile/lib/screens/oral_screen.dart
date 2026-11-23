@@ -287,7 +287,9 @@ class _OralScreenState extends State<OralScreen> {
         FilledButton.icon(
           onPressed: start,
           icon: const Icon(Icons.record_voice_over),
-          label: Text(finalScore == null ? context.texts.interviewCommencer : context.texts.oralNouvelleSeance),
+          label: Text(finalScore == null
+              ? context.texts.interviewCommencer
+              : context.texts.oralNouvelleSeance),
         ),
       ],
     );

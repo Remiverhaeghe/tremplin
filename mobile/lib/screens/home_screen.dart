@@ -457,7 +457,9 @@ class TodayCard extends StatelessWidget {
                       tween: IntTween(begin: 0, end: vDue),
                       duration: motionOf(context, const Duration(milliseconds: 800)),
                       builder: (_, pValue, __) => Text(
-                        vDue == 0 ? context.texts.homeToutEstJour : context.texts.homeRevoir('${pValue}'),
+                        vDue == 0
+                            ? context.texts.homeToutEstJour
+                            : context.texts.homeRevoir('${pValue}'),
                         style: vTitle,
                       ),
                     ),

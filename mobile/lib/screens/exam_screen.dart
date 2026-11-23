@@ -191,7 +191,9 @@ class _ExamScreenState extends State<ExamScreen> {
           FilledButton.icon(
             onPressed: next,
             icon: const Icon(Icons.arrow_forward),
-            label: Text(index + 1 < questions.length ? context.texts.voiceNext : context.texts.examVoirNote),
+            label: Text(index + 1 < questions.length
+                ? context.texts.voiceNext
+                : context.texts.examVoirNote),
           ),
         ],
       ],

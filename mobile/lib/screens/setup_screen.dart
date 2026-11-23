@@ -24,7 +24,8 @@ class SetupScreen extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.computer),
               title: Text(context.texts.commonConnexionAuPc),
-              subtitle: Text(getHost(state.settings?.address) ?? context.texts.setupPasEncoreConnecte),
+              subtitle:
+                  Text(getHost(state.settings?.address) ?? context.texts.setupPasEncoreConnecte),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute<void>(builder: (_) => ConnectScreen(state: state)),

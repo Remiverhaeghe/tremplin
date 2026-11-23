@@ -69,9 +69,7 @@ class _ScanScreenState extends State<ScanScreen> {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Text(
-              wrongCode
-                  ? context.texts.scanCeQrCodeN
-                  : context.texts.scanVisezQrCodeAffiche,
+              wrongCode ? context.texts.scanCeQrCodeN : context.texts.scanVisezQrCodeAffiche,
               textAlign: TextAlign.center,
             ),
           ),

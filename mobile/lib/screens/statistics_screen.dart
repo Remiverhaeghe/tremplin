@@ -104,7 +104,8 @@ class ActivityChart extends StatelessWidget {
           for (final vDay in days)
             Expanded(
               child: Semantics(
-                label: context.texts.statisticsReponseJuste('${vDay.date.day}', '${vDay.date.month}', '${vDay.answers}', '${vDay.correct}'),
+                label: context.texts.statisticsReponseJuste(
+                    '${vDay.date.day}', '${vDay.date.month}', '${vDay.answers}', '${vDay.correct}'),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

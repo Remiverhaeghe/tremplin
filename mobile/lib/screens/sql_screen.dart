@@ -194,8 +194,12 @@ class _SqlScreenState extends State<SqlScreen> {
         const SizedBox(height: 8),
         Text(
           context.texts.sqlVotreResultat(
-              vResult['changed'] != null ? context.texts.sqlLigneModifiee('${vResult['changed']}') : '',
-              vResult['truncated'] == true ? context.texts.sql200PremieresLignes : '$vRows ligne(s)'),
+              vResult['changed'] != null
+                  ? context.texts.sqlLigneModifiee('${vResult['changed']}')
+                  : '',
+              vResult['truncated'] == true
+                  ? context.texts.sql200PremieresLignes
+                  : '$vRows ligne(s)'),
           style: vTheme.textTheme.labelLarge,
         ),
         ResultTable(columns: vResult['columns'] as List, rows: vResult['rows'] as List),
@@ -242,8 +246,8 @@ class _SqlScreenState extends State<SqlScreen> {
               autocorrect: false,
               enableSuggestions: false,
               decoration: InputDecoration(
-                labelText: context.texts
-                    .sqlRequete(widget.state.sqlDialect == 'sqlserver' ? context.texts.sqlSqlServer : 'MySQL'),
+                labelText: context.texts.sqlRequete(
+                    widget.state.sqlDialect == 'sqlserver' ? context.texts.sqlSqlServer : 'MySQL'),
                 border: const OutlineInputBorder(),
               ),
             ),

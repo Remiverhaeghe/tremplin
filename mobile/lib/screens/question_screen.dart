@@ -217,7 +217,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
             Text(
               vNext == null
                   ? context.texts.questionAucuneQuestionDansCe
-                  : context.texts.questionRienRevoirAujourdHui('${vNext.day.toString().padLeft(2, '0')}', '${vNext.month.toString().padLeft(2, '0')}', '${vNext.year}'),
+                  : context.texts.questionRienRevoirAujourdHui(
+                      '${vNext.day.toString().padLeft(2, '0')}',
+                      '${vNext.month.toString().padLeft(2, '0')}',
+                      '${vNext.year}'),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),

@@ -276,7 +276,9 @@ class _PuzzleScreenState extends State<PuzzleScreen> {
             FilledButton.icon(
               onPressed: start,
               icon: const Icon(Icons.auto_awesome),
-              label: Text(vRecap == null ? context.texts.puzzleCommencerSerie : context.texts.interviewNouvelleSerie),
+              label: Text(vRecap == null
+                  ? context.texts.puzzleCommencerSerie
+                  : context.texts.interviewNouvelleSerie),
             ),
           ],
         ],
