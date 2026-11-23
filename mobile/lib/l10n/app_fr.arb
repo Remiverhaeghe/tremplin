@@ -1722,5 +1722,108 @@
   "cvSecteurIndustrie": "Industrie",
   "cvSecteurNumerique": "Numérique",
   "cvSecteurBanque": "Banque et assurance",
-  "cvSecteurPublic": "Secteur public"
+  "cvSecteurPublic": "Secteur public",
+  "cvSuivi": "Suivi des candidatures",
+  "cvSuiviStats": "Statistiques",
+  "cvSuiviTotal": "{value0} candidatures, {value1} réponses, {value2} entretiens",
+  "@cvSuiviTotal": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      },
+      "value2": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSuiviParVersion": "{value0} : {value1} envoyés, {value2} réponses",
+  "@cvSuiviParVersion": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      },
+      "value1": {
+        "type": "String"
+      },
+      "value2": {
+        "type": "String"
+      }
+    }
+  },
+  "cvSuiviRelances": "À relancer",
+  "cvSuiviRelancesAide": "Sans réponse depuis plus de 7 jours.",
+  "cvSuiviRelancesVide": "Aucune relance à faire.",
+  "cvSuiviCopierRelance": "Copier le message",
+  "cvSuiviRelanceFaite": "Relance faite",
+  "cvSuiviRelanceCopiee": "Message copié.",
+  "cvSuiviHistorique": "Historique",
+  "cvSuiviPasDeReponse": "Pas de réponse",
+  "cvSuiviReponse": "Réponse reçue",
+  "cvSuiviEntretien": "Entretien obtenu",
+  "cvSuiviRefus": "Refus",
+  "cvSuiviTexteFige": "CV tel qu'il est parti",
+  "cvSuiviFichiers": "Fichiers : {value0}",
+  "@cvSuiviFichiers": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrep": "Préparer l'entretien",
+  "cvPrepAide": "Questions probables d'après l'offre. L'indication vient de ton parcours : reste vrai.",
+  "cvPrepPourquoi": "Pourquoi {value0} ?",
+  "@cvPrepPourquoi": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepVirage": "Pourquoi ce changement de métier ?",
+  "cvPrepProjet": "Présente ton projet {value0}.",
+  "@cvPrepProjet": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepUtilise": "Raconte une situation où tu as utilisé {value0}.",
+  "@cvPrepUtilise": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepApprendre": "Le mot « {value0} » n'est pas dans ton parcours : comment t'y prendrais-tu pour l'apprendre ?",
+  "@cvPrepApprendre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepIndice": "Dans ton parcours : {value0}",
+  "@cvPrepIndice": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvPrepIndiceVrai": "Rien dans ton parcours : dis ce que tu connais de proche, sans inventer.",
+  "cvSauvegarde": "Sauvegarde chiffrée",
+  "cvSauvegardeAide": "Le fichier est chiffré par un mot de passe que tu choisis. Sans lui, personne ne peut le lire, toi non plus.",
+  "cvMotDePasse": "Mot de passe",
+  "cvMotDePasseCourt": "Au moins 8 caractères.",
+  "cvSauvegarder": "Sauvegarder le CV",
+  "cvRestaurer": "Restaurer une sauvegarde",
+  "cvRestaurerColler": "Texte de la sauvegarde",
+  "cvRestaureOk": "CV restauré.",
+  "cvRestaureNon": "Mot de passe ou sauvegarde incorrect."
 }

@@ -71,10 +71,14 @@ mixin CvState on ChangeNotifier {
     String pTitle = '',
     String pUrl = '',
     bool pTailored = false,
+    String pSnapshot = '',
+    String pFile = '',
     DateTime? pAt,
   }) async {
+    final vAt = (pAt ?? DateTime.now()).toIso8601String().split('.').first;
     final vEntry = {
-      'at': (pAt ?? DateTime.now()).toIso8601String().split('.').first,
+      'id': '${DateTime.now().microsecondsSinceEpoch}',
+      'at': vAt,
       'version_id': pVersion.id,
       'version': pVersion.label,
       'format': pFormat,
@@ -82,9 +86,69 @@ mixin CvState on ChangeNotifier {
       'title': pTitle.trim(),
       'url': pUrl.trim(),
       'tailored': pTailored,
+      'outcome': '',
+      'followed_up': '',
+      'snapshot': pSnapshot,
+      'files': [if (pFile.isNotEmpty) pFile],
     };
+    final vAll = [vEntry, ...cvSent].take(maxCvSent).toList();
 
-    await savePreference(cvSentPreference, [vEntry, ...cvSent].take(maxCvSent).toList());
+    // Le texte figé n'est gardé que pour les envois récents : il pèse plusieurs ko chacun.
+    for (var vIndex = maxCvSnapshots; vIndex < vAll.length; vIndex++) {
+      vAll[vIndex]['snapshot'] = '';
+    }
+    await savePreference(cvSentPreference, vAll);
+  }
+
+  /// Change des champs d'un envoi noté (réponse reçue, relance faite, pièce jointe ajoutée).
+  Future<void> updateCvSent(String pId, Map<String, Object?> pChanges) async {
+    final vAll = cvSent;
+    final vAt = vAll.indexWhere((pItem) => '${pItem['id']}' == pId);
+
+    if (vAt >= 0) {
+      vAll[vAt] = {...vAll[vAt], ...pChanges};
+      await savePreference(cvSentPreference, vAll);
+    }
+  }
+
+  /// Ajoute un fichier (une lettre, par exemple) au dernier envoi pour cette entreprise et ce poste.
+  Future<void> addCvSentFile(String pCompany, String pTitle, String pFile) async {
+    final vAll = cvSent;
+    final vAt = vAll.indexWhere(
+      (pItem) => pItem['company'] == pCompany.trim() && pItem['title'] == pTitle.trim(),
+    );
+
+    if (vAt >= 0) {
+      final vFiles = List<String>.from(vAll[vAt]['files'] as List? ?? const []);
+      vAll[vAt] = {
+        ...vAll[vAt],
+        'files': [...vFiles.where((pName) => pName != pFile), pFile],
+      };
+      await savePreference(cvSentPreference, vAll);
+    }
+  }
+
+  /// Tout le CV en un texte chiffré par [pPassword], prêt à être partagé.
+  Future<String> exportCvBackup(String pPassword, {int? pIterations}) => sealCv(
+        {for (final vKey in cvPreferenceKeys) vKey: preferences[vKey]},
+        pPassword,
+        pIterations: pIterations,
+      );
+
+  /// Restaure un CV sauvegardé ; faux si le mot de passe ou le fichier ne conviennent pas.
+  Future<bool> importCvBackup(String pSealed, String pPassword) async {
+    final vData = await openCv(pSealed.trim(), pPassword);
+
+    if (vData == null || vData[cvProfilePreference] == null) {
+      return false;
+    }
+    for (final vKey in cvPreferenceKeys) {
+      if (vData[vKey] != null) {
+        await savePreference(vKey, vData[vKey]!);
+      }
+    }
+
+    return true;
   }
 
   /// Phrases avec un chiffre que Rémi a confirmé, sous leur clé (`cvClaimKey`).

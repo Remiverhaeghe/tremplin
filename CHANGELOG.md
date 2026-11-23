@@ -5,6 +5,13 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : CV, lot G (suivi, entretien, sauvegarde)
+- Écran « Suivi des candidatures » : statistiques par version et par mois, relances à faire après 7 jours avec message prêt à copier, réponse reçue par candidature (`cv_followup.dart`, `cv_stats.dart`)
+- Chaque envoi garde le texte du CV tel qu'il est parti (30 derniers) et les fichiers envoyés, lettre comprise
+- « Préparer l'entretien » depuis une candidature : questions probables d'après l'offre, avec la ligne du parcours à reprendre (`cv_prep.dart`)
+- Sauvegarde chiffrée du CV par mot de passe (PBKDF2-HMAC-SHA256, AES-256-GCM) et restauration (`cv_backup.dart`) ; nouvelle dépendance `cryptography`
+- Tests : `test/cv_lot_g_test.dart`
+
 ### Appli mobile : CV, lot F (supports publics)
 - Écran « Supports publics » : texte du profil GitHub (160 caractères), page CV du portfolio en Markdown sans coordonnées privées, contrôle d'un texte publié contre le parcours (poste, projets, chiffres) (`cv_supports.dart`)
 - Modèles de lettre par secteur (industrie, numérique, banque, public) dans « Modèles et réponses »
