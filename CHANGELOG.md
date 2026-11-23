@@ -5,6 +5,12 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : choix de la langue
+- Réglage « Langue » : comme le téléphone, français ou anglais. Les notifications et le
+  widget d'accueil suivent ce choix, tâche d'arrière-plan comprise.
+- Les rappels d'entretien (la veille au soir, une heure avant) sont traduits : la logique
+  reçoit ses textes (`InterviewAlertTexts`), français par défaut.
+
 ### Appli mobile : en anglais
 - Version anglaise (`lib/l10n/app_en.arb`) : l'application suit la langue du téléphone,
   anglais s'il est en anglais, français sinon. Un test vérifie que chaque texte français

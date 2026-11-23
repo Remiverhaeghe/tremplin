@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:jobboard_revision/l10n/texts.dart';
 import 'package:jobboard_revision/logic/exam.dart';
 import 'package:jobboard_revision/models/quiz_package.dart';
 import 'package:jobboard_revision/revision_state.dart';
@@ -152,6 +153,23 @@ void main() {
 
     expect(vState.appearance, 'system');
     expect(vState.textScale, 1.0);
+  });
+
+  test('Langue choisie gardée, suivie par les notifications', () async {
+    final vState = await buildState(MockClient((_) async => http.Response('', 500)));
+    addTearDown(() => aChosenLanguage = 'system');
+
+    expect(vState.language, 'system');
+
+    await vState.setDisplay(pLanguage: 'en');
+
+    expect(vState.language, 'en');
+    expect((vState.store as MemoryRevisionStore).preferences[languagePreference], 'en');
+    expect(deviceTexts().localeName, 'en');
+
+    vState.preferences = {languagePreference: 'de'};
+
+    expect(vState.language, 'system');
   });
 
   test('Notifications refusées : le rappel reste coupé', () async {
