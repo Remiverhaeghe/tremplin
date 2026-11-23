@@ -121,7 +121,8 @@ class _CvLetterScreenState extends State<CvLetterScreen> {
       ],
     );
 
-    await widget.send(Uint8List.fromList(vBytes), cvLetterFileName(vContact.name, company), mimePdf);
+    await widget.send(
+        Uint8List.fromList(vBytes), cvLetterFileName(vContact.name, company), mimePdf);
   }
 
   @override
