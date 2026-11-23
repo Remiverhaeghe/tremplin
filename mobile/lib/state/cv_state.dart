@@ -103,12 +103,12 @@ mixin CvState on ChangeNotifier {
     await scheduleCvFollowUps();
   }
 
-  List<CvContact> get cvContacts => [
+  List<CvPerson> get cvContacts => [
         for (final vItem in preferences[cvContactsPreference] as List? ?? const [])
-          CvContact.fromJson(Map<String, Object?>.from(vItem as Map)),
+          CvPerson.fromJson(Map<String, Object?>.from(vItem as Map)),
       ];
 
-  Future<void> saveCvContacts(List<CvContact> pContacts) =>
+  Future<void> saveCvContacts(List<CvPerson> pContacts) =>
       savePreference(cvContactsPreference, [for (final vItem in pContacts) vItem.toJson()]);
 
   List<CvTraining> get cvTrainings => [
