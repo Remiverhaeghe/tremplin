@@ -11,6 +11,8 @@ import '../revision_state.dart';
 import '../services/file_sender.dart';
 import '../theme.dart';
 import '../widgets/cv_export_panel.dart';
+import 'cv_letter_screen.dart';
+import 'cv_templates_screen.dart';
 
 /// Texte de l'offre lu pour les mots-clés : titre, description, compétences demandées.
 String offerText(Map<String, dynamic> pOffer) => [
@@ -126,6 +128,26 @@ class _CvApplyScreenState extends State<CvApplyScreen> {
                   visualDensity: VisualDensity.compact,
                 ),
             ],
+          ),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) =>
+                    CvLetterScreen(state: widget.state, offer: widget.offer, send: widget.send),
+              ),
+            ),
+            icon: const Icon(Icons.mail_outline),
+            label: Text(vTexts.cvPostulerLettre),
+          ),
+          OutlinedButton.icon(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => CvTemplatesScreen(state: widget.state, offer: widget.offer),
+              ),
+            ),
+            icon: const Icon(Icons.question_answer_outlined),
+            label: Text(vTexts.cvReponses),
           ),
           const SizedBox(height: 20),
           CvExportPanel(

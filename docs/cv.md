@@ -15,7 +15,7 @@ Le CV vit dans l'appli mobile, onglet Entretien. Le parcours (coordonnées, exp�
 | --- | --- | --- | --- |
 | A | 1, 2, 3, 18 | Postuler depuis une offre, PDF sobre et visuel, contrôle avant export, nom de fichier | fait |
 | B | 4, 6, 11, 15 | Garde-fou de vérité des projets et des chiffres, mémoire des envois, plusieurs offres d'un coup, une page par version | fait |
-| C | 5, 26, 27 | Lettre liée à l'offre en trois longueurs, relecture, réponses aux formulaires | à faire |
+| C | 5, 26, 27 | Lettre liée à l'offre en trois longueurs, relecture, réponses aux formulaires | fait |
 | D | 7, 9, 13, 22 | Mise à jour du parcours depuis les projets, bloc « pourquoi ce virage », traduction des métiers, habilitations | à faire |
 | E | 12, 14, 24, 28 | Écart de compétences, éditeur avant/après, test de lecture ATS, offres au-delà du profil | à faire |
 | F | 8, 20, 21, 25 | Page portfolio et texte brut, texte du profil GitHub, modèles par secteur, cohérence des supports | à faire |

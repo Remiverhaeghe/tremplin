@@ -122,3 +122,7 @@ const maxCvSent = 500;
 
 /// Phrases du CV avec un chiffre que Rémi a confirmé pouvoir défendre
 const cvConfirmedPreference = 'cv_confirmed';
+
+/// Modèles de lettre et réponses de formulaire, écrits par Rémi
+const cvLetterKitPreference = 'cv_letter_kit';
+const cvAnswersPreference = 'cv_answers';
