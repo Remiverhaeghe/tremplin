@@ -66,20 +66,22 @@ def test_mobile_colours_are_the_desktop_palette():
     assert vDart["waterColor"] == THEMES["dark"]["primary"]
 
 
-@pytest.mark.parametrize("pBlock,pTheme", [("light", "light"), ("dark", "dark"), ("auto-dark", "dark")])
+@pytest.mark.parametrize(
+    "pBlock,pTheme", [("light", "light"), ("dark", "dark"), ("auto-dark", "dark")]
+)
 def test_web_css_matches_the_desktop_palette(pBlock, pTheme):
     """Chaque variable du web reprend la valeur du bureau, thème clair et sombre."""
 
     vCss = get_css_blocks()[pBlock]
-    vExpected = {vName.replace("_", "-"): vColor for vName, vColor in THEMES[pTheme].items()}
     vExpected = {
-        vName: vColor
-        for vName, vColor in vExpected.items()
-        if vName in vCss
+        vName.replace("_", "-"): vColor for vName, vColor in THEMES[pTheme].items()
     }
+    vExpected = {vName: vColor for vName, vColor in vExpected.items() if vName in vCss}
     vAccents = THEME_ACCENTS[pTheme]
     vExpected.update({vName: vColors[0] for vName, vColors in vAccents.items()})
-    vExpected.update({f"{vName}-light": vColors[1] for vName, vColors in vAccents.items()})
+    vExpected.update(
+        {f"{vName}-light": vColors[1] for vName, vColors in vAccents.items()}
+    )
 
     assert vCss
     assert {vName: vCss[vName] for vName in vExpected if vName in vCss} == {
