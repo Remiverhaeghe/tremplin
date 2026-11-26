@@ -86,7 +86,8 @@ class LocalReminders implements Reminders {
       matchDateTimeComponents: DateTimeComponents.time,
     );
 
-    log('Rappel planifié à $reminderHour:$reminderMinute ($pDueCount à revoir, $pMissedCount ratées)', name: 'rappel');
+    log('Rappel planifié à $reminderHour:$reminderMinute ($pDueCount à revoir, $pMissedCount ratées)',
+        name: 'rappel');
   }
 
   @override

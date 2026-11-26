@@ -65,9 +65,9 @@ QuizQuestion? pickQuestion(
       : vDue.isNotEmpty
           ? vDue
           : [
-          for (final vQuestion in pQuestions)
-            if (!pSchedule.containsKey(vQuestion.id)) vQuestion,
-        ];
+              for (final vQuestion in pQuestions)
+                if (!pSchedule.containsKey(vQuestion.id)) vQuestion,
+            ];
 
   final rQuestion = vCandidates.isEmpty ? null : vCandidates[pRandom.nextInt(vCandidates.length)];
 
