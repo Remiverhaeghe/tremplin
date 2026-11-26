@@ -534,6 +534,14 @@ class RevisionState extends ChangeNotifier
     return rCount;
   }
 
+  /// Questions à revoir aujourd'hui dont la dernière réponse était fausse.
+  int countMissedToday() {
+    final rCount =
+        package == null ? 0 : countMissedDue(package!.questions, schedule, DateTime.now());
+
+    return rCount;
+  }
+
   /// Active ou coupe le rappel quotidien ; retourne s'il est actif.
   Future<bool> setReminder(bool pEnabled) async {
     var vEnabled = pEnabled;
@@ -760,7 +768,7 @@ class RevisionState extends ChangeNotifier
 
     try {
       if (reminderEnabled) {
-        await vReminders.schedule(countDueToday());
+        await vReminders.schedule(countDueToday(), pMissedCount: countMissedToday());
       } else {
         await vReminders.cancel();
       }

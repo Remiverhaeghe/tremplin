@@ -162,6 +162,18 @@ void main() {
       expect(kinds('Je code. Je teste. Voilà. J\'écris.'), isEmpty);
     });
 
+    test('mots gonflés, symétries toutes faites et tirets longs sont repérés', () {
+      expect(kinds('Un outil robuste et élégant.'), [
+        LetterFindingKind.inflatedWord,
+        LetterFindingKind.inflatedWord,
+      ]);
+      expect(kinds('Non seulement je code, mais aussi je teste.'), [LetterFindingKind.symmetry]);
+      expect(kinds('Ce n\'est pas un job, c\'est un métier.'), [LetterFindingKind.symmetry]);
+      expect(kinds('Je code — je teste — je livre.'), [LetterFindingKind.dashes]);
+      expect(kinds('Je code — je teste.'), isEmpty);
+      expect(kinds('Une interface fluide.'), [LetterFindingKind.inflatedWord]);
+    });
+
     test('trop long, mot à remplir, chiffre et entreprise manquante', () {
       expect(kinds('mot ' * 300, pLength: LetterLength.short), [LetterFindingKind.tooLong]);
       expect(kinds('Poste de {poste}.'), [LetterFindingKind.placeholder]);

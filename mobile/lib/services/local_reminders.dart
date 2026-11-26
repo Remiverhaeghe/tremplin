@@ -49,7 +49,7 @@ class LocalReminders implements Reminders {
   }
 
   @override
-  Future<void> schedule(int pDueCount) async {
+  Future<void> schedule(int pDueCount, {int pMissedCount = 0}) async {
     await initialize();
 
     final vNow = tz.TZDateTime.now(tz.local);
@@ -72,7 +72,9 @@ class LocalReminders implements Reminders {
       id: reminderId,
       scheduledDate: vNext,
       title: deviceTexts().reminderTitle,
-      body: pDueCount > 0 ? deviceTexts().reminderDue(pDueCount) : deviceTexts().reminderNew,
+      body: pMissedCount > 0
+          ? deviceTexts().reminderMissed(pMissedCount, pDueCount)
+          : (pDueCount > 0 ? deviceTexts().reminderDue(pDueCount) : deviceTexts().reminderNew),
       notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           'revision',
@@ -84,7 +86,7 @@ class LocalReminders implements Reminders {
       matchDateTimeComponents: DateTimeComponents.time,
     );
 
-    log('Rappel planifié à $reminderHour:$reminderMinute ($pDueCount à revoir)', name: 'rappel');
+    log('Rappel planifié à $reminderHour:$reminderMinute ($pDueCount à revoir, $pMissedCount ratées)', name: 'rappel');
   }
 
   @override

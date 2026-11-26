@@ -39,6 +39,24 @@ class CvTrackScreen extends StatelessWidget {
     vMessenger.showSnackBar(SnackBar(content: Text(vDone)));
   }
 
+  /// Partage en un geste le bilan du mois en cours : un texte court, sans nom d'entreprise.
+  Future<void> shareMonthSummary(BuildContext pContext) async {
+    final vTexts = pContext.texts;
+    final vMonth = cvMonthKey(now ?? DateTime.now());
+    final vSummary = cvMonthSummary(state.cvSent, vMonth);
+    final vText = vTexts.cvSuiviBilanTexte(
+      vSummary.month,
+      vSummary.sent,
+      vSummary.answered,
+      vSummary.interviews,
+      vSummary.offers,
+      vSummary.refusals,
+      vSummary.waiting,
+    );
+
+    await send(Uint8List.fromList(utf8.encode(vText)), 'bilan-$vMonth.txt', mimeText);
+  }
+
   @override
   Widget build(BuildContext context) {
     final vTexts = context.texts;
@@ -80,6 +98,11 @@ class CvTrackScreen extends StatelessWidget {
                     '${vItem.answered}',
                   ),
                 ),
+              TextButton.icon(
+                icon: const Icon(Icons.ios_share),
+                label: Text(vTexts.cvSuiviBilanPartager),
+                onPressed: () => shareMonthSummary(pContext),
+              ),
               const SizedBox(height: 16),
               Text(vTexts.cvSuiviRelances, style: vTheme.textTheme.titleMedium),
               Text(vTexts.cvSuiviRelancesAide),

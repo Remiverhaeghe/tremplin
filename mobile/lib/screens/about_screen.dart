@@ -64,6 +64,13 @@ class AboutScreen extends StatelessWidget {
                       launchUrl(Uri.parse(sourceUrl), mode: LaunchMode.externalApplication),
                 ),
                 ListTile(
+                  leading: const Icon(Icons.flag_outlined),
+                  title: Text(vText.aboutReport),
+                  subtitle: Text(vText.aboutReportHint),
+                  trailing: const Icon(Icons.open_in_new),
+                  onTap: () => launchUrl(reportIssueUri(), mode: LaunchMode.externalApplication),
+                ),
+                ListTile(
                   leading: const Icon(Icons.description_outlined),
                   title: Text(vText.aboutLicenses),
                   trailing: const Icon(Icons.chevron_right),

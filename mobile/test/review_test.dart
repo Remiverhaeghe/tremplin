@@ -44,6 +44,24 @@ void main() {
     expect(pickQuestion(vQuestions, vSchedule, vToday, Random(1)), isNull);
   });
 
+  test('Les questions ratées à revoir passent avant les autres questions à revoir', () {
+    final vQuestions = QuizPackage.fromJson(buildPackageJson()).questionsOf('electricite');
+    final vToday = DateTime(2026, 10, 19);
+    final vSchedule = {
+      'ohm-courant': ReviewState(box: 2, due: DateTime(2026, 10, 18)),
+      'unites': ReviewState(box: 1, due: DateTime(2026, 10, 19), lastCorrect: false),
+      'consignation': ReviewState(box: 1, due: DateTime(2026, 10, 25), lastCorrect: false),
+    };
+
+    expect(countDue(vQuestions, vSchedule, vToday), 2);
+    expect(countMissedDue(vQuestions, vSchedule, vToday), 1);
+    for (var vSeed = 0; vSeed < 20; vSeed++) {
+      expect(pickQuestion(vQuestions, vSchedule, vToday, Random(vSeed))!.id, 'unites');
+    }
+    // Une ratée pas encore due n'est pas reprise
+    expect(isMissedDue(vSchedule['consignation']!, vToday), isFalse);
+  });
+
   test('Une remise en ordre ne commence jamais déjà dans l ordre', () {
     for (var vSeed = 0; vSeed < 50; vSeed++) {
       final vIndexes = shuffledIndexes(2, Random(vSeed), pAvoidIdentity: true);

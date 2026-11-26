@@ -365,6 +365,7 @@
   "widgetInterview": "Interview on {day}/{month} at {hour}:{minute}{company}",
   "reminderTitle": "Today's revision",
   "reminderDue": "{count} question(s) to review: a few minutes are enough.",
+  "reminderMissed": "{missed} missed question(s) to retry, {count} to review in all.",
   "reminderNew": "A few new questions are waiting for you.",
   "reminderChannel": "Revision reminder",
   "reminderChannelHelp": "Daily reminder of the questions to review",
@@ -410,6 +411,8 @@
   "aboutDataTitle": "Your data",
   "aboutData": "Answers, progress and applications stay on the phone and on your PC, synced directly: no account, no online service.",
   "aboutSource": "Source code",
+  "aboutReport": "Report a wrong question",
+  "aboutReportHint": "Opens a prefilled report on GitHub",
   "aboutLicenses": "Library licenses",
   "hubAboutSubtitle": "Version, language, data and source code",
   "cvTitre": "CV",
@@ -582,6 +585,9 @@
       }
     }
   },
+  "cvRelectureGonfle": "Inflated word: “{value0}”. Say what the thing does.",
+  "cvRelectureSymetrie": "Stock turn of phrase: “{value0}”",
+  "cvRelectureTirets": "{value0} long dashes: a comma or a full stop is enough.",
   "cvRelectureJe": "Three sentences in a row start with “I”: {value0}",
   "@cvRelectureJe": {
     "placeholders": {
@@ -639,6 +645,7 @@
   "cvVersionVirageAide": "A few sentences for this kind of job; they go into the full letter.",
   "cvAjouter": "Add a project or a certification",
   "cvAjouterProjet": "Project",
+  "cvAjouterReprendre": "Use {value0}",
   "cvAjouterHabilitation": "Certification",
   "cvAjouterNom": "Name",
   "cvAjouterLien": "Public link of the project",
@@ -766,6 +773,8 @@
   "cvSecteurPublic": "Public sector",
   "cvSuivi": "Application tracking",
   "cvSuiviStats": "Statistics",
+  "cvSuiviBilanPartager": "Share this month's summary",
+  "cvSuiviBilanTexte": "Applications summary {month}: {sent} sent, {answered} answers, {interviews} interviews, {offers} offers, {refusals} rejections, {waiting} without answer.",
   "cvSuiviTotal": "{value0} applications, {value1} replies, {value2} interviews",
   "@cvSuiviTotal": {
     "placeholders": {

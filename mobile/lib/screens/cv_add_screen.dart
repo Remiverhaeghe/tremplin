@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/texts.dart';
 import '../logic/cv_profile.dart';
+import '../logic/cv_project_sheets.dart';
 import '../revision_state.dart';
 
 class CvAddScreen extends StatefulWidget {
@@ -24,6 +25,16 @@ class _CvAddScreenState extends State<CvAddScreen> {
   bool aProject = true;
   bool aToVersions = true;
   bool aMissingName = false;
+
+  /// Préremplit le formulaire avec une fiche : Rémi relit et corrige avant de garder.
+  void useSheet(CvProjectSheet pSheet) {
+    setState(() {
+      aName.text = pSheet.name;
+      aLink.text = pSheet.url;
+      aLines.text = pSheet.lines.join('\n');
+      aMissingName = false;
+    });
+  }
 
   @override
   void dispose() {
@@ -90,6 +101,17 @@ class _CvAddScreenState extends State<CvAddScreen> {
             selected: {aProject},
             onSelectionChanged: (pValue) => setState(() => aProject = pValue.first),
           ),
+          if (aProject)
+            Wrap(
+              spacing: 8,
+              children: [
+                for (final vSheet in cvProjectSheets)
+                  ActionChip(
+                    label: Text(vTexts.cvAjouterReprendre(vSheet.name)),
+                    onPressed: () => useSheet(vSheet),
+                  ),
+              ],
+            ),
           const SizedBox(height: 12),
           TextField(
             controller: aName,

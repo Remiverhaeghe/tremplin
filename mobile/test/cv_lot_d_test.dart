@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jobboard_revision/logic/cv_document.dart';
 import 'package:jobboard_revision/logic/cv_letter.dart';
 import 'package:jobboard_revision/logic/cv_profile.dart';
+import 'package:jobboard_revision/logic/cv_project_sheets.dart';
 import 'package:jobboard_revision/logic/cv_translate.dart';
 import 'package:jobboard_revision/logic/cv_version.dart';
 import 'package:jobboard_revision/revision_state.dart';
@@ -226,6 +227,33 @@ void main() {
       final vAdded = vState.cvProfile.projects.last;
       expect(vAdded.name, 'Atelier');
       expect(vAdded.lines, ['Une appli de travaux', 'En Flutter']);
+    });
+
+    testWidgets('une fiche préremplit le projet, Rémi relit puis garde', (pTester) async {
+      await bigScreen(pTester);
+      final vState = buildState();
+      await vState.load();
+      await vState.importCvProfile(jsonEncode(profile.toJson()));
+
+      await pTester.pumpWidget(MaterialApp(home: CvAddScreen(state: vState)));
+      await pTester.tap(find.text('Reprendre Kalkul'));
+      await pTester.pumpAndSettle();
+      await pTester.tap(find.text('Garder'));
+      await pTester.pumpAndSettle();
+
+      final vAdded = vState.cvProfile.projects.last;
+      expect(vAdded.name, 'Kalkul');
+      expect(vAdded.url, 'https://github.com/Remiverhaeghe/kalkul');
+      expect(vAdded.lines, hasLength(4));
+    });
+
+    test('les fiches pointent des dépôts publics de Rémi et restent factuelles', () {
+      for (final vSheet in cvProjectSheets) {
+        expect(vSheet.url, startsWith('https://github.com/Remiverhaeghe/'));
+        expect(vSheet.lines.length, inInclusiveRange(3, 6));
+        expect(vSheet.lines.every((pLine) => pLine.endsWith('.')), isTrue);
+      }
+      expect(projectFromSheet(cvProjectSheets.first, 'p9').id, 'p9');
     });
 
     testWidgets('un mot du secteur accepté change le CV envoyé', (pTester) async {

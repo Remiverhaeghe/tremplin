@@ -165,6 +165,26 @@ void main() {
     });
   });
 
+  group('bilan du mois', () {
+    test('compte ce qui est parti ce mois-là et ce que ça a donné', () {
+      final vSent = [
+        sent('2026-11-02T09:00:00', outcome: 'entretien'),
+        sent('2026-11-10T09:00:00', outcome: 'refus'),
+        sent('2026-11-12T09:00:00', outcome: 'offre'),
+        sent('2026-11-20T09:00:00', outcome: 'reponse'),
+        sent('2026-11-21T09:00:00'),
+        sent('2026-10-30T09:00:00', outcome: 'offre'),
+      ];
+
+      expect(
+        cvMonthSummary(vSent, '2026-11'),
+        (month: '2026-11', sent: 5, answered: 4, interviews: 1, offers: 1, refusals: 1, waiting: 1),
+      );
+      expect(cvMonthSummary(vSent, '2026-09').sent, 0);
+      expect(cvMonthKey(DateTime(2026, 3, 5)), '2026-03');
+    });
+  });
+
   group('écran de suivi', () {
     testWidgets('tableau, délais et export du tableur', (pTester) async {
       pTester.view
@@ -198,6 +218,43 @@ void main() {
       await pTester.pump();
 
       expect(vName, 'candidatures.csv');
+    });
+
+    testWidgets('un geste partage le bilan du mois, sans nom d\'entreprise', (pTester) async {
+      pTester.view
+        ..physicalSize = const Size(900, 4000)
+        ..devicePixelRatio = 1;
+      addTearDown(pTester.view.reset);
+      final (vState, _) = await buildState();
+      await vState.recordCvSent(
+        pVersion: sampleVersion,
+        pFormat: 'txt',
+        pCompany: 'Exemple SA',
+        pTitle: 'Développeur Java',
+        pAt: DateTime(2026, 11, 1),
+      );
+      String? vName;
+      String? vText;
+
+      await pTester.pumpWidget(
+        MaterialApp(
+          home: CvTrackScreen(
+            state: vState,
+            now: now,
+            send: (pBytes, pName, pMime) async {
+              vName = pName;
+              vText = utf8.decode(pBytes);
+            },
+          ),
+        ),
+      );
+      await pTester.tap(find.text('Partager le bilan du mois'));
+      await pTester.pump();
+
+      expect(vName, 'bilan-2026-11.txt');
+      expect(vText, contains('1 envoyées'));
+      expect(vText, contains('1 sans réponse'));
+      expect(vText, isNot(contains('Exemple SA')));
     });
   });
 }

@@ -1264,6 +1264,17 @@
       }
     }
   },
+  "reminderMissed": "{missed} question(s) ratée(s) à reprendre, {count} à revoir au total.",
+  "@reminderMissed": {
+    "placeholders": {
+      "missed": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "reminderNew": "Quelques nouvelles questions vous attendent.",
   "reminderChannel": "Rappel de révision",
   "reminderChannelHelp": "Rappel quotidien des questions à revoir",
@@ -1399,6 +1410,8 @@
   "aboutDataTitle": "Vos données",
   "aboutData": "Réponses, progression et candidatures restent sur le téléphone et sur votre PC, synchronisés directement : pas de compte ni de service en ligne.",
   "aboutSource": "Code source",
+  "aboutReport": "Signaler une question fausse",
+  "aboutReportHint": "Ouvre un signalement prérempli sur GitHub",
   "aboutLicenses": "Licences des bibliothèques",
   "hubAboutSubtitle": "Version, langue, données et code source",
   "cvTitre": "CV",
@@ -1571,6 +1584,30 @@
       }
     }
   },
+  "cvRelectureGonfle": "Mot gonflé : « {value0} ». Dis ce que fait la chose.",
+  "@cvRelectureGonfle": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureSymetrie": "Tournure toute faite : « {value0} »",
+  "@cvRelectureSymetrie": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
+  "cvRelectureTirets": "{value0} tirets longs : une virgule ou un point suffit.",
+  "@cvRelectureTirets": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
   "cvRelectureJe": "Trois phrases de suite commencent par « je » : {value0}",
   "@cvRelectureJe": {
     "placeholders": {
@@ -1628,6 +1665,14 @@
   "cvVersionVirageAide": "Quelques phrases pour ce type de poste ; elles passent dans la lettre complète.",
   "cvAjouter": "Ajouter un projet ou une habilitation",
   "cvAjouterProjet": "Projet",
+  "cvAjouterReprendre": "Reprendre {value0}",
+  "@cvAjouterReprendre": {
+    "placeholders": {
+      "value0": {
+        "type": "String"
+      }
+    }
+  },
   "cvAjouterHabilitation": "Habilitation",
   "cvAjouterNom": "Nom",
   "cvAjouterLien": "Lien public du projet",
@@ -1755,6 +1800,19 @@
   "cvSecteurPublic": "Secteur public",
   "cvSuivi": "Suivi des candidatures",
   "cvSuiviStats": "Statistiques",
+  "cvSuiviBilanPartager": "Partager le bilan du mois",
+  "cvSuiviBilanTexte": "Bilan de candidatures {month} : {sent} envoyées, {answered} réponses, {interviews} entretiens, {offers} offres, {refusals} refus, {waiting} sans réponse.",
+  "@cvSuiviBilanTexte": {
+    "placeholders": {
+      "month": {"type": "String"},
+      "sent": {"type": "int"},
+      "answered": {"type": "int"},
+      "interviews": {"type": "int"},
+      "offers": {"type": "int"},
+      "refusals": {"type": "int"},
+      "waiting": {"type": "int"}
+    }
+  },
   "cvSuiviTotal": "{value0} candidatures, {value1} réponses, {value2} entretiens",
   "@cvSuiviTotal": {
     "placeholders": {

@@ -9,13 +9,17 @@ class FakeReminders implements Reminders {
 
   final bool granted;
   final scheduled = <int>[];
+  final scheduledMissed = <int>[];
   int cancelled = 0;
 
   @override
   Future<bool> requestPermission() async => granted;
 
   @override
-  Future<void> schedule(int pDueCount) async => scheduled.add(pDueCount);
+  Future<void> schedule(int pDueCount, {int pMissedCount = 0}) async {
+    scheduled.add(pDueCount);
+    scheduledMissed.add(pMissedCount);
+  }
 
   @override
   Future<void> cancel() async => cancelled++;
