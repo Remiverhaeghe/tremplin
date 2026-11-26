@@ -5,6 +5,14 @@ dans l'historique git.
 
 ## Non publié
 
+### Appli mobile : petites améliorations
+- À propos : « Signaler une question fausse » ouvre un signalement GitHub prérempli (version de l'appli, rien de personnel)
+- Révision : les questions ratées et à revoir passent en premier, et le rappel quotidien les compte à part
+- Suivi des candidatures : « Partager le bilan du mois » envoie un texte court (envoyées, réponses, entretiens, offres, refus), sans nom d'entreprise
+- Lettre de motivation : la relecture repère aussi les mots gonflés, les symétries toutes faites et les tirets longs en série
+- Ajout d'un projet : fiches à reprendre pour Atelier et Kalkul, tirées de leurs dépôts publics, à relire avant de garder
+- Test de bout en bout du mode hors ligne : réponses sans réseau, relance de l'appli, envoi au retour
+
 ### Appli mobile : CV, lot K (anglais, agenda, simulation)
 - Titres de section en anglais par version (le contenu reste celui que tu as écrit)
 - Carnet de contacts (nom, entreprise, note, prochaine reprise de contact) et suivi des formations (à faire, en cours, faite, échéance), inclus dans la sauvegarde chiffrée
