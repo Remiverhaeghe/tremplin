@@ -5,6 +5,12 @@ dans l'historique git.
 
 ## Non publié
 
+### Identité visuelle commune
+- Le bureau et le web reprennent la palette « piscine » de l'appli mobile : bleu du bassin, eau turquoise, jaune du plongeoir, thèmes clair et sombre
+- Barre du navigateur, manifeste web et page de connexion alignés sur le même bleu
+- `docs/identite-visuelle.md` liste les valeurs et où les changer
+- Test de parité bureau, web et mobile (`tests/gui/test_identity_parity.py`) : il échoue si une interface s'écarte des autres
+
 ### Appli mobile : CV, lot K (anglais, agenda, simulation)
 - Titres de section en anglais par version (le contenu reste celui que tu as écrit)
 - Carnet de contacts (nom, entreprise, note, prochaine reprise de contact) et suivi des formations (à faire, en cours, faite, échéance), inclus dans la sauvegarde chiffrée

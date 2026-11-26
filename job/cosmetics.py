@@ -16,7 +16,7 @@ DEFAULT_FRAME = "aucun"
 
 # Couleur d'accent : (nom, niveau requis, teintes du thème clair puis sombre)
 ACCENTS = {
-    "bleu": ("Bleu atelier", 1, {}, {}),
+    "bleu": ("Bleu bassin", 1, {}, {}),
     "vert": (
         "Vert sécurité",
         2,
@@ -180,7 +180,7 @@ def build_cosmetics_view(pDatabaseFile, pLevel):
                 "id": vId,
                 "label": vLabel,
                 "level": vLevel,
-                "color": vLight.get("primary", "#155FCC"),
+                "color": vLight.get("primary", "#0E6F8C"),
                 "unlocked": vLevel <= pLevel,
                 "chosen": vId == vAccent,
             }
