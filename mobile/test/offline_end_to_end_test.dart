@@ -1,6 +1,5 @@
 // Hors ligne de bout en bout : réponses sans réseau, redémarrage de l'appli, puis envoi au retour.
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
