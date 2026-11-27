@@ -24,6 +24,9 @@ String findingLabel(AppLocalizations pTexts, LetterFinding pFinding, LetterLengt
       LetterFindingKind.placeholder => pTexts.cvRelectureAccolade(pFinding.text),
       LetterFindingKind.figure => pTexts.cvRelectureChiffre(pFinding.text),
       LetterFindingKind.missingCompany => pTexts.cvRelectureEntreprise,
+      LetterFindingKind.inflatedWord => pTexts.cvRelectureGonfle(pFinding.text),
+      LetterFindingKind.symmetry => pTexts.cvRelectureSymetrie(pFinding.text),
+      LetterFindingKind.dashes => pTexts.cvRelectureTirets(pFinding.text),
     };
 
 class CvLetterScreen extends StatefulWidget {

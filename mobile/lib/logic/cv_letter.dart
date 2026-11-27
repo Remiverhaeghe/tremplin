@@ -152,7 +152,17 @@ List<String> buildLetter({
   ];
 }
 
-enum LetterFindingKind { stockPhrase, repeatedI, tooLong, placeholder, figure, missingCompany }
+enum LetterFindingKind {
+  stockPhrase,
+  repeatedI,
+  tooLong,
+  placeholder,
+  figure,
+  missingCompany,
+  inflatedWord,
+  symmetry,
+  dashes,
+}
 
 class LetterFinding {
   const LetterFinding(this.kind, [this.text = '']);
@@ -183,6 +193,29 @@ const stockPhrases = [
   "a l'ecoute",
 ];
 
+/// Mots gonflés qui sonnent « texte généré » : on dit ce que fait la chose à la place.
+const inflatedWords = [
+  'robuste',
+  'puissant',
+  'fluide',
+  'essentiel',
+  'crucial',
+  'elegant',
+  'revolutionnaire',
+  'plonger dans',
+  'paysage actuel',
+];
+
+/// Symétries toutes faites, repérées sur le texte sans accent ni casse.
+final symmetryPatterns = [
+  RegExp(r'non seulement\b.*\bmais aussi'),
+  RegExp(r"d'un cote\b.*\bde l'autre"),
+  RegExp(r"ce n'est pas\b[^.]{1,60},\s*c'est\b"),
+];
+
+/// Tirets longs au-delà desquels le texte se lit comme écrit par une machine.
+const dashLimit = 1;
+
 /// Relecture : ce qui sonne comme une lettre type, ce qui est trop long, ce qui manque.
 List<LetterFinding> reviewLetter(String pText, LetterLength pLength, {String pCompany = ''}) {
   final vPlain = cvPlain(pText).replaceAll('’', "'");
@@ -192,6 +225,22 @@ List<LetterFinding> reviewLetter(String pText, LetterLength pLength, {String pCo
     if (vPlain.contains(vPhrase)) {
       rFindings.add(LetterFinding(LetterFindingKind.stockPhrase, vPhrase));
     }
+  }
+
+  for (final vWord in inflatedWords) {
+    if (RegExp('\\b${RegExp.escape(vWord)}').hasMatch(vPlain)) {
+      rFindings.add(LetterFinding(LetterFindingKind.inflatedWord, vWord));
+    }
+  }
+  for (final vPattern in symmetryPatterns) {
+    final vMatch = vPattern.firstMatch(vPlain);
+    if (vMatch != null) {
+      rFindings.add(LetterFinding(LetterFindingKind.symmetry, vMatch.group(0)!));
+    }
+  }
+  final vDashes = RegExp('[—–]').allMatches(pText).length;
+  if (vDashes > dashLimit) {
+    rFindings.add(LetterFinding(LetterFindingKind.dashes, '$vDashes'));
   }
 
   final vSentences = pText

@@ -28,6 +28,17 @@ void main() {
     expect(languageName(vFrench, 'en'), 'English');
   });
 
+  test('Le signalement prérempli porte la version et la question, rien de personnel', () {
+    final vUri = reportIssueUri(pQuestion: ' Combien font 2 + 2 ? ');
+
+    expect(vUri.toString(), startsWith('$sourceUrl/issues/new?'));
+    expect(vUri.queryParameters['title'], 'Question fausse : Combien font 2 + 2 ?');
+    expect(vUri.queryParameters['body'], contains('Version : $appVersion'));
+    expect(vUri.queryParameters['body'], contains('Question : Combien font 2 + 2 ?'));
+    expect(reportIssueUri().queryParameters['title'], 'Question fausse');
+    expect(reportIssueUri().queryParameters['body'], isNot(contains('Question :')));
+  });
+
   testWidgets('Le menu Plus mène à l écran À propos', (pTester) async {
     final vState = await pTester.runAsync(buildState);
 

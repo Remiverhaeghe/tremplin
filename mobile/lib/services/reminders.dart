@@ -56,8 +56,9 @@ abstract class Reminders {
   /// Demande l'autorisation d'afficher des notifications ; retourne si elle est accordée.
   Future<bool> requestPermission();
 
-  /// Planifie le rappel de chaque jour avec le nombre de questions à revoir.
-  Future<void> schedule(int pDueCount);
+  /// Planifie le rappel de chaque jour avec le nombre de questions à revoir, dont [pMissedCount]
+  /// ratées à la dernière réponse.
+  Future<void> schedule(int pDueCount, {int pMissedCount = 0});
 
   Future<void> cancel();
 

@@ -74,3 +74,61 @@ CvStats cvStats(List<Map<String, dynamic>> pSent) {
     byMonth: vSortedMonths,
   );
 }
+
+/// Bilan d'un mois : ce qui est parti ce mois-là et ce que ces candidatures ont donné à ce jour.
+typedef CvMonthSummary = ({
+  String month,
+  int sent,
+  int answered,
+  int interviews,
+  int offers,
+  int refusals,
+  int waiting,
+});
+
+/// Bilan des candidatures envoyées pendant [pMonth] (`2026-11`).
+CvMonthSummary cvMonthSummary(List<Map<String, dynamic>> pSent, String pMonth) {
+  var vSent = 0;
+  var vAnswered = 0;
+  var vInterviews = 0;
+  var vOffers = 0;
+  var vRefusals = 0;
+
+  for (final vItem in pSent) {
+    if (!'${vItem['at'] ?? ''}'.startsWith('$pMonth-')) {
+      continue;
+    }
+    final vOutcome = '${vItem['outcome'] ?? ''}';
+
+    vSent++;
+    if (vOutcome.isNotEmpty) {
+      vAnswered++;
+    }
+    if (vOutcome == 'entretien') {
+      vInterviews++;
+    }
+    if (vOutcome == 'offre') {
+      vOffers++;
+    }
+    if (vOutcome == 'refus') {
+      vRefusals++;
+    }
+  }
+
+  return (
+    month: pMonth,
+    sent: vSent,
+    answered: vAnswered,
+    interviews: vInterviews,
+    offers: vOffers,
+    refusals: vRefusals,
+    waiting: vSent - vAnswered,
+  );
+}
+
+/// Mois (`2026-11`) d'une date.
+String cvMonthKey(DateTime pDate) {
+  final rKey = '${pDate.year.toString().padLeft(4, '0')}-${pDate.month.toString().padLeft(2, '0')}';
+
+  return rKey;
+}

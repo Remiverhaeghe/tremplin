@@ -37,7 +37,15 @@ bool isDue(ReviewState pState, DateTime pToday) {
   return rDue;
 }
 
-/// Choisit une question : d'abord celles à revoir, puis les nouvelles ; null sinon.
+/// Indique si une question à revoir a été ratée à la dernière réponse.
+bool isMissedDue(ReviewState pState, DateTime pToday) {
+  final rMissed = pState.lastCorrect == false && isDue(pState, pToday);
+
+  return rMissed;
+}
+
+/// Choisit une question : d'abord les ratées à revoir, puis les autres à revoir, puis les
+/// nouvelles ; null sinon.
 QuizQuestion? pickQuestion(
   List<QuizQuestion> pQuestions,
   Map<String, ReviewState> pSchedule,
@@ -48,16 +56,36 @@ QuizQuestion? pickQuestion(
     for (final vQuestion in pQuestions)
       if (pSchedule[vQuestion.id] != null && isDue(pSchedule[vQuestion.id]!, pToday)) vQuestion,
   ];
-  final vCandidates = vDue.isNotEmpty
-      ? vDue
-      : [
-          for (final vQuestion in pQuestions)
-            if (!pSchedule.containsKey(vQuestion.id)) vQuestion,
-        ];
+  final vMissed = [
+    for (final vQuestion in vDue)
+      if (isMissedDue(pSchedule[vQuestion.id]!, pToday)) vQuestion,
+  ];
+  final vCandidates = vMissed.isNotEmpty
+      ? vMissed
+      : vDue.isNotEmpty
+          ? vDue
+          : [
+              for (final vQuestion in pQuestions)
+                if (!pSchedule.containsKey(vQuestion.id)) vQuestion,
+            ];
 
   final rQuestion = vCandidates.isEmpty ? null : vCandidates[pRandom.nextInt(vCandidates.length)];
 
   return rQuestion;
+}
+
+/// Compte les questions à revoir à cette date dont la dernière réponse était fausse.
+int countMissedDue(
+  List<QuizQuestion> pQuestions,
+  Map<String, ReviewState> pSchedule,
+  DateTime pToday,
+) {
+  final rCount = pQuestions
+      .where((vQuestion) =>
+          pSchedule[vQuestion.id] != null && isMissedDue(pSchedule[vQuestion.id]!, pToday))
+      .length;
+
+  return rCount;
 }
 
 /// Compte les questions déjà vues et à revoir à cette date.
