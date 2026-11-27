@@ -22,7 +22,7 @@ def test_card_shows_locked_rewards_and_saves_choices(qt_application, tmp_path):
     vCard.set_view(build_cosmetics_view(vDatabaseFile, 1))
     vButtons = {vButton.text(): vButton for vButton in vCard.findChildren(QPushButton)}
 
-    assert vButtons["✓ Bleu atelier"].isEnabled()
+    assert vButtons["✓ Bleu bassin"].isEnabled()
     assert not vButtons["Vert sécurité · niveau 2"].isEnabled()
 
     vCard.choose("accent", "vert")
@@ -60,4 +60,4 @@ def test_accent_recolours_the_theme(qt_application):
 
     apply_theme(qt_application, "light")
 
-    assert COLORS["primary"] == "#155FCC"
+    assert COLORS["primary"] == "#0E6F8C"

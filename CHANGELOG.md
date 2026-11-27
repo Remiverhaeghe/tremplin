@@ -12,6 +12,11 @@ dans l'historique git.
 - Lettre de motivation : la relecture repère aussi les mots gonflés, les symétries toutes faites et les tirets longs en série
 - Ajout d'un projet : fiches à reprendre pour Atelier et Kalkul, tirées de leurs dépôts publics, à relire avant de garder
 - Test de bout en bout du mode hors ligne : réponses sans réseau, relance de l'appli, envoi au retour
+### Identité visuelle commune
+- Le bureau et le web reprennent la palette « piscine » de l'appli mobile : bleu du bassin, eau turquoise, jaune du plongeoir, thèmes clair et sombre
+- Barre du navigateur, manifeste web et page de connexion alignés sur le même bleu
+- `docs/identite-visuelle.md` liste les valeurs et où les changer
+- Test de parité bureau, web et mobile (`tests/gui/test_identity_parity.py`) : il échoue si une interface s'écarte des autres
 
 ### Appli mobile : CV, lot K (anglais, agenda, simulation)
 - Titres de section en anglais par version (le contenu reste celui que tu as écrit)
